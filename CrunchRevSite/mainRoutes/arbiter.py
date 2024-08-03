@@ -36,3 +36,16 @@ def shutdownGameserver():
         return jsonify({"success": False, "error": "403, Access denied."}), 403
 
     return ArbiterClass.shutdownPlaceIdServers(gameId)
+
+@app.route("/Arbiter/stopInstance.ashx", methods=settings["HTTPMethods"])
+def stopInstance():
+    jobId = request.args.get("jobId")
+    access = request.args.get("access")
+
+    if not jobId or not access:
+        return jsonify({"success": False, "error": "400, Please define jobId and access as an access key."}), 400
+
+    if access == "ddec2ab4ae78dda0bb3497b134ae5c61":
+        return ArbiterClass.shutdownJobId(jobId)
+    else:
+        return jsonify({"success": False, "error": "403, Access denied."}), 403

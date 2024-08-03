@@ -133,7 +133,16 @@ class Arbiter:
         sql = "DELETE FROM `jobs_in_use` WHERE `place_id` = %s"
         self.db.execute_securely(sql, (placeId,))
 
+    def boomboomjobId(self, jobId): # I am silly xD x2
+        sql = "DELETE FROM `jobs_in_use` WHERE `jobId` = %s"
+        self.db.execute_securely(sql, (jobId,))
+
     def shutdownPlaceIdServers(self, placeId):
         getRequest = requests.get(f"http://{self.arbiterURL}/internal/gameserver/shutdownallservers?placeId={str(placeId)}")
         self.boomboomjobIds(placeId)
+        return getRequest.json()
+
+    def shutdownJobId(self, jobId):
+        getRequest = requests.get(f"http://{self.arbiterURL}/internal/gameserver/shutdownjobid?jobId={str(jobId)}")
+        self.boomboomjobId(jobId)
         return getRequest.json()
