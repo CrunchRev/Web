@@ -1,0 +1,99 @@
+{% extends "templatev1.html" %}
+
+{% block content %}
+    <main class="pt-4 container">
+        <style type="text/css">
+            .killme {
+                font-size: 16px;
+                width: 60%;
+                border: 2px solid black;
+                height: 150px;
+            }
+
+            .render {
+                padding: 15px;
+                float: left;
+            }
+
+            .render-main-card {
+                padding-top: 25px;
+            }
+
+            .friend-card {
+                text-align: center;
+                margin: 5px;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            .friend-card:hover {
+                text-decoration: none;
+            }
+
+            .friend-image {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            .friends-container {
+                display: flex;
+                overflow: auto;
+                margin: -5px;
+            }
+
+            .friends-card {
+                min-height: 150px;
+            }
+        </style>
+        <div class="card">
+            <div class="card-body">
+                <h3 style="font-weight: bold;">
+                    <img src="/staticContent/Placeholder.png" style="width: 100px;">
+                    Welcome Back,
+                    {{ userinfo[1]|e }}!
+                </h3>
+            </div>
+        </div>
+
+        <div class="pt-3"></div>
+        <div class="d-flex justify-content-between">
+            <h4>Friends (0)</h4>
+            <div class="align-self-center"><a href="/users/1/friends">See All <i class="far fa-angle-right"></i></a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <center>You dont have friends right now. <i>Sorry about that.</i></center>
+            </div>
+        </div>
+        <br>
+        <div class="pt-3"></div>
+        <div class="d-flex justify-content-between">
+            <h4>Recent Games</h4>
+            <div class="align-self-center"><a href="/games?tab=5">See All <i class="far fa-angle-right"></i></a></div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <center>No recent games right now. <i>Sorry about that.</i></center>
+            </div>
+        </div>
+        <br>
+        <div class="pt-3"></div>
+        <div class="d-flex justify-content-between">
+            <h4>Friends Activity</h4>
+            <div class="align-self-center"><a href="/games?tab=4">See All <i class="far fa-angle-right"></i></a></div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <center>Unfinished</center>
+            </div>
+        </div>
+        <br>
+        <div class="pt-3"></div>
+
+
+
+    </main>
+{% endblock content %}

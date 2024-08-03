@@ -1,0 +1,9 @@
+Flask
+requests
+waitress
+Paste
+Werkzeug
+Flask-Bcrypt
+pyOpenSSL
+mysql-connector-python
+typing-extensions
