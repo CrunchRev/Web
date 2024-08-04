@@ -63,12 +63,12 @@ class Tickets:
             privatekey = crypto.load_privatekey(crypto.FILETYPE_PEM, key_file.read())
         
         ticket = f"{userId}\n{jobId}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
-        signature = crypto.sign(privatekey, ticket.encode(), "sha1")
-        sig = base64.b64encode(signature).decode()
+        signature = crypto.sign(privatekey, ticket, "sha1")
+        sig = base64.b64encode(signature).decode("utf-8")
 
         ticket2 = f"{userId}\n{username}\n{userId}\n{jobId}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
-        signature2 = crypto.sign(privatekey, ticket2.encode(), "sha1")
-        sig2 = base64.b64encode(signature2).decode()
+        signature2 = crypto.sign(privatekey, ticket2, "sha1")
+        sig2 = base64.b64encode(signature2).decode("utf-8")
 
         final = f"{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')};{sig2};{sig};2"
         
