@@ -38,7 +38,7 @@ def joinashx():
     is_roblox_place = (fetchGameInfo["assets"][4] == 1)
     
     if fetchGameInfo["info"][1] == "2018L":
-        charapp = f"http://api.{settings["URL"]}/v1.1/avatar-fetch/?userId={userid}&placeId={placeIDarg}"
+        charapp = f"http://api.{settings["URL"]}/v1.1/avatar-fetch/?placeId={placeIDarg}&userId={userid}"
         ticket = Tickets.generate_client_ticket_v2(userid, username, jobIDarg)
     else:
         charapp = f"http://www.{settings["URL"]}/asset/CharacterFetch.ashx?userId={userid}"
