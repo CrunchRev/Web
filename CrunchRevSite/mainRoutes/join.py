@@ -10,7 +10,7 @@ from __main__ import *
 def joinashx():
     cookiez = request.cookies
     username = "Player1"
-    userid = 0
+    userid = 2
     placeIDarg = request.args.get("placeId")
     jobIDarg = request.args.get("jobId")
 
@@ -36,7 +36,7 @@ def joinashx():
     is_roblox_place = (fetchGameInfo["assets"][4] == 1)
     
     if fetchGameInfo["info"][1] == "2018L":
-        ticket = Tickets.generate_client_ticket_v2(userid, username, jobIDarg)
+        ticket = Tickets.generate_client_ticket_v2(userid, username, jobIDarg, userid)
     else:
         ticket = Tickets.generate_client_ticket_v1(userid, username, f'http://www.{settings["URL"]}/asset/CharacterFetch.ashx?userId={userid}', jobIDarg)
 

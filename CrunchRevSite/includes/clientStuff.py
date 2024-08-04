@@ -62,8 +62,8 @@ class Tickets:
 
         return final
 
-    def generate_client_ticket_v2(self, user_idd, username, jobId):
-        user_idd = str(user_idd)
+    def generate_client_ticket_v2(self, userId, username, jobId, otherId):
+        # kill me please
 
         with open(self.PK2048Path, "rb") as key_file:
             private_key = serialization.load_pem_private_key(
@@ -72,7 +72,7 @@ class Tickets:
                 backend=default_backend()
             )
         
-        ticket = f"{user_idd}\n{jobId}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
+        ticket = f"{userId}\n{jobId}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
         signature = private_key.sign(
             ticket.encode(),
             padding.PKCS1v15(),
@@ -80,7 +80,7 @@ class Tickets:
         )
         sig = base64.b64encode(signature).decode("utf-8")
 
-        ticket2 = f"{user_idd}\n{username}\n{user_idd}\n{jobId}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
+        ticket2 = f"{userId}\n{username}\n{otherId}\n{jobId}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
         signature2 = private_key.sign(
             ticket2.encode(),
             padding.PKCS1v15(),
