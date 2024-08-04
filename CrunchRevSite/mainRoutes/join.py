@@ -101,7 +101,7 @@ def launchtheplace():
     is_for_sale = False
     info = None
     if ".ROBLOSECURITY" in cookiez:
-        cookie = cookiez.get(".ROBLOSECURITY")
+        cookie = cookiez.get(".ROBLOSECURITY") or cookiez.get("_ROBLOSECURITY")
         info = UserDB.fetchUser(method=1, cookie=cookie)
         if info:
             cookiers = cookie
