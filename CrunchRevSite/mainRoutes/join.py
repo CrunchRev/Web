@@ -14,9 +14,10 @@ def joinashx():
     placeIDarg = request.args.get("placeId")
     jobIDarg = request.args.get("jobId")
 
+    ticket = None
     signed = None
     if ".ROBLOSECURITY" in cookiez:
-        cookie = cookiez.get(".ROBLOSECURITY")
+        cookie = cookiez.get(".ROBLOSECURITY") or cookiez.get("_ROBLOSECURITY")
         info = UserDB.fetchUser(method=1, cookie=cookie)
         
         if info:
@@ -34,8 +35,10 @@ def joinashx():
 
     is_roblox_place = (fetchGameInfo["assets"][4] == 1)
     
-    ticket2 = Tickets.generate_client_ticket_v2(userid, username, jobIDarg)
-    ticket = Tickets.generate_client_ticket_v1(userid, username, f'http://www.{settings["URL"]}/asset/CharacterFetch.ashx?userId={userid}', jobIDarg)
+    if fetchGameInfo["info"][1] == "2018L":
+        ticket = Tickets.generate_client_ticket_v2(userid, username, jobIDarg)
+    else:
+        ticket = Tickets.generate_client_ticket_v1(userid, username, f'http://www.{settings["URL"]}/asset/CharacterFetch.ashx?userId={userid}', jobIDarg)
 
     joinScript = json.dumps({
         "ClientPort": 0,
@@ -49,7 +52,7 @@ def joinashx():
         "SuperSafeChat": False,
         "CharacterAppearance": f"http://www.{settings["URL"]}/asset/CharacterFetch.ashx?userId={userid}",
         "ClientTicket": f"{ticket}",
-        "NewClientTicket": f"{ticket2}",
+        "NewClientTicket": f"{ticket}",
         "GameId": jobIDarg,
         "PlaceId": int(placeIDarg),
         "MeasurementUrl": "",
