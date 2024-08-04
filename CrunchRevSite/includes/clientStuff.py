@@ -65,12 +65,12 @@ class Tickets:
         current_time = datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')
         
         ticket = f"{userId}\n{jobId}\n{current_time}"
-        signature = crypto.sign(privatekey, ticket.encode('utf-8'), "sha1")
-        sig = base64.b64encode(signature).decode('utf-8')
+        signature = crypto.sign(privatekey, ticket.encode(), "sha1")
+        sig = base64.b64encode(signature).decode()
 
         ticket2 = f"{userId}\n{username}\n{userId}\n{jobId}\n{current_time}"
-        signature2 = crypto.sign(privatekey, ticket2.encode('utf-8'), "sha1")
-        sig2 = base64.b64encode(signature2).decode('utf-8')
+        signature2 = crypto.sign(privatekey, ticket2.encode(), "sha1")
+        sig2 = base64.b64encode(signature2).decode()
 
         final = f"{current_time};{sig2};{sig};2"
         
