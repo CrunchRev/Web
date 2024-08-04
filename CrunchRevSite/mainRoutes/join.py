@@ -30,7 +30,7 @@ def joinashx():
     fetchJobID = ArbiterClass.getInformationViaJobID(jobIDarg)
     fetchGameInfo = GamesDB.fetchOne(placeIDarg)
 
-    charapp = None
+    charapp = ""
 
     if not fetchJobID or not (fetchGameInfo["assets"] or fetchGameInfo["info"]):
         return {"error": "400, No information about that jobId or game was found."}, 400
@@ -38,11 +38,11 @@ def joinashx():
     is_roblox_place = (fetchGameInfo["assets"][4] == 1)
     
     if fetchGameInfo["info"][1] == "2018L":
-        charapp = f"http://api.{setting["URL"]}/v1.1/avatar-fetch/?userId={userid}&placeId={placeIDarg}"
+        charapp = f"http://api.{settings["URL"]}/v1.1/avatar-fetch/?userId={userid}&placeId={placeIDarg}"
         ticket = Tickets.generate_client_ticket_v2(userid, username, jobIDarg)
     else:
         charapp = f"http://www.{settings["URL"]}/asset/CharacterFetch.ashx?userId={userid}"
-        ticket = Tickets.generate_client_ticket_v1(userid, username, f'http://www.{settings["URL"]}/asset/CharacterFetch.ashx?userId={userid}', jobIDarg)
+        ticket = Tickets.generate_client_ticket_v1(userid, username, charapp, jobIDarg)
 
     joinScript = json.dumps({
         "ClientPort": 0,
