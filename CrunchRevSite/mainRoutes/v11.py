@@ -43,7 +43,7 @@ def avatar_fetch():
 
 @app.route("/v1.1/game-start-info", methods=settings["HTTPMethods"])
 @app.route("/v1.1/game-start-info/", methods=settings["HTTPMethods"])
-def avatar_fetch():
+def startinfo():
     json = {"gameAvatarType":"PlayerChoice","allowCustomAnimations":"True","universeAvatarCollisionType":"OuterBox","universeAvatarBodyType":"Standard","jointPositioningType":"ArtistIntent","message":"","universeAvatarMinScales":{"height":0.9,"width":0.7,"head":0.95,"depth":0.0,"proportion":0.0,"bodyType":0.0},"universeAvatarMaxScales":{"height":1.05,"width":1.0,"head":1.0,"depth":0.0,"proportion":1.0,"bodyType":1.0},"universeAvatarAssetOverrides":[],"moderationStatus":None}
 
     return json, 200, {'Content-Type': 'application/json'}
