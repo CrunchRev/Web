@@ -52,6 +52,7 @@ def joinashx():
         "SuperSafeChat": False,
         "CharacterAppearance": f"http://www.{settings["URL"]}/asset/CharacterFetch.ashx?userId=1",
         "ClientTicket": f"{ticket}",
+        "NewClientTicket": f"{ticket}",
         "GameId": jobIDarg,
         "PlaceId": int(placeIDarg),
         "MeasurementUrl": "",
