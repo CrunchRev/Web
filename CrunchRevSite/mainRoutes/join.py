@@ -69,7 +69,7 @@ def joinashx():
         "CookieStoreFirstTimePlayKey": "rbx_evt_ftp",
         "CookieStoreFiveMinutePlayKey": "rbx_evt_fmp",
         "CookieStoreEnabled": True,
-        "IsRobloxPlace": is_roblox_place,
+        "IsRobloxPlace": False, # is_roblox_place,
         "GenerateTeleportJoin": False,
         "IsUnknownOrUnder13": False,
         "SessionId": f"SessionId-{uuid.uuid4()}",
