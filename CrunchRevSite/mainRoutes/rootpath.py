@@ -208,52 +208,42 @@ def assetdelivery():
     user_agent = request.headers.get("User-Agent") or "Default"
     accesskey = request.args.get("access") or "NoAccessKey"
 
-    path = os.path.join(app.root_path, "LocalAssets")
+    local_path = os.path.join(app.root_path, "LocalAssets")
+    local_file_path = os.path.join(local_path, str(idarg))
 
-    if not os.path.exists(path):
-        return abort(404, description="Local assets directory not found")
+    if os.path.isfile(local_file_path):
+        return send_from_directory(local_path, str(idarg))
 
-    file_path = os.path.join(path, str(idarg))
-    
-    assetInfo = None
-
+    asset_info = None
     try:
-        assetInfo = GamesDB.fetchOne(idarg)["assets"]
-    except:
-        logging.error("Error! Ignoring because no DB connection is active.")
+        asset_info = GamesDB.fetchOne(idarg)["assets"]
+    except Exception as e:
+        logging.error(f"Error fetching asset info from DB: {e}")
+        asset_info = None
 
-    is_allowed = False
+    if asset_info:
+        is_allowed = False
+        cookies = request.cookies
+        user_info = None
 
-    cookies = request.cookies
-    user_info = None
-
-    allowedToDownload = False
-
-    if not assetInfo == None:
         if ".ROBLOSECURITY" in cookies:
             cookie = cookies.get(".ROBLOSECURITY")
             user_info = UserDB.fetchUser(method=1, cookie=cookie)
 
-        if assetInfo[3] == 9:
+        if asset_info[3] == 9:
             if user_info:
-                is_allowed = (user_info[0] == assetInfo[4]) or (user_info[8] == 1)
+                is_allowed = (user_info[0] == asset_info[4]) or (user_info[8] == 1)
 
-            if is_allowed == True or accesskey == "ddec2ab4ae78dda0bb3497b134ae5c61" or user_agent == "Roblox/WinInet":
-                print(f"File GUID: {assetInfo[9]}")
-                allowedToDownload = True
+            if is_allowed or accesskey == "ddec2ab4ae78dda0bb3497b134ae5c61" or user_agent == "Roblox/WinInet":
+                print(f"File GUID: {asset_info[9]}")
+                return send_from_directory("C:/assets_cdn_crunchrev/", asset_info[9])
             else:
                 return jsonify({"success": False, "error": "403, Access denied."}), 403
         else:
-            print(f"File GUID: {assetInfo[9]}")
-            allowedToDownload = True
+            print(f"File GUID: {asset_info[9]}")
+            return send_from_directory("C:/assets_cdn_crunchrev/", asset_info[9])
 
-    if allowedToDownload:
-        return send_from_directory("C:/assets_cdn_crunchrev/", assetInfo[9])
-    
-    if not os.path.isfile(file_path):
-        return redirect(f"https://assetdelivery.roblox.com/v1/asset?id={idarg}")
-
-    return send_from_directory(path, str(idarg))
+    return redirect(f"https://assetdelivery.roblox.com/v1/asset?id={idarg}")
 
 # we count that as root due to it is in asset
 
