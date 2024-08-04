@@ -58,22 +58,22 @@ class Tickets:
 
         return final
 
-    def generate_client_ticket_v2(self, user_id, username, job_id):
+    def generate_client_ticket_v2(self, userId, username, jobId):
         with open(self.PK2048Path, "r") as key_file:
             private_key = crypto.load_privatekey(crypto.FILETYPE_PEM, key_file.read())
 
-        ticket = f"{user_id}\n{job_id}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
+        current_time = datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')
+        
+        ticket = f"{userId}\n{jobId}\n{current_time}"
+        signature = crypto.sign(privatekey, ticket.encode('utf-8'), "sha1")
+        sig = base64.b64encode(signature).decode('utf-8')
 
-        sig = crypto.sign(private_key, ticket.encode(), "sha1")
-        sig = base64.b64encode(sig).decode()
+        ticket2 = f"{userId}\n{username}\n{userId}\n{jobId}\n{current_time}"
+        signature2 = crypto.sign(privatekey, ticket2.encode('utf-8'), "sha1")
+        sig2 = base64.b64encode(signature2).decode('utf-8')
 
-        ticket2 = f"{user_id}\n{username}\n{user_id}\n{job_id}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
-
-        sig2 = crypto.sign(private_key, ticket2.encode(), "sha1")
-        sig2 = base64.b64encode(sig2).decode()
-
-        final = f"{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')};{sig2};{sig};2"
-
+        final = f"{current_time};{sig2};{sig};2"
+        
         return final
 
 class Arbiter:
