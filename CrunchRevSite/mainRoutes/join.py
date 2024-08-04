@@ -50,7 +50,7 @@ def joinashx():
         "SeleniumTestMode": False,
         "UserId": userid,
         "SuperSafeChat": False,
-        "CharacterAppearance": f"http://www.{settings["URL"]}/asset/CharacterFetch.ashx?userId={user_id}",
+        "CharacterAppearance": f"http://www.{settings["URL"]}/asset/CharacterFetch.ashx?userId={userid}",
         "ClientTicket": f"{ticket}",
         "NewClientTicket": f"{ticket}",
         "GameId": jobIDarg,
