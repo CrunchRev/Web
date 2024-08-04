@@ -278,11 +278,11 @@ def bodycolors():
 
 @app.route("/GetAllowedSecurityVersions/", methods=settings["HTTPMethods"])
 def secfunc1():
-    return '{"data":[""0.0.0pcplayer""]}', 200, {'Content-Type': 'application/json'}
+    return {"data":["0.235.0pcplayer", "0.360.0pcplayer"]}, 200, {'Content-Type': 'application/json'}
 
 @app.route("/GetAllowedMD5Hashes/", methods=settings["HTTPMethods"])
 def secfunc2():
-    return {"data":["477466d51a0290a0c37d4932bb91af67"]}, 200, {'Content-Type': 'application/json'}
+    return {"data":["477466d51a0290a0c37d4932bb91af67", "6537957e30bf1c1f67c8cfafd095218c"]}, 200, {'Content-Type': 'application/json'}
 
 @app.route("/GetAllowedSecurityKeys/", methods=settings["HTTPMethods"])
 def secfunc3():
