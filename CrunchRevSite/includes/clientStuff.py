@@ -80,7 +80,7 @@ class Tickets:
         )
         sig = base64.b64encode(signature).decode("utf-8")
 
-        ticket2 = f"{userId}\n{username}\n1\n{jobId}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
+        ticket2 = f"{userId}\n{username}\n0\n{jobId}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
         signature2 = private_key.sign(
             ticket2.encode(),
             padding.PKCS1v15(),
