@@ -13,6 +13,9 @@ def joinashx():
     userid = 0
     placeIDarg = request.args.get("placeId")
     jobIDarg = request.args.get("jobId")
+
+    ticket = None
+    signed = None
     if ".ROBLOSECURITY" in cookiez:
         cookie = cookiez.get(".ROBLOSECURITY")
         info = UserDB.fetchUser(method=1, cookie=cookie)
@@ -27,15 +30,15 @@ def joinashx():
     fetchJobID = ArbiterClass.getInformationViaJobID(jobIDarg)
     fetchGameInfo = GamesDB.fetchOne(placeIDarg)
 
-    print(fetchGameInfo)
-    print(fetchJobID)
-
     if not fetchJobID or not (fetchGameInfo["assets"] or fetchGameInfo["info"]):
         return {"error": "400, No information about that jobId or game was found."}, 400
 
     is_roblox_place = (fetchGameInfo["assets"][4] == 1)
     
-    ticket = Tickets.generate_client_ticket_v1(userid, username, f'http://www.{settings["URL"]}/asset/CharacterFetch.ashx?userId={userid}', jobIDarg)
+    if fetchGameInfo["info"][1] == "2018L":
+        ticket = Tickets.generate_client_ticket_v1(userid, username, f'http://www.{settings["URL"]}/asset/CharacterFetch.ashx?userId={userid}', jobIDarg)
+    else:
+        ticket = Tickets.generate_client_ticket_v2(userid, username, jobIDarg)
 
     joinScript = json.dumps({
         "ClientPort": 0,
@@ -78,7 +81,10 @@ def joinashx():
         "CountryCode": "US"
     })
 
-    signed = Signer.sign_v1("\r\n" + joinScript)
+    if fetchGameInfo["info"][1] == "2018L":
+        signed = Signer.sign_v2("\r\n" + joinScript)
+    else:
+        signed = Signer.sign_v1("\r\n" + joinScript)
 
     return signed, 200, {'Content-Type': 'text/plain'}
 
