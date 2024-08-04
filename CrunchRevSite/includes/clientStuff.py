@@ -60,7 +60,7 @@ class Tickets:
 
     def generate_client_ticket_v2(self, userId, username, jobId):
         with open(self.PK2048Path, "r") as key_file:
-            private_key = crypto.load_privatekey(crypto.FILETYPE_PEM, key_file.read())
+            privatekey = crypto.load_privatekey(crypto.FILETYPE_PEM, key_file.read())
 
         current_time = datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')
         
