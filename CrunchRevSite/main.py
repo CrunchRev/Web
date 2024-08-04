@@ -62,9 +62,9 @@ app.strict_slashes = False
 bcrypt = Bcrypt(app)
 
 internal_logger.info("Initializing classes...")
-Signer = Signer(settings["PK1024Path"])
+Signer = Signer(settings["PK1024Path"], settings["PK2048Path"])
 Filter = TextFilter()
-Tickets = Tickets(settings["PK1024Path"])
+Tickets = Tickets(settings["PK1024Path"], settings["PK2048Path"])
 UserDB = UserDB(Database, bcrypt)
 GamesDB = GamesDB(Database, settings["URL"])
 ArbiterClass = Arbiter(settings["arbiterURL"], Database, GamesDB)

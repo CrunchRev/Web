@@ -113,8 +113,11 @@ def launchtheplace():
 
     year = game_data["info"][1]
 
-    print(year)
-    print(placeIDarg)
+    logging.info(f"PlaceLauncher requested, args: {placeIDarg}")
+    logging.info("Getting server details...")
+
+    # print(year)
+    # print(placeIDarg)
 
     PlaceLauncherRequest = ArbiterClass.requestServer(year, placeIDarg)
 
@@ -123,7 +126,7 @@ def launchtheplace():
     joinScriptURL = ""
     message = None
 
-    print(PlaceLauncherRequest)
+    logging.info("Successfully got information, returning to user")
 
     if 'success' in PlaceLauncherRequest:
         status = PlaceLauncherRequest['status']
