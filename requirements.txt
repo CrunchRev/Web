@@ -7,3 +7,4 @@ Flask-Bcrypt
 pyOpenSSL
 mysql-connector-python
 typing-extensions
+cryptography
