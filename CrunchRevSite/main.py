@@ -16,6 +16,7 @@ from waitress import serve
 from paste.translogger import TransLogger
 from werkzeug.exceptions import InternalServerError
 from flask_bcrypt import Bcrypt
+from functools import lru_cache
 
 from settings import settings
 from includes.clientStuff import *

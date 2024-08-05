@@ -199,6 +199,16 @@ def signup():
 
     return render_template("signup.html"), 200
 
+# module
+
+@lru_cache(maxsize=1000)
+def cached_fetch_asset(asset_id):
+    try:
+        return Assets.fetchAssetforAsset(asset_id)
+    except Exception as e:
+        logging.error(f"Error fetching asset info from DB: {e}")
+        return None
+
 @app.route("/Asset/", methods=settings["HTTPMethods"])
 @app.route("/Asset", methods=settings["HTTPMethods"])
 @app.route("/asset/", methods=settings["HTTPMethods"])
@@ -214,12 +224,7 @@ def assetdelivery():
     if os.path.isfile(local_file_path):
         return send_from_directory(local_path, str(idarg))
 
-    asset_info = None
-    try:
-        asset_info = Assets.fetchAssetforAsset(int(idarg))
-    except Exception as e:
-        logging.error(f"Error fetching asset info from DB: {e}")
-        asset_info = None
+    asset_info = cached_fetch_asset(int(idarg))
 
     if asset_info:
         is_allowed = False
