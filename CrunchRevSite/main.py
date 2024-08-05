@@ -80,6 +80,7 @@ def includeRoutes():
     import mainRoutes.v1
     import mainRoutes.login
     import mainRoutes.arbiter
+    import mainRoutes.marketplace
     internal_logger.info("Included routes.")
 
 if __name__ == "__main__":
