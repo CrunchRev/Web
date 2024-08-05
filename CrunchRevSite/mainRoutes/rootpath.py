@@ -216,7 +216,7 @@ def assetdelivery():
 
     asset_info = None
     try:
-        asset_info = GamesDB.fetchOne(idarg)["assets"]
+        asset_info = Assets.fetchAssetforAsset(int(idarg))
     except Exception as e:
         logging.error(f"Error fetching asset info from DB: {e}")
         asset_info = None
@@ -230,18 +230,16 @@ def assetdelivery():
             cookie = cookies.get(".ROBLOSECURITY")
             user_info = UserDB.fetchUser(method=1, cookie=cookie)
 
-        if asset_info[3] == 9:
+        if asset_info[1] == 9:
             if user_info:
-                is_allowed = (user_info[0] == asset_info[4]) or (user_info[8] == 1)
+                is_allowed = (user_info[0] == asset_info[2]) or (user_info[8] == 1)
 
             if is_allowed or accesskey == "ddec2ab4ae78dda0bb3497b134ae5c61" or user_agent == "Roblox/WinInet":
-                print(f"File GUID: {asset_info[9]}")
-                return send_from_directory("C:/assets_cdn_crunchrev/", asset_info[9])
+                return send_from_directory("C:/assets_cdn_crunchrev/", asset_info[0])
             else:
                 return jsonify({"success": False, "error": "403, Access denied."}), 403
         else:
-            print(f"File GUID: {asset_info[9]}")
-            return send_from_directory("C:/assets_cdn_crunchrev/", asset_info[9])
+            return send_from_directory("C:/assets_cdn_crunchrev/", asset_info[0])
 
     return redirect(f"https://assetdelivery.roblox.com/v1/asset?id={idarg}")
 

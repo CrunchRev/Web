@@ -143,3 +143,11 @@ class GamesDB:
         execution2 = self.dbClass.execute_securely(query2, (placeId,))
 
         return {"assets": execution1, "info": execution2}
+
+class Assets:
+    def __init__(self, dbClass: Database):
+        self.dbClass = dbClass
+
+    def fetchAssetforAsset(self, assetId: int):
+        query1 = "SELECT file_guid, asset_type, creator_id FROM assets WHERE id = %s"
+        return self.dbClass.execute_securely(query1, (assetId,))
