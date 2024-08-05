@@ -275,3 +275,8 @@ def secfunc2():
 @app.route("/GetAllowedSecurityKeys/", methods=settings["HTTPMethods"])
 def secfunc3():
     return "true", 200, {'Content-Type': 'text/plain'}
+
+@app.route("/asset-thumbnail/json", methods=settings["HTTPMethods"])
+def jsonasset():
+    json = {"Url":f"http://www.{settings["URL"]}/staticContent/thumbnailForPlaces.png","Final":True,"SubstitutionType":0}
+    return json, 200, {'Content-Type': 'application/json'}
