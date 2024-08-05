@@ -6,7 +6,7 @@ Module description: controls everything related to database and MySQL
 
 import logging
 from typing import Optional, Union, List, Tuple, Any
-from mysql.connector import Error
+from mysql.connector import Error, pooling
 import mysql.connector
 
 logging.basicConfig(
@@ -21,53 +21,56 @@ class Database:
         self.user = settingsDB["User"]
         self.password = settingsDB["Password"]
         self.databaseName = settingsDB["DatabaseName"]
-        self.connection = None
+        self.connection_pool = None
+        self._init_connection_pool()
 
-    def connect(self):
+    def _init_connection_pool(self):
         try:
-            self.connection = mysql.connector.connect(
+            self.connection_pool = pooling.MySQLConnectionPool(
+                pool_name="mypool",
+                pool_size=10,
+                pool_reset_session=True,
                 host=self.host,
                 user=self.user,
                 password=self.password,
-                database=self.databaseName,
-                autocommit=False
+                database=self.databaseName
             )
-            logging.info("Connection to MySQL was successful.")
+            logging.info("Connection pool created successfully.")
         except Error as e:
-            logging.error(f"Error connecting to MySQL: {e}")
+            logging.error(f"Error creating connection pool: {e}")
             raise
 
-    def _ensure_connection(self):
-        if not self.connection or not self.connection.is_connected():
-            logging.warning("Connection is not active. Attempting to reconnect.")
-            try:
-                self.connect()
-            except Error as e:
-                logging.error(f"Reconnection attempt failed: {e}")
-                raise
+    def _get_connection(self):
+        try:
+            return self.connection_pool.get_connection()
+        except Error as e:
+            logging.error(f"Error getting connection from pool: {e}")
+            raise
 
     def execute_securely(self, query: str, params: Optional[Union[tuple, List[Any]]] = None, fetch_all: bool = False) -> Optional[Union[List[Tuple], Tuple]]:
+        connection = None
         cursor = None
         try:
-            self._ensure_connection()
-
-            cursor = self.connection.cursor(prepared=True)
+            connection = self._get_connection()
+            cursor = connection.cursor(prepared=True)
             cursor.execute(query, params)
-            
+
             result = cursor.fetchall() if fetch_all else cursor.fetchone()
-            
-            self.connection.commit()
+
+            connection.commit()
             return result
 
         except Error as e:
             logging.error(f"Error executing query: {e}")
-            if self.connection and self.connection.is_connected():
-                self.connection.rollback()
+            if connection:
+                connection.rollback()
             return None
-        
+
         finally:
-            if cursor and self.connection and self.connection.is_connected():
+            if cursor:
                 cursor.close()
+            if connection:
+                connection.close()
 
 class UserDB:
     def __init__(self, dbClass: Database, bcrypt):

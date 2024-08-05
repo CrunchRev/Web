@@ -45,11 +45,11 @@ waitress_logger.setLevel(logging.INFO)
 
 internal_logger.info("Setting up logging...")
 
-Database = Database(settings["Database"])
+Database = None
 
 internal_logger.info("Connecting to remote MySQL server...")
 try:
-    Database.connect()
+    Database = Database(settings["Database"])
     internal_logger.info("Successfully connected to the remote MySQL server.")
 except Exception as e:
     internal_logger.error(f"Failed to connect to remote MySQL server. Details: {e}")
