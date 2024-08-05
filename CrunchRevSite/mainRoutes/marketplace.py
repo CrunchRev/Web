@@ -24,7 +24,7 @@ def prodInfo():
     description = assetsData[2]
     creatorId = int(assetsData[4])
 
-    creatorName = UserDB.fetchUser(method=2, userId=creatorId)[0]
+    creatorName = UserDB.fetchUser(method=2, userId=creatorId)[1]
 
     createdAt = assetsData[5]
     updatedAt = assetsData[6]
