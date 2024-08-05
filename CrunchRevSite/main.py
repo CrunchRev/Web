@@ -45,8 +45,6 @@ waitress_logger.setLevel(logging.INFO)
 
 internal_logger.info("Setting up logging...")
 
-Database = None
-
 internal_logger.info("Connecting to remote MySQL server...")
 try:
     Database = Database(settings["Database"])
