@@ -27,7 +27,7 @@ class Database:
     def _init_connection_pool(self):
         try:
             self.connection_pool = pooling.MySQLConnectionPool(
-                pool_name="mypool",
+                pool_name="crunchrev_DBpool",
                 pool_size=10,
                 pool_reset_session=True,
                 host=self.host,
