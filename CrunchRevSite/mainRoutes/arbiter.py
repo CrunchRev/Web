@@ -55,13 +55,15 @@ def refresh():
     jobId = request.args.get("gameId")
     access = request.args.get("apiKey")
     players = request.args.get("clientCount")
+    gameTime = request.args.get("gameTime")
 
     if not jobId or not access or not players:
         return jsonify({"success": False, "error": "400, Please define jobId and apiKey as an access key."}), 400
 
     playersInt = int(players)
+    timeFloat = float(gameTime)
 
-    if playersInt < 1:
+    if playersInt < 1 and timeFloat >= 10.0: # making that so rcc doesnt shutdown just after it launched
         if access == "ddec2ab4ae78dda0bb3497b134ae5c61":
             return ArbiterClass.shutdownJobId(jobId)
         else:
