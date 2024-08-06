@@ -67,4 +67,4 @@ def refresh():
         else:
             return jsonify({"success": False, "error": "403, Access denied."}), 403
     else:
-        return jsonify({"success": True}), 403
+        return jsonify({"success": True}), 200
