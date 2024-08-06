@@ -146,7 +146,7 @@ class Arbiter:
 
             if json["success"] == True:
                 # success case, open job and return 1
-                self.addJobDB(json["serverAdress"], json["networkPort"], json["jobId"], placeID, year)
+                self.addJobDB(json["serverAddress"], json["networkPort"], json["jobId"], placeID, year)
                 return {
                     "success": True,
                     "status": 1,
