@@ -81,6 +81,7 @@ def includeRoutes():
     import mainRoutes.login
     import mainRoutes.arbiter
     import mainRoutes.marketplace
+    import mainRoutes.v2
     internal_logger.info("Included routes.")
 
 if __name__ == "__main__":

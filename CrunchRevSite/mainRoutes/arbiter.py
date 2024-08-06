@@ -49,3 +49,22 @@ def stopInstance():
         return ArbiterClass.shutdownJobId(jobId)
     else:
         return jsonify({"success": False, "error": "403, Access denied."}), 403
+
+@app.route("/v2.0/Refresh", methods=settings["HTTPMethods"])
+def refresh():
+    jobId = request.args.get("gameId")
+    access = request.args.get("apiKey")
+    players = request.args.get("clientCount")
+
+    if not jobId or not access or not players:
+        return jsonify({"success": False, "error": "400, Please define jobId and apiKey as an access key."}), 400
+
+    playersInt = int(players)
+
+    if playersInt < 1:
+        if access == "ddec2ab4ae78dda0bb3497b134ae5c61":
+            return ArbiterClass.shutdownJobId(jobId)
+        else:
+            return jsonify({"success": False, "error": "403, Access denied."}), 403
+    else:
+        return jsonify({"success": True}), 403
