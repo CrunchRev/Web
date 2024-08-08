@@ -22,7 +22,7 @@ def setting(settingstype):
     return file, 200, {'Content-Type': 'application/json'}
 
 @app.route("/v1/settings/application", methods=settings["HTTPMethods"])
-def setting2018L(settingstype):
+def setting2018L():
     typeOfFFlag = request.args.get("applicationName") or "PCDesktopClient"
     path = f'{settings["FFlags2018LPath"]}ClientAppSettings.json' if typeOfFFlag == "PCDesktopClient" else f'{settings["FFlags2018LPath"]}RCCService.json'
 
