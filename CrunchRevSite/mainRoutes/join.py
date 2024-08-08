@@ -16,7 +16,7 @@ def joinashx():
 
     ticket = None
     signed = None
-    if ".ROBLOSECURITY" in cookiez:
+    if (".ROBLOSECURITY" or "_ROBLOSECURITY") in cookiez:
         cookie = cookiez.get(".ROBLOSECURITY") or cookiez.get("_ROBLOSECURITY")
         info = UserDB.fetchUser(method=1, cookie=cookie)
         
@@ -100,7 +100,7 @@ def launchtheplace():
     is_allowed = False
     is_for_sale = False
     info = None
-    if ".ROBLOSECURITY" in cookiez:
+    if (".ROBLOSECURITY" or "_ROBLOSECURITY") in cookiez:
         cookie = cookiez.get(".ROBLOSECURITY") or cookiez.get("_ROBLOSECURITY")
         info = UserDB.fetchUser(method=1, cookie=cookie)
         if info:
