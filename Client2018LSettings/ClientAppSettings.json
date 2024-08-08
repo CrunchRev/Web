@@ -1,4 +1,4 @@
-{
+{"applicationSettings":{
     "DFIntCrashUploadToBacktracePercentage": "10",
     "DFStringCrashUploadToBacktraceBlackholeToken": "7705528468a303e4e34a13fbcf9e42e219633ed6868e143e5ab16cd33bd2a069",
     "DFStringCrashUploadToBacktraceMacPlayerToken": "24cb37449e120c3a0618b1bf0585e339571828cae4dc73c7b8c99f67fcd751e9",
@@ -963,4 +963,4 @@
     "FFlagDontUseSystemRand": "True",
     "FFlagUserJSONConvertInfAndNanToNull": "True",
     "FIntLuaHomePageShowFriendAvatarFace150By150V366": "75"
-}
+}}

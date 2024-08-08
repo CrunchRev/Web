@@ -1,4 +1,4 @@
-{
+{"applicationSettings":{
     "FFlagDebugRCCServerConfigurerEnabled": "True",
     "DFFlagDebugRCCServerConfigurerEnabled": "True",
     "FFlagRCCUseBundledMonitoringScript": "True",
@@ -1611,4 +1611,4 @@
     "SFFlagUseNewSetFMOD3D": "True",
     "StartPageUrl": "/ide/welcome",
     "VideoPreRollWaitTimeSeconds": "45"
-  }
+  }}
