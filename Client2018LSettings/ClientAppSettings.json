@@ -962,5 +962,6 @@
     "FFlagReportToDiagByCountryCodeUsesRequestType": "True",
     "FFlagDontUseSystemRand": "True",
     "FFlagUserJSONConvertInfAndNanToNull": "True",
-    "FIntLuaHomePageShowFriendAvatarFace150By150V366": "75"
+    "FIntLuaHomePageShowFriendAvatarFace150By150V366": "75",
+    "FFlagRequireRbxSig2":"True"
 }}

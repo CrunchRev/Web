@@ -87,7 +87,7 @@ def joinashx():
     })
 
     if fetchGameInfo["info"][1] == "2018L":
-        signed = Signer.sign_v1("\r\n" + joinScript)
+        signed = Signer.sign_v2("\r\n" + joinScript)
     else:
         signed = Signer.sign_v1("\r\n" + joinScript)
 
