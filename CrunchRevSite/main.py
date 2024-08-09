@@ -40,10 +40,10 @@ logging.basicConfig(level=logging.INFO,
 internal_logger = logging.getLogger('CrunchRev Internal Logs')
 internal_logger.setLevel(logging.INFO)
 
+internal_logger.info("Setting up logging...")
+
 waitress_logger = logging.getLogger('waitress')
 waitress_logger.setLevel(logging.INFO)
-
-internal_logger.info("Setting up logging...")
 
 internal_logger.info("Connecting to remote MySQL server...")
 try:
@@ -82,6 +82,7 @@ def includeRoutes():
     import mainRoutes.arbiter
     import mainRoutes.marketplace
     import mainRoutes.v2
+    import mainRoutes.thumbs
     internal_logger.info("Included routes.")
 
 if __name__ == "__main__":
