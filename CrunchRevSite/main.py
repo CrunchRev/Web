@@ -10,13 +10,14 @@ import json
 import uuid
 import time
 import os
-from flask import Flask, jsonify, request, send_from_directory, abort, redirect, make_response, render_template
+from flask import Flask, jsonify, request, send_from_directory, abort, redirect, make_response, render_template, Response
 import requests
 from waitress import serve
 from paste.translogger import TransLogger
 from werkzeug.exceptions import InternalServerError
 from flask_bcrypt import Bcrypt
 from functools import lru_cache
+import xml.etree.ElementTree as ET
 
 from settings import settings
 from includes.clientStuff import *
@@ -83,6 +84,7 @@ def includeRoutes():
     import mainRoutes.marketplace
     import mainRoutes.v2
     import mainRoutes.thumbs
+    import mainRoutes.game
     internal_logger.info("Included routes.")
 
 if __name__ == "__main__":
