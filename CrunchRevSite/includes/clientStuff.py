@@ -72,7 +72,7 @@ class Tickets:
         sig2 = crypto.sign(private_key, ticket2.encode(), "sha1")
         sig2 = base64.b64encode(sig2).decode()
 
-        final = f"{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')};{sig2};{sig}"
+        final = f"{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')};{sig2};{sig};2"
 
         return final
 

@@ -20,6 +20,9 @@ def prodInfo():
 
     assetsData = gameData["assets"]
 
+    if not assetsData:
+        return {"success": False, "message": "404, Game does not exist."}, 404, {"Content-Type": "application/json"}
+
     name = assetsData[1]
     description = assetsData[2]
     creatorId = int(assetsData[4])
