@@ -36,11 +36,10 @@ def setting2018Llegcacy(settingstype):
     
     return file, 200, {'Content-Type': 'application/json'}
 
-"""
 @app.route("/v1/settings/application", methods=settings["HTTPMethods"])
 def setting2018L():
-    typeOfFFlag = request.args.get("applicationName") or "PCDesktopClient"
-    path = f'{settings["FFlags2018LPath"]}ClientAppSettings.json' if typeOfFFlag == "PCDesktopClient" else f'{settings["FFlags2018LPath"]}RCCService.json'
+    # typeOfFFlag = request.args.get("applicationName") or "PCDesktopClient"
+    path = f'{settings["FFlags2018LPath"]}ClientAppSettingsv2.json' # if typeOfFFlag == "PCDesktopClient" else f'{settings["FFlags2018LPath"]}RCCService.json'
 
     # print(path)
 
@@ -52,4 +51,3 @@ def setting2018L():
         file = file.replace("roblox.com", settings["URL"])
     
     return file, 200, {'Content-Type': 'application/json'}
-"""
