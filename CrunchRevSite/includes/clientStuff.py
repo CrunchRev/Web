@@ -7,10 +7,6 @@ Module description: controls rbxsig and tickets
 from __main__ import *
 
 from OpenSSL import crypto
-from cryptography.hazmat.primitives import serialization, hashes
-from cryptography.hazmat.primitives.asymmetric import rsa
-from cryptography.hazmat.primitives.asymmetric import padding
-from cryptography.hazmat.backends import default_backend
 from datetime import datetime
 import base64
 
@@ -62,34 +58,22 @@ class Tickets:
 
         return final
 
-    def generate_client_ticket_v2(self, userId, username, jobId):
-        # kill me please
+    def generate_client_ticket_v2(self, user_id, username, job_id):
+        with open(self.PK2048Path, "r") as key_file:
+            private_key = crypto.load_privatekey(crypto.FILETYPE_PEM, key_file.read())
 
-        with open(self.PK2048Path, "rb") as key_file:
-            private_key = serialization.load_pem_private_key(
-                key_file.read(),
-                password=None,
-                backend=default_backend()
-            )
-        
-        ticket = f"{userId}\n{jobId}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
-        signature = private_key.sign(
-            ticket.encode(),
-            padding.PKCS1v15(),
-            hashes.SHA1()
-        )
-        sig = base64.b64encode(signature).decode("utf-8")
+        ticket = f"{user_id}\n{job_id}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
 
-        ticket2 = f"{userId}\n{username}\n0\n{jobId}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
-        signature2 = private_key.sign(
-            ticket2.encode(),
-            padding.PKCS1v15(),
-            hashes.SHA1()
-        )
-        sig2 = base64.b64encode(signature2).decode("utf-8")
+        sig = crypto.sign(private_key, ticket.encode(), "sha1")
+        sig = base64.b64encode(sig).decode()
 
-        final = f"{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')};{sig2};{sig};2"
-        
+        ticket2 = f"{user_id}\n{username}\n{user_id}\n{job_id}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
+
+        sig2 = crypto.sign(private_key, ticket2.encode(), "sha1")
+        sig2 = base64.b64encode(sig2).decode()
+
+        final = f"{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')};{sig2};{sig}"
+
         return final
 
 class Arbiter:

@@ -83,6 +83,8 @@ def joinashx():
         "BrowserTrackerId": 0,
         "UsePortraitMode": False,
         "FollowUserId": 0,
+        'characterAppearanceId': userid,
+        'CharacterAppearanceId': userid,
         "CountryCode": "US"
     })
 
