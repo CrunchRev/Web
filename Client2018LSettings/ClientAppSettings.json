@@ -780,7 +780,7 @@
     "FFlagUserNavigationFixClickToMoveInterruption": "True",
     "FFlagUserNavigationFixClickToMoveJump": "True",
     "FFlagUserNewCameraRaycastingAPIsEnabled": "True",
-    "FFlagUserNewPoppercam": "False",
+    "FFlagUserNewPoppercam": "True",
     "FFlagUserNewPoppercam_PlaceFilter": "False;855499080;606849621;537413528;402122991",
     "FFlagUserNoCameraClickToMove": "True",
     "FFlagUserNoUpdateOnLoop": "True",
