@@ -1,7 +1,7 @@
 """
 2024, Written by the CrunchRev Authors
 
-Route module description: controls everything under "/Thumbs/" path
+Route module description: controls everything under thumbnails path
 """
 
 from __main__ import *

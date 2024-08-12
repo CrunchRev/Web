@@ -83,6 +83,7 @@ def includeRoutes():
     import mainRoutes.v2
     import mainRoutes.thumbs
     import mainRoutes.game
+    import mainRoutes.universes
 
 internal_logger.info("Running logic...")
 
