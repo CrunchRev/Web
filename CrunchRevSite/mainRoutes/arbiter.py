@@ -58,7 +58,7 @@ def refresh():
     gameTime = request.args.get("gameTime")
 
     if not jobId or not access or not players or not gameTime:
-        return jsonify({"success": False, "error": "400, Please define jobId, apiKey as an access key, clientCount and gameTime."}), 400
+        return jsonify({"success": False, "error": "400, Please define gameId as a job ID, apiKey as an access key, clientCount as players count and gameTime as time in float (ex. 15.0)."}), 400
 
     playersInt = int(players)
     timeFloat = float(gameTime)
