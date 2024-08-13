@@ -275,7 +275,7 @@ def secfunc1():
 
 @app.route("/GetAllowedMD5Hashes/", methods=settings["HTTPMethods"])
 def secfunc2():
-    return {"data":["477466d51a0290a0c37d4932bb91af67", "6537957e30bf1c1f67c8cfafd095218c"]}, 200, {'Content-Type': 'application/json'}
+    return {"data":["cae946279ab7b30b0c539fa86ceb0150", "6537957e30bf1c1f67c8cfafd095218c"]}, 200, {'Content-Type': 'application/json'}
 
 @app.route("/GetAllowedSecurityKeys/", methods=settings["HTTPMethods"])
 def secfunc3():
