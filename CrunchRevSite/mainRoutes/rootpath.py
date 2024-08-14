@@ -161,7 +161,7 @@ def login():
         else:
             return jsonify({"message": "Invalid username or password, 400"}), 400
 
-    return render_template("login.html"), 200
+    return render_template("login.html", baseurl=settings["URL"]), 200
 
 @app.route("/signup", methods=settings["HTTPMethods"])
 def signup():
@@ -197,7 +197,7 @@ def signup():
             
     """
 
-    return render_template("signup.html"), 200
+    return render_template("signup.html", baseurl=settings["URL"]), 200
 
 # module
 
