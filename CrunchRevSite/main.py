@@ -56,12 +56,14 @@ except Exception as e:
     exit()
 
 internal_logger.info("Creating Flask app...")
+
 app = Flask(__name__)
 app.strict_slashes = False
 
+internal_logger.info("Initializing classes...")
+
 bcrypt = Bcrypt(app)
 
-internal_logger.info("Initializing classes...")
 Signer = Signer(settings["PK1024Path"], settings["PK2048Path"])
 Filter = TextFilter()
 Tickets = Tickets(settings["PK1024Path"], settings["PK2048Path"])

@@ -23,7 +23,7 @@ def NegotiateClient():
             domain = f".{settings['URL']}"
             expiration = int(time.time() + (365 * 24 * 60 * 60))
 
-            resp.set_cookie(key=".ROBLOSECURITY", value=suggestarg, expires=expiration, domain=domain)
+            resp.set_cookie(key=".ROBLOSECURITY", value=suggestarg, expires=expiration, domain=domain, samesite='Lax')
 
             return resp
 
