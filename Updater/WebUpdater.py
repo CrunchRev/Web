@@ -15,13 +15,16 @@ def check_for_updates():
         logging.error(f"Error fetching updates: {stderr}")
         return False
     
-    stdout, _ = run_command('git status -uno')
-    if "Your branch is up to date" in stdout:
-        logging.info("No updates available.")
-        return False
-    else:
+    stdout, stderr = run_command('git log HEAD..origin/main --oneline')
+    if stdout:
         logging.info("Updates are available.")
         return True
+    elif stderr:
+        logging.error(f"Error checking for updates: {stderr}")
+        return False
+    else:
+        logging.info("No updates available.")
+        return False
 
 def stash_and_pull_updates():
     logging.info("Stashing local changes...")
