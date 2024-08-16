@@ -441,7 +441,7 @@
     "FFlagLocalOptimizer": "True",
     "FFlagLogServiceEnabled": "True",
     "FFlagLowQMaterialsEnable": "True",
-    "FFlagLuaBasedBubbleChat": "False",
+    "FFlagLuaBasedBubbleChat": "True",
     "FFlagLuaChatFiltering": "True",
     "FFlagLuaDebuggerBreakOnError": "True",
     "FFlagLuaDebuggerCloneDebugger": "True",

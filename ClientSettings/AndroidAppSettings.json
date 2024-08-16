@@ -195,7 +195,7 @@
     "DFFlagUseLuaCameraAndControl": "True",
     "DFFlagUseLuaPCInput": "True",
     "DFFlagUseNewAnalyticsApi": "True",
-    "DFFlagUseNewBubbleSkin": "True",
+    "DFFlagUseNewBubbleSkin": "False",
     "DFFlagUseNewHumanoidHealthGui": "True",
     "DFFlagUseNewSounds": "True",
     "DFFlagUsePlayerInGroupLuaChat": "True",
