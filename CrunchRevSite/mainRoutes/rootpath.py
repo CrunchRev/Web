@@ -251,20 +251,20 @@ def assetdelivery():
     try:
         response = requests.get(assetRemoteURL)
         response.raise_for_status()
-    except requests.RequestException as e:
-        return jsonify({"success": False, "error": f"500, Could not access assetdelivery. Error: {str(e)}"}), 500
+    except requests.RequestException:
+        return redirect(assetRemoteURL)
     
     binaryData = response.content
-    flask_response = Response(binaryData, content_type='application/octet-stream')
+    AssetResponse = Response(binaryData, content_type='application/octet-stream')
 
-    flask_response.headers['Expires'] = '0'
-    flask_response.headers['Cache-Control'] = 'must-revalidate'
-    flask_response.headers['Pragma'] = 'public'
-    flask_response.headers['Content-Description'] = 'File Transfer'
-    flask_response.headers['Content-Disposition'] = f'attachment; filename={idarg}'
-    flask_response.headers['Content-Length'] = str(len(binaryData))
+    AssetResponse.headers['Expires'] = '0'
+    AssetResponse.headers['Cache-Control'] = 'must-revalidate'
+    AssetResponse.headers['Pragma'] = 'public'
+    AssetResponse.headers['Content-Description'] = 'File Transfer'
+    AssetResponse.headers['Content-Disposition'] = f'attachment; filename={idarg}'
+    AssetResponse.headers['Content-Length'] = str(len(binaryData))
 
-    return flask_response
+    return AssetResponse
 
 # we count that as root due to it is in asset
 
