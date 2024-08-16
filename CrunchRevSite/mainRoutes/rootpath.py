@@ -247,19 +247,24 @@ def assetdelivery():
             return send_from_directory("C:/assets_cdn_crunchrev/", asset_info[0])
 
     assetRemoteURL = f"https://assetdelivery.roblox.com/v1/asset?id={idarg}"
-    requestToRemoteURL = None
+    
     try:
-        requestToRemoteURL = requests.get(assetRemoteURL)
-    except:
-        return jsonify({"success": False, "error": "500, Could not access assetdelivery."}), 500
+        response = requests.get(assetRemoteURL)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        return jsonify({"success": False, "error": f"500, Could not access assetdelivery. Error: {str(e)}"}), 500
+    
+    binaryData = response.content
+    flask_response = Response(binaryData, content_type='application/octet-stream')
 
-    binaryData = requestToRemoteURL.content
+    flask_response.headers['Expires'] = '0'
+    flask_response.headers['Cache-Control'] = 'must-revalidate'
+    flask_response.headers['Pragma'] = 'public'
+    flask_response.headers['Content-Description'] = 'File Transfer'
+    flask_response.headers['Content-Disposition'] = f'attachment; filename={idarg}'
+    flask_response.headers['Content-Length'] = str(len(binaryData))
 
-    response = Response(binaryData, content_type='application/octet-stream')
-
-    response.headers['Content-Disposition'] = f'attachment; filename={str(idarg)}'
-
-    return response
+    return flask_response
 
 # we count that as root due to it is in asset
 
