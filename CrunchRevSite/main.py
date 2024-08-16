@@ -4,7 +4,7 @@
 Main CrunchRev core code
 """
 
-# Updater test 1 (ignore this)
+# Updater test 2 (ignore this)
 
 import logging
 import traceback
