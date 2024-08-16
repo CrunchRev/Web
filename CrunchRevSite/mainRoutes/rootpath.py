@@ -246,7 +246,14 @@ def assetdelivery():
         else:
             return send_from_directory("C:/assets_cdn_crunchrev/", asset_info[0])
 
-    return redirect(f"https://assetdelivery.roblox.com/v1/asset?id={idarg}")
+    assetRemoteURL = f"https://assetdelivery.roblox.com/v1/asset?id={idarg}"
+    requestToRemoteURL = None
+    try:
+        requestToRemoteURL = requests.get(assetRemoteURL)
+    except:
+        return jsonify({"success": False, "error": "500, Could not access assetdelivery."}), 500
+
+    return requestToRemoteURL.content
 
 # we count that as root due to it is in asset
 
