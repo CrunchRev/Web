@@ -10,17 +10,18 @@ def run_command(command):
     return result.stdout.strip(), result.stderr.strip()
 
 def check_for_updates():
-    _, stderr = run_command('git fetch')
-    if stderr:
-        logging.error(f"Error fetching updates: {stderr}")
+    fetch_stdout, fetch_stderr = run_command('git fetch')
+    
+    if fetch_stderr:
+        logging.error(f"Error fetching updates: {fetch_stderr}")
         return False
     
-    stdout, stderr = run_command('git log HEAD..origin/main --oneline')
-    if stdout:
+    log_stdout, log_stderr = run_command('git log HEAD..origin/main --oneline')
+    if log_stdout:
         logging.info("Updates are available.")
         return True
-    elif stderr:
-        logging.error(f"Error checking for updates: {stderr}")
+    elif log_stderr:
+        logging.error(f"Error checking for updates: {log_stderr}")
         return False
     else:
         logging.info("No updates available.")
@@ -28,15 +29,15 @@ def check_for_updates():
 
 def stash_and_pull_updates():
     logging.info("Stashing local changes...")
-    _, stderr = run_command('git stash')
-    if stderr:
-        logging.error(f"Error stashing changes: {stderr}")
+    stash_stdout, stash_stderr = run_command('git stash')
+    if stash_stderr:
+        logging.error(f"Error stashing changes: {stash_stderr}")
         return False
     
     logging.info("Pulling latest changes...")
-    _, stderr = run_command('git pull')
-    if stderr:
-        logging.error(f"Error pulling updates: {stderr}")
+    pull_stdout, pull_stderr = run_command('git pull')
+    if pull_stderr:
+        logging.error(f"Error pulling updates: {pull_stderr}")
         return False
 
     return True
