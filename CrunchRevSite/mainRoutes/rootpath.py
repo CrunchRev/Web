@@ -253,7 +253,13 @@ def assetdelivery():
     except:
         return jsonify({"success": False, "error": "500, Could not access assetdelivery."}), 500
 
-    return requestToRemoteURL.content
+    binaryData = requestToRemoteURL.content
+
+    response = Response(binaryData, content_type='application/octet-stream')
+
+    response.headers['Content-Disposition'] = f'attachment; filename={str(idarg)}'
+
+    return response
 
 # we count that as root due to it is in asset
 
