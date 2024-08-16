@@ -11,8 +11,8 @@ def run_command(command):
 
 def check_for_updates():
     fetch_stdout, fetch_stderr = run_command('git fetch')
-    
-    if fetch_stderr:
+
+    if "fatal:" in fetch_stderr or "error:" in fetch_stderr:
         logging.error(f"Error fetching updates: {fetch_stderr}")
         return False
     
@@ -30,13 +30,13 @@ def check_for_updates():
 def stash_and_pull_updates():
     logging.info("Stashing local changes...")
     stash_stdout, stash_stderr = run_command('git stash')
-    if stash_stderr:
+    if "fatal:" in stash_stderr or "error:" in stash_stderr:
         logging.error(f"Error stashing changes: {stash_stderr}")
         return False
     
     logging.info("Pulling latest changes...")
     pull_stdout, pull_stderr = run_command('git pull')
-    if pull_stderr:
+    if "fatal:" in pull_stderr or "error:" in pull_stderr:
         logging.error(f"Error pulling updates: {pull_stderr}")
         return False
 
