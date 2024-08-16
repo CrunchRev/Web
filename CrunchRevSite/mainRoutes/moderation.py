@@ -27,7 +27,7 @@ def moderate():
 @app.route("/moderation/v2/filter/text/", methods=settings["HTTPMethods"])
 @app.route("/moderation/v2/filter/text", methods=settings["HTTPMethods"])
 def moderatev2():
-    unfilteredText = request.form.get("text") or "This is fucking text. Бля чуваки, меня так всё заебало что аж пиздец."
+    unfilteredText = request.form.get("text") or "This is fucking text. Бля чуваки, меня так всё заебало что аж пиздец. Это тест если что (this is test btw)"
     moderated = Filter.censor(unfilteredText)
     jsonv2 = {
         "success": True,
