@@ -8,3 +8,4 @@ pyOpenSSL
 mysql-connector-python
 typing-extensions
 pyinstaller
+better_profanity
