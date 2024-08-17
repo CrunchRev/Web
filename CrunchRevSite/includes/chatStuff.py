@@ -4,6 +4,8 @@
 Module description: controls filtering
 """
 
+import re
+
 class TextFilter:
     def __init__(self):
         self.offensive_words = [
