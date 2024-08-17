@@ -13,7 +13,7 @@ def handle_500_error(error):
         'description': error.description,
         'stack_trace': traceback.format_exc()
     }
-    return render_template('error_page.html', **error_dict)
+    return render_template('error_page.html', **error_dict), 500
 
 @app.route("/", methods=settings["HTTPMethods"])
 def root():
