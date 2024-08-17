@@ -17,7 +17,7 @@ class TextFilter:
             "хуй", "хyй", "х_й", "ху1"
             "neonazi", "ne0nazi", "neonaz1", "n3onaz1",
             "n30naz1", "dogshit", "dogsh1t", "d0gshit",
-            "d0gsh1t"
+            "d0gsh1t", "хуйня", "хyйня", "b!tch"
         ])
 
         return None
