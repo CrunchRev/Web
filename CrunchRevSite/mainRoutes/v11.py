@@ -9,10 +9,18 @@ from __main__ import *
 @app.route("/v1.1/avatar-fetch", methods=settings["HTTPMethods"])
 @app.route("/v1.1/avatar-fetch/", methods=settings["HTTPMethods"])
 def avatar_fetch():
-    userId = request.args.get("userId") or "1"
+    userId = request.args.get("userId", 0)
     userInfo = UserDB.fetchUser(method=2, userId=userId)
 
     json = {}
+    charappItemzzz = []
+
+    assetsCharAppFetch = Assets.fetchCharacterApperanceList(userId)
+
+    if assetsCharAppFetch:
+        for assetIdTuple in assetsCharAppFetch:
+            assetId = assetIdTuple[0]
+            charappItemzzz.append(assetId)
 
     if not userInfo:
         json = {"success": False, "message": "Unknown user or error while fetching."}
@@ -22,13 +30,10 @@ def avatar_fetch():
             "resolvedAvatarType": str(avatarType),
             "equippedGearVersionIds": [],
             "backpackGearVersionIds": [],
-            "accessoryVersionIds": [
-                24112667
-            ],
+            "accessoryVersionIds": charappItemzzz,
             "animations": {
                 "Run": 969731563
             },
-            "bodyColorsUrl": f"http://www.{settings["URL"]}/asset/BodyColors.ashx?userId={userId}",
             "bodyColors": {
                 "HeadColor": 194,
                 "LeftArmColor": 194,
