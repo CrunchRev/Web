@@ -31,8 +31,11 @@ def old_characterappearance():
     userId = request.args.get("userId", 0)
     charapp = f"http://www.{settings["URL"]}/Asset/BodyColors.ashx?userId={str(userId)};"
 
-    for assetIdTuple in Assets.fetchCharacterApperanceList(userId):
-        assetId = assetIdTuple[0]
-        charapp = charapp + f"http://www.{settings["URL"]}/Asset/?id={assetId};"
+    assetsCharAppFetch = Assets.fetchCharacterApperanceList(userId)
+
+    if assetsCharAppFetch:
+        for assetIdTuple in assetsCharAppFetch:
+            assetId = assetIdTuple[0]
+            charapp = charapp + f"http://www.{settings["URL"]}/Asset/?id={assetId};"
 
     return charapp

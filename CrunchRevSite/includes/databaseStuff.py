@@ -157,6 +157,6 @@ class Assets:
 
     def fetchCharacterApperanceList(self, playerId: int):
         query1 = "SELECT asset_id FROM users_avatar_items WHERE user_id = %s"
-        execution1 = self.dbClass.execute_securely(query1, (playerId), True) # I think it would be like [(2383822), (328734818)], etc.
+        execution1 = self.dbClass.execute_securely(query1, (playerId,), True) # I think it would be like [(2383822), (328734818)], etc.
 
         return execution1
