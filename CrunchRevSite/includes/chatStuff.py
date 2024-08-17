@@ -4,8 +4,6 @@
 Module description: controls filtering
 """
 
-import re
-
 class TextFilter:
     def __init__(self):
         self.offensive_words = [
@@ -17,32 +15,23 @@ class TextFilter:
             'f*cker', 'fu*ker', 'shit', 'sh1t', 'sh!t', 'nazi', 'naz1', 'kunt', 'k*nt', 'spook', 'sp00k',
             'gook', 'g00k', 'coon', 'c00n'
         ]
-        
-        self.leetspeak_dict = {
+
+    def normalize_text(self, text):
+        leetspeak_dict = {
             '1': 'i', '2': 'z', '3': 'e', '4': 'a', '5': 's',
             '6': 'g', '7': 't', '8': 'b', '9': 'g', '0': 'o',
             '@': 'a', '$': 's', '!': 'i', '|': 'l', '+': 't',
             '(': 'c', ')': 'c'
         }
-    
-    def normalize_text(self, text):
-        for leet, char in self.leetspeak_dict.items():
+        for leet, char in leetspeak_dict.items():
             text = text.replace(leet, char)
         return text
-    
-    def create_pattern(self, word):
-        escaped_word = re.escape(word)
-        pattern = r'\b' + re.sub(r'(\w)', r'\1\W*', escaped_word) + r'\b'
-        return pattern
-    
+
     def censor(self, sentence):
-        normalized_text = self.normalize_text(sentence.lower())
+        normalized_sentence = self.normalize_text(sentence.lower())
         for word in self.offensive_words:
-            word_pattern = self.create_pattern(word)
-            matches = re.finditer(word_pattern, normalized_text)
-            for match in matches:
-                start, end = match.span()
-                censored = '#' * (end - start)
-                sentence = sentence[:start] + censored + sentence[end:]
-                normalized_text = self.normalize_text(sentence.lower())
+            if word in normalized_sentence:
+                censored_word = '#' * len(word)
+                sentence = sentence.lower().replace(word, censored_word)
+                normalized_sentence = self.normalize_text(sentence)
         return sentence
