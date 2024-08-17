@@ -88,6 +88,7 @@ def includeRoutes():
     import mainRoutes.thumbs
     import mainRoutes.game
     import mainRoutes.universes
+    import mainRoutes.underasset
 
 internal_logger.info("Running logic...")
 
