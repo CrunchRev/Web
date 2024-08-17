@@ -8,7 +8,7 @@ from better_profanity import profanity
 
 class TextFilter:
     def __init__(self):
-        profanity.load_censor_words(whitelist_words=["fuck", "f3ck"])
+        profanity.load_censor_words()
         profanity.add_censor_words([
             "пиздец", "п1зд3ц", "п1здец", "пизд3ц", "пиздец", "пиздюк", "пиздеть",
             "пиздец", "пиздос", "пиздёт", "пиздяк", "пиздливый", "пиздёныш",
