@@ -7,15 +7,11 @@ Module description: controls filtering
 class TextFilter:
     def __init__(self):
         self.offensive_words = [
-            'nigger', 'n1gger', 'nigg3r', 'faggot', 'f4ggot', 'f4g', 'cunt', 'c@nt', 'bitch', 'b1tch', 'b!tch',
-            'whore', 'wh0re', 'slut', 'slvt', 'sl*t', 'tranny', 'tr4nny', 'retard', 'r3tard', 'chink', 'ch1nk',
-            'spic', 'sp1c', 'kike', 'k1ke', 'dyke', 'd1ke', 'twat', 'tw@t', 'asshole', 'a$$hole', 'assh0le',
-            'motherfucker', 'm0therfucker', 'm0th3rfucker', 'motherf*cker', 'cocksucker', 'c0cksucker',
-            'c*cksucker', 'cock', 'c0ck', 'c*ck', 'dick', 'd1ck', 'd!ck', 'pussy', 'pu$$y', 'p*ssy', 'fucker',
-            'f*cker', 'fu*ker', 'shit', 'sh1t', 'sh!t', 'nazi', 'naz1', 'kunt', 'k*nt', 'spook', 'sp00k',
-            'gook', 'g00k', 'coon', 'c00n'
+            'nigger', 'faggot', 'cunt', 'bitch', 'whore', 'slut', 'tranny', 'retard', 'chink', 'spic', 'kike', 
+            'dyke', 'twat', 'asshole', 'motherfucker', 'cocksucker', 'cock', 'dick', 'pussy', 'fucker', 'shit', 
+            'nazi', 'kunt', 'spook', 'gook', 'coon'
         ]
-
+    
     def normalize_text(self, text):
         leetspeak_dict = {
             '1': 'i', '2': 'z', '3': 'e', '4': 'a', '5': 's',
@@ -30,8 +26,9 @@ class TextFilter:
     def censor(self, sentence):
         normalized_sentence = self.normalize_text(sentence.lower())
         for word in self.offensive_words:
-            if word in normalized_sentence:
+            normalized_word = self.normalize_text(word)
+            if normalized_word in normalized_sentence:
                 censored_word = '#' * len(word)
-                sentence = sentence.lower().replace(word, censored_word)
-                normalized_sentence = self.normalize_text(sentence)
+                sentence = re.sub(r'\b' + re.escape(word) + r'\b', censored_word, sentence, flags=re.IGNORECASE)
+                normalized_sentence = self.normalize_text(sentence.lower())
         return sentence
