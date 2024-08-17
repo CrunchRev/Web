@@ -38,4 +38,4 @@ def old_characterappearance():
             assetId = assetIdTuple[0]
             charapp = charapp + f"http://www.{settings["URL"]}/Asset/?id={assetId};"
 
-    return charapp
+    return charapp, 200, {'Content-Type': 'text/plain'}
