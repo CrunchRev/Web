@@ -13,7 +13,7 @@ def moderate():
     moderated = Filter.censor(unfilteredText)
     json = {
         "data": {
-            "white": str(unfilteredText),
+            "white": str(moderated),
             "black": str(moderated)
         }
     }
