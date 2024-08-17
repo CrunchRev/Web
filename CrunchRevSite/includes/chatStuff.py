@@ -31,9 +31,8 @@ class TextFilter:
         return text
     
     def create_pattern(self, word):
-        pattern = ''
-        for char in word:
-            pattern += char + r'\W*'
+        escaped_word = re.escape(word)
+        pattern = r'\b' + re.sub(r'(\w)', r'\1\W*', escaped_word) + r'\b'
         return pattern
     
     def censor(self, sentence):
@@ -43,6 +42,7 @@ class TextFilter:
             matches = re.finditer(word_pattern, normalized_text)
             for match in matches:
                 start, end = match.span()
-                sentence = sentence[:start] + '#' * (end - start) + sentence[end:]
+                censored = '#' * (end - start)
+                sentence = sentence[:start] + censored + sentence[end:]
                 normalized_text = self.normalize_text(sentence.lower())
         return sentence
