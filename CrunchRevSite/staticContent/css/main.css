@@ -11519,20 +11519,12 @@ html, body,#crunch-root {
 }
 
 #crunch-logo {
-    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
     width: 50px;
     height: 50px;
 }
 
-#landing-logo {
-    transition: transform 0.3s ease-in-out;
-}
-#landing-logo:hover {
-    transform: rotate(15deg);
-}
-
 #crunch-logo:hover {
-    transform: rotate(15deg);
     width: 53px;
     height: 53px;
 }
@@ -11543,7 +11535,7 @@ html, body,#crunch-root {
     margin-top: 5px;
 }
 .crunch-tokens {
-    background: url(/images/token.svg) 0 no-repeat;
+    background: url(/static/token.png) 0 no-repeat;
     transition: transform 0.3s ease-in-out, background-size 0.3s ease-in-out, padding-left 0.3s ease-in-out, font-weight 0.3s ease-in-out;
     background-size: 40px 40px;
     font-weight: 700;
