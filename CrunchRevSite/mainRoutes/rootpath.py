@@ -223,7 +223,10 @@ def assetdelivery():
     local_path = os.path.join(app.root_path, "LocalAssets")
     local_file_path = os.path.join(local_path, str(idarg))
 
-    request_ip = request.remote_addr
+    if request.headers.getlist("X-Forwarded-For"):
+        ip_address = request.headers.getlist("X-Forwarded-For")[0]
+    else:
+        ip_address = request.remote_addr
 
     if os.path.isfile(local_file_path):
         return send_from_directory(local_path, str(idarg))
@@ -243,7 +246,7 @@ def assetdelivery():
             if user_info:
                 is_allowed = (user_info[0] == asset_info[2]) or (user_info[8] == 1)
 
-            if is_allowed or (request_ip in settings["whitelistedPlaceIPs"]):
+            if is_allowed or (ip_address in settings["whitelistedPlaceIPs"]):
                 return send_from_directory("C:/assets_cdn_crunchrev/", asset_info[0])
             else:
                 return jsonify({"success": False, "error": "403, Access denied."}), 403
