@@ -281,3 +281,9 @@ def secfunc2():
 @app.route("/GetAllowedSecurityKeys/", methods=settings["HTTPMethods"])
 def secfunc3():
     return {"data":[]}, 200, {'Content-Type': 'application/json'}
+
+@app.route("/robots.txt", methods=settings["HTTPMethods"])
+def robots():
+    return """User-agent: *
+Disallow: /
+Disallow: */wp-includes/*""", 200, {'Content-Type': 'text/plain'}
