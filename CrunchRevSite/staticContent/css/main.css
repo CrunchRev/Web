@@ -11537,16 +11537,16 @@ html, body,#crunch-root {
 .crunch-tokens {
     background: url(/staticContent/token.png) 0 no-repeat;
     transition: transform 0.3s ease-in-out, background-size 0.3s ease-in-out, padding-left 0.3s ease-in-out, font-weight 0.3s ease-in-out;
-    background-size: 40px 40px;
+    background-size: 30px 30px;
     font-weight: 700;
     font-size: 18px;
-    padding-left: 40px !important;
+    padding-left: 30px !important;
 
 }
 
 .crunch-tokens:hover {
-    background-size: 43px 43px;
-    padding-left: 43px !important;
+    background-size: 33px 33px;
+    padding-left: 33px !important;
 }
 
 .crunch-content-body {
