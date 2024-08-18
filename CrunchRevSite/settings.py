@@ -12,6 +12,9 @@ settings = {
         "Password": "~yKo8Bp6#it~",
         "DatabaseName": "crunchrev_database"
     },
+    "whitelistedPlaceIPs": {
+        "86.209.13.245"
+    },
     "PK1024Path": "../CrunchRevKeys/PrivateKey1024.pem",
     "PK2048Path": "../CrunchRevKeys/PrivateKey2048.pem",
     "FFlagsPath": "../ClientSettings/",
