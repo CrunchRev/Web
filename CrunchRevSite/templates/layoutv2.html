@@ -16,7 +16,7 @@
     <div class="fixed-top">
         <nav class="navbar crunch-navbar navbar-expand-sm navbar-light shadow-sm">
             <a class="navbar-brand" href="/">
-                <img src="{{ asset('/images/logo.svg') }}" id="crunch-logo" alt="" loading="lazy">
+                <img src="/staticContent/CrunchRevAsset1.png" id="crunch-logo" alt="" loading="lazy">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -77,7 +77,7 @@
                     <ul class="navbar-nav">
                         <li class="nav-item active">
                             <a class="nav-link py-1"
-                               href="/users/{{ Auth::user()->id }}/profile">Profile</a>
+                               href="/users/{{ userinfo[0]|e }}">Profile</a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link py-1"
