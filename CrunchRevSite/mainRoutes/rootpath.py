@@ -220,7 +220,7 @@ def cached_fetch_asset(asset_id):
 def assetdelivery():
     idarg = int(request.args.get("id") or request.args.get("assetversionid") or 1818)
     user_agent = request.headers.get("User-Agent") or "Default"
-    accesskey = request.args.get("access") or "NoAccessKey"
+    # accesskey = request.args.get("access") or "NoAccessKey"
 
     local_path = os.path.join(app.root_path, "LocalAssets")
     local_file_path = os.path.join(local_path, str(idarg))
@@ -243,7 +243,7 @@ def assetdelivery():
             if user_info:
                 is_allowed = (user_info[0] == asset_info[2]) or (user_info[8] == 1)
 
-            if is_allowed or accesskey == "ddec2ab4ae78dda0bb3497b134ae5c61" or user_agent == "Roblox/WinInet":
+            if is_allowed or user_agent == "Roblox/WinInet" or user_agent == "Roblox/WinHttp": # accesskey == "ddec2ab4ae78dda0bb3497b134ae5c61"
                 return send_from_directory("C:/assets_cdn_crunchrev/", asset_info[0])
             else:
                 return jsonify({"success": False, "error": "403, Access denied."}), 403
