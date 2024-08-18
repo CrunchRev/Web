@@ -11535,13 +11535,13 @@ html, body,#crunch-root {
     margin-top: 5px;
 }
 .crunch-tokens {
-    background: url(/static/token.png) 0 no-repeat;
+    background: url(/staticContent/token.png) 0 no-repeat;
     transition: transform 0.3s ease-in-out, background-size 0.3s ease-in-out, padding-left 0.3s ease-in-out, font-weight 0.3s ease-in-out;
     background-size: 40px 40px;
     font-weight: 700;
     font-size: 18px;
     padding-left: 40px !important;
-    color: #e6d330 !important;
+
 }
 
 .crunch-tokens:hover {
