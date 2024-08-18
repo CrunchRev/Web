@@ -125,7 +125,7 @@ def game(gameid):
         createdAt=game_data["assets"][5]
     )
 
-@app.route("/Logout/", methods=settings["HTTPMethods"])
+@app.route("/logout", methods=settings["HTTPMethods"])
 def log_theout():
     resp = make_response("Success! <a href='/login'>Login</a>")
     domain = f".{settings['URL']}"
