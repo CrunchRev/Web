@@ -39,35 +39,36 @@
                         <a class="nav-link" href="/Develop">Create</a>
                     </li>
                 </ul>
-                <div class="navbar-nav me-2">
-                    {% if loggedIn %}
-                        <li class="nav-item">
-                            <a class="nav-link active crunch-tokens" href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="You have {{ userinfo[9]|e }} Crunches.">
-                                {{ userinfo[9]|e }}
-                            </a>
-                        </li>
-                        <a class="nav-item text-decoration-none text-dark" href="/users/{{ userinfo[0]|e }}">
-                            <img src="/staticContent/Placeholder.png" class="rounded-circle" height="40" width="40">
-                            {{ userinfo[1]|e }}
+                
+            </div>
+            <div class="navbar-nav me-2">
+                {% if loggedIn %}
+                    <li class="nav-item">
+                        <a class="nav-link active crunch-tokens" href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="You have {{ userinfo[9]|e }} Crunches.">
+                            {{ userinfo[9]|e }}
                         </a>
-                        <div class="nav-item dropdown">
-    
-                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-cog fa-2 mb-1" aria-hidden="true"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/settings">Settings</a>
-                                <a class="dropdown-item" href="/help">Help</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/logout">Log Out</a>
-                            </div>
+                    </li>
+                    <a class="nav-item text-decoration-none text-dark" href="/users/{{ userinfo[0]|e }}">
+                        <img src="/staticContent/Placeholder.png" class="rounded-circle" height="40" width="40">
+                        {{ userinfo[1]|e }}
+                    </a>
+                    <div class="nav-item dropdown">
+
+                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-cog fa-2 mb-1" aria-hidden="true"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/settings">Settings</a>
+                            <a class="dropdown-item" href="/help">Help</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/logout">Log Out</a>
                         </div>
-                        {% else %}  
-                            <li class="nav-item">
-                                <a class="btn btn-secondary" href="/login">Log In</a>
-                            </li>
-                        {% endif %}
-                </div>
+                    </div>
+                    {% else %}  
+                        <li class="nav-item">
+                            <a class="btn btn-secondary" href="/login">Log In</a>
+                        </li>
+                    {% endif %}
             </div>
         </nav>
         {% if loggedIn %}
