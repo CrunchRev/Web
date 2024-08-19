@@ -218,7 +218,12 @@ def cached_fetch_asset(asset_id):
 @app.route("/asset/", methods=settings["HTTPMethods"])
 @app.route("/asset", methods=settings["HTTPMethods"])
 def assetdelivery():
-    idarg = int(request.args.get("id") or request.args.get("assetversionid") or 1818)
+    idarg = 1818
+
+    try:
+        idarg = int(request.args.get("id") or request.args.get("assetversionid") or 1818)
+    except:
+        return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 
     local_path = os.path.join(app.root_path, "LocalAssets")
     local_file_path = os.path.join(local_path, str(idarg))
