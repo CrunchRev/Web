@@ -292,3 +292,7 @@ def robots():
     return """User-agent: *
 Disallow: /
 Disallow: */wp-includes/*""", 200, {'Content-Type': 'text/plain'}
+
+@app.route("/favicon.ico", methods=settings["HTTPMethods"])
+def favicon():
+    return send_from_directory('staticContent', "CrunchRevAsset1.png"), 200, {'Content-Type': 'image/png'}
