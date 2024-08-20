@@ -18,7 +18,7 @@
     <div class="fixed-top">
         <nav class="navbar crunch-navbar navbar-expand-sm navbar-light shadow-sm">
             <a class="navbar-brand" href="/">
-                <img src="/staticContent/CrunchRevAsset1.png" id="crunch-logo" alt="" loading="lazy">
+                <img src="/staticContent/CrunchRevAsset1.png" id="crunch-logo" alt="CrunchRev Logo" loading="lazy">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -52,10 +52,10 @@
                         <img src="/staticContent/Placeholder.png" class="rounded-circle" height="40" width="40">
                         {{ userinfo[1]|e }}
                     </a>
-                    <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-cog fa-2 mb-1" aria-hidden="true"></i>
-                    </a>
                     <div class="nav-item dropdown">
+                        <button class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-cog fa-2 mb-1" aria-hidden="true"></i>
+                        </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/settings">Settings</a>
                             <a class="dropdown-item" href="/help">Help</a>
