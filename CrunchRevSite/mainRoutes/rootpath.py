@@ -6,19 +6,6 @@ Route module description: controls everything under "/" path
 
 from __main__ import *
 
-@app.errorhandler(InternalServerError)
-def handle_500_error(error):
-    traceback_str = traceback.format_exc()
-    error_dict = {
-        'code': error.code,
-        'description': error.description,
-        'stack_trace': traceback_str
-    }
-
-    logging.error(f"We have got an error here: {traceback_str}")
-
-    return render_template('error_page.html', **error_dict), 500
-
 @app.route("/", methods=settings["HTTPMethods"])
 def root():
     cookiez = request.cookies

@@ -6,12 +6,12 @@
                                                                                         
 
 This is an official copy of CrunchRev Website in Python.
-This uses Flask as a web framework.
+This uses Flask as a web framework and waitress as the serving library.
 
 Do not leak this or this might give you a punishment.
 
 Install requirements: pip install -r requirements.txt
 
-This file might contain something more in the future, but not now.
+This contains almost all of the basic endpoints.
 
 - Made by the CrunchRev Authors, 2024

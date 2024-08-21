@@ -98,7 +98,7 @@ if __name__ == "__main__":
     includeRoutes()
     internal_logger.info("Running the application with waitress...")
     try:
-        serve(TransLogger(app, setup_console_handler=False, logger=waitress_logger), listen='*:80', ident=None, threads=24, channel_timeout=60, connection_limit=10000)
+        serve(TransLogger(app, setup_console_handler=False, logger=waitress_logger), listen='*:80', ident=None, threads=24, channel_timeout=60, connection_limit=10000, expose_tracebacks=True)
     except Exception as e:
         internal_logger.critical(f"CRITICAL ERROR! waitress has crashed. Details: {e}")
     internal_logger.info("Service shutting down...")
