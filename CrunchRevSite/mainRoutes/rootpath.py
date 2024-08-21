@@ -277,8 +277,14 @@ def secfunc3():
 @app.route("/robots.txt", methods=settings["HTTPMethods"])
 def robots():
     return """User-agent: *
+
 Disallow: /
-Disallow: */wp-includes/*""", 200, {'Content-Type': 'text/plain'}
+Disallow: */wp-includes/*
+Disallow: */wp-json/
+Disallow: */wp-admin/
+Disallow: */wp
+Disallow: */wp-content/
+Disallow: *.php""", 200, {'Content-Type': 'text/plain'}
 
 @app.route("/favicon.ico", methods=settings["HTTPMethods"])
 def favicon():
