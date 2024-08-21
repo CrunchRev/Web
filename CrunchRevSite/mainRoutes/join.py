@@ -142,6 +142,8 @@ def launchtheplace():
     logging.info("Successfully got information, returning to user")
 
     if 'success' in PlaceLauncherRequest:
+        send_arbiter_startup_webhook(placeIDarg, year)
+
         status = PlaceLauncherRequest['status']
         message = PlaceLauncherRequest['message']
         if not status in [0, 1, 4, 3]:
