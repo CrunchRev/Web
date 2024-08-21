@@ -1,0 +1,896 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBX0">
+		<Properties>
+			<bool name="CanBeDropped">true</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<string name="Name">World Tour Guitar</string>
+			<Content name="TextureId"><url>http://www.roblox.com/asset/?id=115985616</url></Content>
+			<string name="ToolTip">TARANCHULA 4 LIFE!</string>
+		</Properties>
+		<Item class="Part" referent="RBX1">
+			<Properties>
+				<bool name="Anchored">false</bool>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">4</token>
+				<token name="BottomSurfaceInput">0</token>
+				<int name="BrickColor">194</int>
+				<CoordinateFrame name="CFrame">
+					<X>-0.100000001</X>
+					<Y>17.3100014</Y>
+					<Z>21.5700016</Z>
+					<R00>0.710537255</R00>
+					<R01>-0.703659534</R01>
+					<R02>0</R02>
+					<R10>0.703659534</R10>
+					<R11>0.710537255</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">true</bool>
+				<float name="Elasticity">0.5</float>
+				<float name="Friction">0.300000012</float>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<token name="Material">256</token>
+				<string name="Name">Handle</string>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">3</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<token name="formFactorRaw">1</token>
+				<token name="shape">1</token>
+				<Vector3 name="size">
+					<X>1</X>
+					<Y>3.60000014</Y>
+					<Z>1</Z>
+				</Vector3>
+			</Properties>
+			<Item class="SpecialMesh" referent="RBX2">
+				<Properties>
+					<token name="LODX">2</token>
+					<token name="LODY">2</token>
+					<Content name="MeshId"><url>http://www.roblox.com/asset/?id=115984912</url></Content>
+					<token name="MeshType">5</token>
+					<string name="Name">Mesh</string>
+					<Vector3 name="Offset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="Scale">
+						<X>1.29999995</X>
+						<Y>1.29999995</Y>
+						<Z>1.29999995</Z>
+					</Vector3>
+					<Content name="TextureId"><url>http://www.roblox.com/asset/?id=115984608</url></Content>
+					<Vector3 name="VertexColor">
+						<X>1</X>
+						<Y>1</Y>
+						<Z>1</Z>
+					</Vector3>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBX3">
+				<Properties>
+					<bool name="Looped">false</bool>
+					<string name="Name">Sound</string>
+					<float name="Pitch">1</float>
+					<bool name="PlayOnRemove">false</bool>
+					<Content name="SoundId"><url>http://www.roblox.com/asset/?id=60059129</url></Content>
+					<float name="Volume">1</float>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBX4">
+				<Properties>
+					<bool name="Looped">false</bool>
+					<string name="Name">Thunder</string>
+					<float name="Pitch">1</float>
+					<bool name="PlayOnRemove">false</bool>
+					<Content name="SoundId"><url>http://www.roblox.com/asset/?id=115992246</url></Content>
+					<float name="Volume">1</float>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="LocalScript" referent="RBX5">
+			<Properties>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">LocalScript</string>
+				<ProtectedString name="Source">function waitforchild(parent,child)
+&#9;while not parent:FindFirstChild(child) do wait() print(parent.Name .. &quot; Waiting for &quot; .. child) end
+&#9;return parent[child]
+end
+
+local Tool=script.Parent
+local MyHumanoid
+local IsPlayingMusic = false
+local KeyDownConnection
+local KeyUpConnection
+local ShiftDown = false
+local MyPlayer
+local Handle = waitforchild(Tool,&apos;Handle&apos;)
+local Speaker = waitforchild(Handle,&apos;Sound&apos;)
+local content = Game:GetService(&quot;ContentProvider&quot;)
+
+local HoldAniTrack
+local PluckAniTrack
+
+local MashMeter=0
+
+local MeltDistance = 30
+
+ApplauseID = &quot;http://www.roblox.com/asset/?id=99187949&quot;
+content:Preload(ApplauseID)
+
+local PowerChords =
+{
+&#9;99170172, --A
+&#9;99170311, --B
+&#9;99170354, --C
+&#9;99170403, --D
+&#9;99170481, --E
+&#9;99170537, --F
+&#9;99170583, --G
+}
+
+local PowerSharpChords =
+{
+&#9;99189531, --A#
+&#9;99189711, --C#
+&#9;99189785, --D#
+&#9;99190216, --E2
+&#9;99189905, --F#
+&#9;99190021, --G#
+&#9;99190550, --chug (no b#)
+}
+
+local Pitches =
+{
+&#9;.5,--G
+&#9;.75,--H
+&#9;1,--J
+&#9;1.25,--K
+&#9;1.5,--L
+}
+
+for _,i in ipairs(PowerChords) do
+&#9;content:Preload(&quot;http://www.roblox.com/asset/?id=&quot;..i)
+end
+
+for _,i in ipairs(PowerSharpChords) do
+&#9;content:Preload(&quot;http://www.roblox.com/asset/?id=&quot;..i)
+end
+
+
+function OnKeyDown(key)
+&#9;--print(&apos;key is:&apos;..key)
+&#9;Speaker:Stop()
+&#9;local soundID
+&#9;local pitchIndex=0
+&#9;if key == &apos;z&apos; then
+&#9;&#9;soundID= 1
+&#9;elseif key == &apos;x&apos; then
+&#9;&#9;soundID= 2
+&#9;elseif key == &apos;c&apos; then
+&#9;&#9;soundID= 3
+&#9;elseif key == &apos;v&apos; then
+&#9;&#9;soundID= 4
+&#9;elseif key == &apos;b&apos; then
+&#9;&#9;soundID= 5
+&#9;elseif key == &apos;n&apos; then
+&#9;&#9;soundID= 6
+&#9;elseif key == &apos;m&apos; then
+&#9;&#9;soundID= 7
+&#9;elseif key == &apos;g&apos; then
+&#9;&#9;pitchIndex=1
+&#9;elseif key == &apos;h&apos; then
+&#9;&#9;pitchIndex=2
+&#9;elseif key == &apos;j&apos; then
+&#9;&#9;pitchIndex=3
+&#9;elseif key == &apos;k&apos; then
+&#9;&#9;pitchIndex=4
+&#9;elseif key == &apos;l&apos; then
+&#9;&#9;pitchIndex=5
+&#9;elseif key == &apos;0&apos; then --shift pressed!
+&#9;&#9;print(&apos;ShiftDown!&apos;)
+&#9;&#9;ShiftDown=true
+&#9;&#9;MyPlayer:GetMouse().KeyUp:connect(function(nkey)
+&#9;&#9;&#9;if&#9;nkey==&apos;0&apos; then
+&#9;&#9;&#9;&#9;ShiftDown=false
+&#9;&#9;&#9;&#9;print(&apos;shift up!&apos;)
+&#9;&#9;&#9;end
+&#9;&#9;end)
+&#9;end
+
+&#9;if pitchIndex&gt;0 then
+&#9;&#9;Speaker.Pitch= Pitches[pitchIndex]
+&#9;elseif soundID then
+&#9;&#9;--add shift modifier later
+&#9;&#9;if ShiftDown then
+&#9;&#9;&#9;soundID= PowerSharpChords[soundID]
+&#9;&#9;else
+&#9;&#9;&#9;soundID= PowerChords[soundID]
+&#9;&#9;end
+&#9;&#9;local tspeaker=Speaker:Clone()
+&#9;&#9;tspeaker.Parent=Handle
+&#9;&#9;tspeaker.SoundId=&apos;http://www.roblox.com/asset/?id=&apos;..soundID
+&#9;&#9;wait(0)
+&#9;&#9;tspeaker:Play()
+&#9;&#9;local nconnection
+&#9;&#9;local startTime=tick()
+&#9;&#9;nconnection = MyPlayer:GetMouse().KeyUp:connect(function(nkey) OnKeyUp(nkey,key,tspeaker,startTime, nconnection) end)
+&#9;&#9;PluckAniTrack:Play()
+&#9;&#9;MashMeter= MashMeter+1
+&#9;end
+end
+
+function OnKeyUp(key, keymatch, mySpeaker,timeStarted, connection)
+&#9;if key == keymatch then
+&#9;&#9;--enforce minimum note time
+&#9;&#9;if tick()-timeStarted &lt; .25 then
+&#9;&#9;&#9;wait( .25-(tick()-timeStarted) )
+&#9;&#9;end
+&#9;&#9;mySpeaker:Stop()
+&#9;&#9;Delay(1,function() mySpeaker.Parent=nil end)
+&#9;&#9;connection:disconnect()
+&#9;end
+end
+
+function OnUnequip()
+&#9;HoldAniTrack:Stop()
+&#9;if KeyDownConnection then
+&#9;&#9;KeyDownConnection:disconnect()
+&#9;end
+end
+
+Tool.Unequipped:connect(OnUnequip)
+
+function OnEquip(mouse)
+&#9;MyHumanoid=waitforchild(Tool.Parent,&apos;Humanoid&apos;)
+&#9;MyPlayer = Game.Players:GetPlayerFromCharacter(Tool.Parent)
+&#9;HoldAniTrack=MyHumanoid:LoadAnimation(waitforchild(Tool,&apos;hold&apos;))
+&#9;PluckAniTrack=MyHumanoid:LoadAnimation(waitforchild(Tool,&apos;pluck&apos;))
+&#9;mouse.Button1Down:connect(OnClick)
+&#9;
+&#9;IsPlayingMusic = true
+&#9;KeyDownConnection = MyPlayer:GetMouse().KeyDown:connect(OnKeyDown)
+&#9;Tool.Grip = CFrame.new(0.01923877, 1.19116962, 0.313162446, 0.49999997, 0.707106769, 0.49999997, 0.0564237535, 0.549525201, -0.833569586, -0.864185274, 0.444996685, 0.23486498)
+
+&#9;HoldAniTrack:Play()
+end
+
+Tool.Equipped:connect(OnEquip)
+
+</ProtectedString>
+			</Properties>
+		</Item>
+		<Item class="Animation" referent="RBX6">
+			<Properties>
+				<Content name="AnimationId"><url>http://www.roblox.com/Asset?ID=99198989</url></Content>
+				<string name="Name">pluck</string>
+			</Properties>
+		</Item>
+		<Item class="Animation" referent="RBX7">
+			<Properties>
+				<Content name="AnimationId"><url>http://www.roblox.com/Asset?ID=99200153</url></Content>
+				<string name="Name">hold</string>
+			</Properties>
+		</Item>
+		<Item class="LocalScript" referent="RBX8">
+			<Properties>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">GuiInsert</string>
+				<ProtectedString name="Source">--[[Super Util]]--
+function WaitForChild(parent,child)
+&#9;while not parent:FindFirstChild(child) do  print(&apos;child&apos;) wait(1/30) end
+&#9;return parent[child]
+end
+
+function MakeValue(class,name,value,parent)
+&#9;local temp = Instance.new(class)
+&#9;temp.Name = name
+&#9;temp.Value = value
+&#9;temp.Parent = parent
+&#9;return temp
+end&#9;
+
+--[[Constants]]--
+local validKeys =
+{
+&#9;&apos;z&apos;,&apos;x&apos;,&apos;c&apos;,&apos;v&apos;,&apos;b&apos;,&apos;n&apos;,&apos;m&apos;,
+}
+local winText = 
+{
+&#9;116037822,
+&#9;116037835,
+&#9;116037848,
+&#9;116037852,
+}
+local metalsounds = 
+{
+&#9;116040999,
+&#9;116041034,
+&#9;116041059,
+&#9;116041079,
+&#9;116041100,
+&#9;116041137,
+}
+
+for _,i in ipairs(metalsounds) do
+&#9;Game:GetService(&quot;ContentProvider&quot;):Preload(&quot;http://www.roblox.com/asset/?id=&quot; .. i)
+end
+
+local MinNotes = 2
+local MaxNotes = 8
+local NumSlots = 12
+
+local MarkerSpeed = 6.0666
+
+--[[Workspace Variables]]--
+local Tool = script.Parent
+local Handle = WaitForChild(Tool,&apos;Handle&apos;)
+local ThunderSound = WaitForChild(Handle,&apos;Thunder&apos;)
+local MyGui = WaitForChild(script,&apos;Gui&apos;)
+local MainFrame = WaitForChild(MyGui,&apos;MainFrame&apos;)
+local Marker = WaitForChild(MainFrame,&apos;Marker&apos;)
+local TemplateNote = WaitForChild(MainFrame,&apos;TemplateNote&apos;)
+local WinFrame = WaitForChild(MainFrame,&apos;WinText&apos;)
+--[[Script Variables]]--
+
+local CurrentGui = nil
+
+local CurrentString = {}
+
+local MarkerPos = UDim2.new()
+
+local lightningRadius = 60
+
+local inRiff = false
+local LastPos = 0
+--[[Script Functions]]--
+
+function MakeNote(index)
+&#9;local nNote = {}
+&#9;nNote.key = validKeys[math.random(#validKeys)]
+&#9;nNote.frame = TemplateNote:Clone()
+&#9;nNote.frame.Text = string.upper(nNote.key)
+&#9;nNote.frame.Position = UDim2.new(0,((index-1)*30)+(10*index),.5,-15)
+&#9;nNote.frame.Parent = CurrentGui.MainFrame
+&#9;nNote.frame.Visible = true
+&#9;nNote.hit = false
+&#9;nNote.missed = false
+&#9;return nNote
+end
+
+function SetupNoteString()
+&#9;for i=1,NumSlots,1 do
+&#9;&#9;if CurrentString[i] then CurrentString[i].frame:destroy() end
+&#9;end
+&#9;CurrentString = {}
+&#9;local numNotes = math.random(MinNotes,MaxNotes)
+&#9;CurrentString[1]=MakeNote(1)
+&#9;for i=1,numNotes,1 do
+&#9;&#9;local index = math.random(2,NumSlots)
+&#9;&#9;while CurrentString[index] do
+&#9;&#9;&#9;index = math.random(2,NumSlots)
+&#9;&#9;end
+&#9;&#9;print(&apos;creating note at index:&apos;..index)
+&#9;&#9;CurrentString[index]=MakeNote(index)
+&#9;end
+&#9;CurrentGui.MainFrame.Marker.Position = UDim2.new(0,0,0,0)
+end
+
+function StartRiff()
+&#9;
+&#9;inRiff=true
+&#9;CurrentGui.MainFrame.Marker.Position = UDim2.new(0,0,0,0)
+&#9;LastPos = 0
+&#9;CurrentString[1].hit = true
+&#9;CurrentString[1].frame.BackgroundColor3 = Color3.new(0,.8,0)
+&#9;local startTime = tick()
+&#9;while tick()-startTime&lt;MarkerSpeed  and CurrentGui.Parent do
+&#9;&#9;LastPos = 500*((tick()-startTime)/MarkerSpeed)
+&#9;&#9;CurrentGui.MainFrame.Marker.Position = UDim2.new(0,LastPos,0,0)
+&#9;&#9;wait()
+&#9;end
+&#9;
+&#9;for i=1,NumSlots,1 do
+&#9;&#9;if CurrentString[i] and not CurrentString[i].hit then
+&#9;&#9;&#9;inRiff=false
+&#9;&#9;&#9;for j=1,NumSlots,1 do
+&#9;&#9;&#9;&#9;if CurrentString[j] then
+&#9;&#9;&#9;&#9;&#9;CurrentString[j].hit = false
+&#9;&#9;&#9;&#9;&#9;CurrentString[j].missed = false
+&#9;&#9;&#9;&#9;&#9;CurrentString[j].frame.BackgroundColor3 = TemplateNote.BackgroundColor3
+&#9;&#9;&#9;&#9;end
+&#9;&#9;&#9;end
+&#9;&#9;&#9;return false
+&#9;&#9;end
+&#9;end
+&#9;SetupNoteString()
+&#9;inRiff=false
+&#9;return true
+end
+
+function LightningStrike(source,dest)
+&#9;local maxSegLength = 7
+&#9;local minSegLength = 3
+&#9;local maxOffset = 4
+&#9;local dir = (dest-source).unit
+&#9;local distance = (source-dest).magnitude
+&#9;
+&#9;local points = {}&#9;
+&#9;points[1] = source
+&#9;local lastDist = 0
+&#9;
+&#9;while (distance-lastDist)&gt;maxSegLength do
+&#9;&#9;lastDist = lastDist +((math.random()*(maxSegLength-minSegLength))+minSegLength)
+&#9;&#9;local nvec = source+(lastDist*dir)+Vector3.new(math.random(),math.random(),math.random())
+&#9;&#9;table.insert(points,nvec)
+&#9;&#9;print(&apos;stuck in loop&apos;,distance-lastDist)
+&#9;&#9;wait()
+&#9;end&#9;
+&#9;table.insert(points,dest)
+&#9;
+&#9;local parts = {}&#9;
+&#9;
+&#9;&#9;
+&#9;--lastPart.CFrame = CFrame.new(source+Vector3.new(
+&#9;for index,i in ipairs(points) do
+&#9;&#9;local lastPart = Instance.new(&apos;Part&apos;)
+&#9;&#9;lastPart.Anchored = true
+&#9;&#9;lastPart.CanCollide = false
+&#9;&#9;lastPart.Transparency = .3
+&#9;&#9;lastPart.BrickColor = BrickColor.new(&apos;New Yeller&apos;)
+&#9;&#9;local nmesh = Instance.new(&apos;CylinderMesh&apos;)
+&#9;&#9;nmesh.Scale = Vector3.new(.1,1,.1)
+&#9;&#9;nmesh.Parent = lastPart
+&#9;&#9;if points[index+1] then&#9;&#9;
+&#9;&#9;&#9;lastPart.Size = Vector3.new(.02,(i-points[index+1]).magnitude,.02)
+&#9;&#9;&#9;lastPart.CFrame= CFrame.new((i+points[index+1])/2,points[index+1])*CFrame.Angles(math.pi/2,0,0)
+&#9;&#9;&#9;lastPart.Parent = script.Parent
+&#9;&#9;&#9;game.Debris:AddItem(lastPart,1)
+&#9;&#9;&#9;wait()
+&#9;&#9;end
+&#9;&#9;
+&#9;end
+end
+
+function DoLightning(root,hitPlayers)
+&#9;for _,i in pairs(game.Players:GetPlayers()) do
+&#9;&#9;if not hitPlayers[i] and i~=game.Players.LocalPlayer and i.Character 
+&#9;&#9;&#9;&#9;and i.Character:FindFirstChild(&apos;Torso&apos;) and (i.Character.Torso.CFrame.p-root).magnitude&lt;lightningRadius then
+&#9;&#9;&#9;Spawn(function() LightningStrike(root,i.Character.Torso.CFrame.p) end)
+&#9;&#9;&#9;LightningStrike(root,i.Character.Torso.CFrame.p)
+&#9;&#9;&#9;hitPlayers[i]=true
+&#9;&#9;&#9;i.Character.Humanoid:TakeDamage(100)
+&#9;&#9;&#9;DoLightning(i.Character.Torso.CFrame.p,hitPlayers)
+&#9;&#9;&#9;return true
+&#9;&#9;end
+&#9;end
+&#9;return false
+end
+
+function OnKeyDown(key)
+&#9;if key ==&apos;p&apos; then
+&#9;&#9;if game.Players.LocalPlayer.Name == &apos;Player1&apos; or game.Players.LocalPlayer.Name == &apos;fusroblox&apos; then
+&#9;&#9;&#9;DoLightning(Handle.CFrame.p,{})
+&#9;&#9;end
+&#9;end
+&#9;if inRiff then
+&#9;&#9;local index = math.floor(LastPos/(40))+1
+&#9;&#9;if CurrentString[index] then
+&#9;&#9;&#9;if not CurrentString[index].missed and CurrentString[index].key ==key then
+&#9;&#9;&#9;&#9;CurrentString[index].hit = true
+&#9;&#9;&#9;&#9;CurrentString[index].frame.BackgroundColor3 = Color3.new(0,.8,0)
+&#9;&#9;&#9;else
+&#9;&#9;&#9;&#9;CurrentString[index].missed = true
+&#9;&#9;&#9;&#9;CurrentString[index].frame.BackgroundColor3 = Color3.new(.8,0,0)
+&#9;&#9;&#9;end
+&#9;&#9;end
+&#9;else
+&#9;&#9;if key == CurrentString[1].key then
+&#9;&#9;&#9;Spawn(function()
+&#9;&#9;&#9;&#9;if StartRiff() then
+&#9;&#9;&#9;&#9;&#9;ThunderSound.SoundId = &apos;http://www.roblox.com/asset/?id=&apos;..metalsounds[math.random(#metalsounds)]
+&#9;&#9;&#9;&#9;&#9;ThunderSound:Play()
+&#9;&#9;&#9;&#9;&#9;CurrentGui.MainFrame.WinText.Image = &apos;http://www.roblox.com/asset/?id=&apos;..winText[math.random(#winText)]
+&#9;&#9;&#9;&#9;&#9;CurrentGui.MainFrame.WinText.Visible = true
+&#9;&#9;&#9;&#9;&#9;Delay(3,function() CurrentGui.MainFrame.WinText.Visible = false end)
+&#9;&#9;&#9;&#9;&#9;local hitPlayers = {}
+&#9;&#9;&#9;&#9;&#9;if not DoLightning(Handle.CFrame.p,hitPlayers) then
+&#9;&#9;&#9;&#9;&#9;&#9;for i=1,6,1 do&#9;
+&#9;&#9;&#9;&#9;&#9;&#9;&#9;Spawn(function()&#9;&#9;&#9;&#9;&#9;
+&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;LightningStrike(Handle.CFrame.p,Handle.CFrame.p+(Vector3.new((math.random()-.5)*2,(math.random()-.5)*2,(math.random()-.5)*2)*45))
+&#9;&#9;&#9;&#9;&#9;&#9;&#9;end)&#9;&#9;&#9;&#9;&#9;&#9;
+&#9;&#9;&#9;&#9;&#9;&#9;end
+&#9;&#9;&#9;&#9;&#9;end&#9;&#9;&#9;&#9;&#9;
+&#9;&#9;&#9;&#9;end
+&#9;&#9;&#9;end)
+&#9;&#9;end
+&#9;end
+end
+
+function OnEquip(mouse)
+&#9;mouse.KeyDown:connect(OnKeyDown)
+&#9;Spawn(function()
+&#9;&#9;char = Tool.Parent
+&#9;&#9;local player = game.Players:GetPlayerFromCharacter(char)
+&#9;&#9;if player then
+&#9;&#9;&#9;CurrentGui = MyGui:Clone()
+&#9;&#9;&#9;CurrentGui.Parent = player.PlayerGui
+&#9;&#9;end
+&#9;&#9;SetupNoteString()
+&#9;end)
+end
+
+function OnUnequip()
+&#9;local player = game.Players:GetPlayerFromCharacter(char)
+&#9;if player and player.PlayerGui and player.PlayerGui:FindFirstChild(&apos;Gui&apos;) then
+&#9;&#9;player.PlayerGui:FindFirstChild(&apos;Gui&apos;):Destroy()
+&#9;end
+&#9;
+end
+
+--[[Running Logic]]--
+
+Tool.Equipped:connect(OnEquip)
+
+Tool.Unequipped:connect(OnUnequip)
+</ProtectedString>
+			</Properties>
+			<Item class="ScreenGui" referent="RBX9">
+				<Properties>
+					<string name="Name">Gui</string>
+				</Properties>
+				<Item class="Frame" referent="RBX10">
+					<Properties>
+						<bool name="Active">false</bool>
+						<Color3 name="BackgroundColor3">4278190080</Color3>
+						<float name="BackgroundTransparency">0</float>
+						<Color3 name="BorderColor3">4279970357</Color3>
+						<int name="BorderSizePixel">0</int>
+						<bool name="ClipsDescendants">false</bool>
+						<bool name="Draggable">false</bool>
+						<string name="Name">Frame</string>
+						<UDim2 name="Position">
+							<XS>0</XS>
+							<XO>0</XO>
+							<YS>1</YS>
+							<YO>-300</YO>
+						</UDim2>
+						<UDim2 name="Size">
+							<XS>0</XS>
+							<XO>260</XO>
+							<YS>0</YS>
+							<YO>55</YO>
+						</UDim2>
+						<token name="SizeConstraint">0</token>
+						<token name="Style">0</token>
+						<bool name="Visible">true</bool>
+						<int name="ZIndex">1</int>
+					</Properties>
+					<Item class="TextLabel" referent="RBX11">
+						<Properties>
+							<bool name="Active">false</bool>
+							<Color3 name="BackgroundColor3">4288914085</Color3>
+							<float name="BackgroundTransparency">1</float>
+							<Color3 name="BorderColor3">4279970357</Color3>
+							<int name="BorderSizePixel">1</int>
+							<bool name="ClipsDescendants">false</bool>
+							<bool name="Draggable">false</bool>
+							<token name="Font">2</token>
+							<token name="FontSize">6</token>
+							<string name="Name">TextLabel</string>
+							<UDim2 name="Position">
+								<XS>0</XS>
+								<XO>10</XO>
+								<YS>0</YS>
+								<YO>-20</YO>
+							</UDim2>
+							<UDim2 name="Size">
+								<XS>1</XS>
+								<XO>0</XO>
+								<YS>1</YS>
+								<YO>0</YO>
+							</UDim2>
+							<token name="SizeConstraint">0</token>
+							<string name="Text">Keys Z,X,C,V,B,N,M play notes</string>
+							<Color3 name="TextColor3">4292420668</Color3>
+							<bool name="TextScaled">false</bool>
+							<Color3 name="TextStrokeColor3">4278190080</Color3>
+							<float name="TextStrokeTransparency">1</float>
+							<float name="TextTransparency">0</float>
+							<bool name="TextWrapped">false</bool>
+							<token name="TextXAlignment">0</token>
+							<token name="TextYAlignment">2</token>
+							<bool name="Visible">true</bool>
+							<int name="ZIndex">2</int>
+						</Properties>
+					</Item>
+					<Item class="TextLabel" referent="RBX12">
+						<Properties>
+							<bool name="Active">false</bool>
+							<Color3 name="BackgroundColor3">4288914085</Color3>
+							<float name="BackgroundTransparency">1</float>
+							<Color3 name="BorderColor3">4279970357</Color3>
+							<int name="BorderSizePixel">1</int>
+							<bool name="ClipsDescendants">false</bool>
+							<bool name="Draggable">false</bool>
+							<token name="Font">2</token>
+							<token name="FontSize">6</token>
+							<string name="Name">TextLabel</string>
+							<UDim2 name="Position">
+								<XS>0</XS>
+								<XO>10</XO>
+								<YS>0</YS>
+								<YO>0</YO>
+							</UDim2>
+							<UDim2 name="Size">
+								<XS>1</XS>
+								<XO>0</XO>
+								<YS>1</YS>
+								<YO>0</YO>
+							</UDim2>
+							<token name="SizeConstraint">0</token>
+							<string name="Text">Keys H,J,K, and L change pitch</string>
+							<Color3 name="TextColor3">4292420668</Color3>
+							<bool name="TextScaled">false</bool>
+							<Color3 name="TextStrokeColor3">4278190080</Color3>
+							<float name="TextStrokeTransparency">1</float>
+							<float name="TextTransparency">0</float>
+							<bool name="TextWrapped">false</bool>
+							<token name="TextXAlignment">0</token>
+							<token name="TextYAlignment">0</token>
+							<bool name="Visible">true</bool>
+							<int name="ZIndex">2</int>
+						</Properties>
+					</Item>
+					<Item class="TextLabel" referent="RBX13">
+						<Properties>
+							<bool name="Active">false</bool>
+							<Color3 name="BackgroundColor3">4288914085</Color3>
+							<float name="BackgroundTransparency">1</float>
+							<Color3 name="BorderColor3">4279970357</Color3>
+							<int name="BorderSizePixel">1</int>
+							<bool name="ClipsDescendants">false</bool>
+							<bool name="Draggable">false</bool>
+							<token name="Font">2</token>
+							<token name="FontSize">6</token>
+							<string name="Name">TextLabel</string>
+							<UDim2 name="Position">
+								<XS>0</XS>
+								<XO>10</XO>
+								<YS>0</YS>
+								<YO>0</YO>
+							</UDim2>
+							<UDim2 name="Size">
+								<XS>1</XS>
+								<XO>0</XO>
+								<YS>1</YS>
+								<YO>0</YO>
+							</UDim2>
+							<token name="SizeConstraint">0</token>
+							<string name="Text">Click to equip</string>
+							<Color3 name="TextColor3">4292420668</Color3>
+							<bool name="TextScaled">false</bool>
+							<Color3 name="TextStrokeColor3">4278190080</Color3>
+							<float name="TextStrokeTransparency">1</float>
+							<float name="TextTransparency">0</float>
+							<bool name="TextWrapped">false</bool>
+							<token name="TextXAlignment">0</token>
+							<token name="TextYAlignment">2</token>
+							<bool name="Visible">true</bool>
+							<int name="ZIndex">2</int>
+						</Properties>
+					</Item>
+				</Item>
+				<Item class="Frame" referent="RBX14">
+					<Properties>
+						<bool name="Active">false</bool>
+						<Color3 name="BackgroundColor3">4278190080</Color3>
+						<float name="BackgroundTransparency">0</float>
+						<Color3 name="BorderColor3">4279970357</Color3>
+						<int name="BorderSizePixel">0</int>
+						<bool name="ClipsDescendants">false</bool>
+						<bool name="Draggable">false</bool>
+						<string name="Name">MainFrame</string>
+						<UDim2 name="Position">
+							<XS>0.5</XS>
+							<XO>-250</XO>
+							<YS>1</YS>
+							<YO>-170</YO>
+						</UDim2>
+						<UDim2 name="Size">
+							<XS>0</XS>
+							<XO>500</XO>
+							<YS>0</YS>
+							<YO>55</YO>
+						</UDim2>
+						<token name="SizeConstraint">0</token>
+						<token name="Style">0</token>
+						<bool name="Visible">true</bool>
+						<int name="ZIndex">1</int>
+					</Properties>
+					<Item class="TextLabel" referent="RBX15">
+						<Properties>
+							<bool name="Active">false</bool>
+							<Color3 name="BackgroundColor3">4288914085</Color3>
+							<float name="BackgroundTransparency">0</float>
+							<Color3 name="BorderColor3">4279970357</Color3>
+							<int name="BorderSizePixel">1</int>
+							<bool name="ClipsDescendants">false</bool>
+							<bool name="Draggable">false</bool>
+							<token name="Font">2</token>
+							<token name="FontSize">8</token>
+							<string name="Name">TemplateNote</string>
+							<UDim2 name="Position">
+								<XS>0</XS>
+								<XO>10</XO>
+								<YS>0.5</YS>
+								<YO>-15</YO>
+							</UDim2>
+							<UDim2 name="Size">
+								<XS>0</XS>
+								<XO>30</XO>
+								<YS>0</YS>
+								<YO>30</YO>
+							</UDim2>
+							<token name="SizeConstraint">0</token>
+							<string name="Text">C</string>
+							<Color3 name="TextColor3">4278190080</Color3>
+							<bool name="TextScaled">false</bool>
+							<Color3 name="TextStrokeColor3">4278190080</Color3>
+							<float name="TextStrokeTransparency">1</float>
+							<float name="TextTransparency">0</float>
+							<bool name="TextWrapped">false</bool>
+							<token name="TextXAlignment">2</token>
+							<token name="TextYAlignment">1</token>
+							<bool name="Visible">false</bool>
+							<int name="ZIndex">2</int>
+						</Properties>
+					</Item>
+					<Item class="Frame" referent="RBX16">
+						<Properties>
+							<bool name="Active">false</bool>
+							<Color3 name="BackgroundColor3">4294704908</Color3>
+							<float name="BackgroundTransparency">0</float>
+							<Color3 name="BorderColor3">4279970357</Color3>
+							<int name="BorderSizePixel">0</int>
+							<bool name="ClipsDescendants">false</bool>
+							<bool name="Draggable">false</bool>
+							<string name="Name">Marker</string>
+							<UDim2 name="Position">
+								<XS>0</XS>
+								<XO>50</XO>
+								<YS>0</YS>
+								<YO>0</YO>
+							</UDim2>
+							<UDim2 name="Size">
+								<XS>0</XS>
+								<XO>5</XO>
+								<YS>1</YS>
+								<YO>0</YO>
+							</UDim2>
+							<token name="SizeConstraint">0</token>
+							<token name="Style">0</token>
+							<bool name="Visible">true</bool>
+							<int name="ZIndex">1</int>
+						</Properties>
+					</Item>
+					<Item class="ImageLabel" referent="RBX17">
+						<Properties>
+							<bool name="Active">false</bool>
+							<Color3 name="BackgroundColor3">4288914085</Color3>
+							<float name="BackgroundTransparency">0</float>
+							<Color3 name="BorderColor3">4279970357</Color3>
+							<int name="BorderSizePixel">1</int>
+							<bool name="ClipsDescendants">false</bool>
+							<bool name="Draggable">false</bool>
+							<Content name="Image"><url>http://www.roblox.com/asset/?id=116037822</url></Content>
+							<string name="Name">WinText</string>
+							<UDim2 name="Position">
+								<XS>0.5</XS>
+								<XO>-100</XO>
+								<YS>0</YS>
+								<YO>-115</YO>
+							</UDim2>
+							<UDim2 name="Size">
+								<XS>0</XS>
+								<XO>200</XO>
+								<YS>0</YS>
+								<YO>115</YO>
+							</UDim2>
+							<token name="SizeConstraint">0</token>
+							<bool name="Visible">false</bool>
+							<int name="ZIndex">1</int>
+						</Properties>
+					</Item>
+				</Item>
+			</Item>
+		</Item>
+		<Item class="Camera" referent="RBX18">
+			<Properties>
+				<Ref name="CameraSubject">null</Ref>
+				<token name="CameraType">0</token>
+				<CoordinateFrame name="CoordinateFrame">
+					<X>-1.81068659</X>
+					<Y>17.9622822</Y>
+					<Z>19.0479412</Z>
+					<R00>-0.884726346</R00>
+					<R01>0.047975976</R01>
+					<R02>-0.463635355</R02>
+					<R10>3.72529074e-009</R10>
+					<R11>0.994688809</R11>
+					<R12>0.102928214</R12>
+					<R20>0.466111004</R20>
+					<R21>0.0910633057</R21>
+					<R22>-0.880027235</R22>
+				</CoordinateFrame>
+				<float name="FieldOfView">70</float>
+				<CoordinateFrame name="Focus">
+					<X>-0.883416295</X>
+					<Y>17.7564259</Y>
+					<Z>20.8079948</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<string name="Name">ThumbnailCamera</string>
+			</Properties>
+		</Item>
+	</Item>
+</roblox>

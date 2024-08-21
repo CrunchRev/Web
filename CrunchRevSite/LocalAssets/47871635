@@ -1,0 +1,426 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBX0">
+		<Properties>
+			<bool name="CanBeDropped">true</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>-1.29999995</Z>
+				<R00>-1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>-1</R22>
+			</CoordinateFrame>
+			<string name="Name">Tuba</string>
+			<Content name="TextureId"><url>http://www.roblox.com/asset/?id=47586179 </url></Content>
+			<string name="ToolTip"></string>
+		</Properties>
+		<Item class="Part" referent="RBX1">
+			<Properties>
+				<bool name="Anchored">false</bool>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">4</token>
+				<token name="BottomSurfaceInput">0</token>
+				<int name="BrickColor">107</int>
+				<CoordinateFrame name="CFrame">
+					<X>59.043251</X>
+					<Y>3.42134595</Y>
+					<Z>-72.453949</Z>
+					<R00>0.977692187</R00>
+					<R01>-0.00473036338</R01>
+					<R02>-0.209990382</R02>
+					<R10>1.56339514e-014</R10>
+					<R11>0.999746382</R11>
+					<R12>-0.0225208588</R12>
+					<R20>0.210043654</R20>
+					<R21>0.022018468</R21>
+					<R22>0.977444232</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">true</bool>
+				<float name="Elasticity">0.5</float>
+				<float name="Friction">0.300000012</float>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">true</bool>
+				<token name="Material">256</token>
+				<string name="Name">Handle</string>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">3</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<token name="formFactorRaw">3</token>
+				<token name="shape">1</token>
+				<Vector3 name="size">
+					<X>2.75999951</X>
+					<Y>1.43000209</Y>
+					<Z>1.58999777</Z>
+				</Vector3>
+			</Properties>
+			<Item class="SpecialMesh" referent="RBX2">
+				<Properties>
+					<token name="LODX">2</token>
+					<token name="LODY">2</token>
+					<Content name="MeshId"><url>http://www.roblox.com/asset/?id=47586219 </url></Content>
+					<token name="MeshType">5</token>
+					<string name="Name">Mesh</string>
+					<Vector3 name="Offset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="Scale">
+						<X>1.5</X>
+						<Y>1.5</Y>
+						<Z>1.5</Z>
+					</Vector3>
+					<Content name="TextureId"><url>http://www.roblox.com/asset/?id= 47586148 </url></Content>
+					<Vector3 name="VertexColor">
+						<X>1</X>
+						<Y>1</Y>
+						<Z>1</Z>
+					</Vector3>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="LocalScript" referent="RBX3">
+			<Properties>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">LocalGui</string>
+				<ProtectedString name="Source">local Tool = script.Parent;
+
+local stillEquipped = true
+function onEquippedLocal(mouse)
+&#9;stillEquipped = true
+&#9;if mouse == nil then
+&#9;&#9;print(&quot;Mouse not found&quot;)
+&#9;&#9;return
+&#9;end
+&#9;
+&#9;while stillEquipped do
+&#9;&#9;print(&quot;Setting Mouse to Go&quot;)
+&#9;&#9;mouse.Icon = &quot;rbxasset://textures\\GunCursor.png&quot;
+
+&#9;&#9;while Tool.Enabled and stillEquipped do
+&#9;&#9;&#9;wait(.01)
+&#9;&#9;end
+&#9;
+&#9;&#9;print(&quot;Setting Mouse To Wait&quot;)
+&#9;&#9;mouse.Icon = &quot;rbxasset://textures\\GunWaitCursor.png&quot;
+
+&#9;&#9;while not Tool.Enabled and stillEquipped do
+&#9;&#9;&#9;wait(.01)
+&#9;&#9;end
+&#9;end
+end
+
+function onUnequippedLocal()
+&#9;stillEquipped = false
+end
+
+
+Tool.Equipped:connect(onEquippedLocal)
+Tool.Unequipped:connect(onUnequippedLocal)
+</ProtectedString>
+			</Properties>
+		</Item>
+		<Item class="LocalScript" referent="RBX4">
+			<Properties>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">TubaScript</string>
+				<ProtectedString name="Source">local Tool = script.Parent 
+local Tuba = script.Parent.Handle
+
+ShockwaveScript = script:WaitForChild(&quot;ShockwaveScript&quot;) --Fix implemented by Luckymaxer
+
+ShockwavePart = Instance.new(&quot;Part&quot;)
+ShockwavePart.Name = &quot;ShockWave&quot;
+ShockwavePart.FormFactor = Enum.FormFactor.Custom
+ShockwavePart.Shape = Enum.PartType.Block
+ShockwavePart.Size = Vector3.new(1, 0.2, 1)
+ShockwavePart.Transparency = 1
+ShockwavePart.CanCollide = false
+
+Tool.Enabled = true
+
+-- Sounds
+local TubaSound 
+--
+
+-- Animations 
+local tubaAnim
+--
+-- Clone
+local tubaClone
+
+
+function shoot(pos)
+&#9;
+&#9;local vCharacter = Tool.Parent
+&#9;if vCharacter == nil or vCharacter:FindFirstChild(&quot;Humanoid&quot;) == nil then 
+&#9;&#9;--print(&quot;HUMANOID NOT FOUND&quot;)
+&#9;&#9;return 
+&#9;end
+
+&#9;local vPlayer = game.Players:GetPlayerFromCharacter(vCharacter)
+&#9;if vPlayer == nil then print(&quot;PLAYER NOT FOUND&quot;) end
+&#9;local spawnPos = vCharacter.PrimaryPart.Position
+&#9;spawnPos = spawnPos + pos.unit * 5.0
+&#9;ShockwaveC = ShockwavePart:Clone()
+&#9;local ShockwaveScriptClone = ShockwaveScript:Clone()
+&#9;ShockwaveScriptClone.Disabled = false
+&#9;ShockwaveScriptClone.Parent = ShockwaveC
+
+&#9;--ShockwaveC.Transparency = 0.0
+&#9;ShockwaveC.CanCollide = false
+&#9;ShockwaveC.Anchored = false
+&#9;ShockwaveC.Size = Vector3.new(8, 0.4, 8)
+&#9;ShockwaveC.formFactor = 2
+
+&#9;local decal = Instance.new(&quot;Decal&quot;)
+&#9;decal.Specular = 20
+&#9;decal.Face = 1
+&#9;decal.Texture = &quot;http://www.roblox.com/asset/?version=1&amp;id=1280730&quot;
+&#9;decal.Parent = ShockwaveC
+
+&#9;local bottomDecal = decal:Clone()
+&#9;bottomDecal.Specular = 20
+&#9;bottomDecal.Face = 4
+&#9;bottomDecal.Parent = ShockwaveC
+
+&#9;ShockwaveC.CFrame = CFrame.new(spawnPos, spawnPos +pos) * CFrame.Angles(math.pi/2, 0.0, 0.0)
+&#9;ShockwaveC.Velocity = pos * 25.0
+&#9;--ShockwaveC.RotVelocity = Vector3.new(0.0, 0.0, 0.0)
+&#9;ShockwaveC.Name = &quot;ShockwavePowa&quot;
+&#9;ShockwaveC.Parent = game.Workspace&#9;
+&#9;
+&#9;ShockwaveC.CanCollide = true
+
+&#9;local ShockwaveFloat = Instance.new(&quot;BodyForce&quot;)
+&#9;ShockwaveFloat.force = Vector3.new(0.0, (ShockwaveC:GetMass()) * 196.1, 0.0)
+&#9;ShockwaveFloat.Parent = ShockwaveC
+
+&#9;--connection = ShockwaveC.Touched:connect(blow)
+end
+
+function onActivated()
+&#9;if Tool.Enabled == false then 
+&#9;&#9;return
+&#9;end
+
+&#9;local character = Tool.Parent
+
+&#9;Tool.Enabled = false
+
+&#9;if character == nil then 
+&#9;&#9;print(&quot;CHARACTER NOT FOUND&quot;)
+&#9;&#9;return 
+&#9;end
+
+&#9;myHumanoid = Tool.Parent:FindFirstChild(&quot;Humanoid&quot;)
+&#9;if myHumanoid == nil then 
+&#9;&#9;print(&quot;HUMANOID NOT FOUND&quot;)
+&#9;&#9;return 
+&#9;end
+
+&#9;myTorso = Tool.Parent:FindFirstChild(&quot;Torso&quot;)
+&#9;if myTorso == nil then 
+&#9;&#9;print(&quot;TORSO NOT FOUND&quot;)
+&#9;&#9;return
+&#9;end
+&#9;
+&#9;tubaClone = Tool.Handle:Clone()
+&#9;tubaClone.CanCollide = false
+&#9;tubaClone.Parent = Workspace
+&#9;
+&#9;Tuba.Transparency = 1.0
+&#9;
+&#9;local newWeld = Instance.new(&quot;Weld&quot;)
+&#9;newWeld.Part1 = myTorso
+&#9;newWeld.Part0 = tubaClone
+&#9;newWeld.C1 = CFrame.new(Vector3.new(-0.3, 0.8, 0.0)) * CFrame.Angles(math.pi, 0.0, -math.pi/4)
+&#9;newWeld.Parent = myTorso
+
+&#9;
+&#9;tubaAnim = myHumanoid:LoadAnimation(Tool.Tuba)
+&#9;if tubaAnim then tubaAnim:Play() end
+&#9;TubaSound = Tool:FindFirstChild(&quot;TubaSound&quot;)
+&#9;if TubaSound then TubaSound:Play()end
+&#9;wait(1.75)
+
+&#9;local targetPos = myHumanoid.TargetPoint 
+&#9;--local lookAt = (targetPos - character.Head.Position).unit
+&#9;lookAt = myTorso.CFrame.lookVector.unit
+&#9;shoot(lookAt)
+
+&#9;--myTorso.Anchored = true
+&#9;
+&#9;wait(1.5)
+&#9;targetPos = myHumanoid.TargetPoint 
+&#9;--lookAt = (targetPos - character.Head.Position).unit
+&#9;lookAt = myTorso.CFrame.lookVector.unit&#9;
+&#9;shoot(lookAt)
+&#9;wait(1.5)
+&#9;targetPos = myHumanoid.TargetPoint 
+&#9;--lookAt = (targetPos - character.Head.Position).unit
+&#9;lookAt = myTorso.CFrame.lookVector.unit
+&#9;shoot(lookAt)
+&#9;wait(1.5)
+&#9;targetPos = myHumanoid.TargetPoint 
+&#9;--lookAt = (targetPos - character.Head.Position).unit
+&#9;lookAt = myTorso.CFrame.lookVector.unit
+&#9;shoot(lookAt)
+&#9;wait(1.0)
+&#9;tubaClone:Remove()
+&#9;Tuba.Transparency = 0.0
+
+&#9;--myTorso.Anchored = false
+&#9;--if bodyGyro then bodyGyro:Remove() end&#9;
+&#9;wait(4)
+&#9;Tool.Enabled = true&#9;
+end
+
+function onEquipped()
+end
+
+function onUnequipped()
+&#9;if TubaSound then TubaSound:Stop() end
+&#9;if tubaAnim then tubaAnim:Stop() end
+&#9;if tubaClone then tubaClone:Remove() end
+&#9;Tuba.Transparency = 0.0
+end
+
+Tool.Activated:connect(onActivated)
+Tool.Equipped:connect(onEquipped)
+Tool.Unequipped:connect(onUnequipped)
+&#9;
+
+
+
+&#9;
+&#9;</ProtectedString>
+			</Properties>
+			<Item class="Script" referent="RBX5">
+				<Properties>
+					<bool name="Disabled">true</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">ShockwaveScript</string>
+					<ProtectedString name="Source">missile = script.Parent
+bodyGyro = Instance.new(&quot;BodyGyro&quot;)
+bodyGyro.P = 10000
+bodyGyro.cframe = missile.CFrame
+bodyGyro.Parent = missile
+
+
+local debris = game:GetService(&quot;Debris&quot;)function blow(hit)&#9;
+&#9;humanoid = hit.Parent:FindFirstChild(&quot;Humanoid&quot;)
+&#9;torso = hit.Parent:FindFirstChild(&quot;Torso&quot;)
+&#9;if humanoid ~= nil and torso ~=nil then &#9;&#9;
+&#9;&#9;local bodyVelocity = Instance.new(&quot;BodyVelocity&quot;)
+&#9;&#9;bodyVelocity.P = 100000
+&#9;&#9;bodyVelocity.maxForce = Vector3.new(bodyVelocity.P, bodyVelocity.P, bodyVelocity.P)
+&#9;&#9;bodyVelocity.velocity = (torso.Position - missile.Position) * 12
+&#9;&#9;bodyVelocity.Parent = torso
+&#9;&#9;wait(1.0)
+&#9;&#9;if bodyVelocity ~= nil then bodyVelocity:remove() end
+&#9;&#9;missile:Remove()
+&#9;end
+end
+
+connection = missile.Touched:connect(blow)
+wait(3)
+if bodyGyro then bodyGyro:Remove() end
+missile:Remove()</ProtectedString>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="Sound" referent="RBX6">
+			<Properties>
+				<bool name="Looped">false</bool>
+				<string name="Name">TubaSound</string>
+				<float name="Pitch">1</float>
+				<bool name="PlayOnRemove">false</bool>
+				<Content name="SoundId"><url>http://www.roblox.com/asset/?id=47697530 </url></Content>
+				<float name="Volume">1</float>
+			</Properties>
+		</Item>
+		<Item class="Animation" referent="RBX7">
+			<Properties>
+				<Content name="AnimationId"><url>http://www.roblox.com/Asset?ID=47700095</url></Content>
+				<string name="Name">Tuba</string>
+			</Properties>
+		</Item>
+		<Item class="Camera" referent="RBX8">
+			<Properties>
+				<Ref name="CameraSubject">null</Ref>
+				<token name="CameraType">0</token>
+				<CoordinateFrame name="CoordinateFrame">
+					<X>57.3743744</X>
+					<Y>2.38428402</Y>
+					<Z>-66.755455</Z>
+					<R00>0.959690928</R00>
+					<R01>-0.0483555906</R01>
+					<R02>-0.276866704</R02>
+					<R10>-3.72529119e-009</R10>
+					<R11>0.985088468</R11>
+					<R12>-0.172048613</R12>
+					<R20>0.281057745</R20>
+					<R21>0.165113494</R21>
+					<R22>0.94538033</R22>
+				</CoordinateFrame>
+				<float name="FieldOfView">70</float>
+				<CoordinateFrame name="Focus">
+					<X>59.043251</X>
+					<Y>3.42134595</Y>
+					<Z>-72.453949</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<string name="Name">ThumbnailCamera</string>
+			</Properties>
+		</Item>
+	</Item>
+</roblox>
