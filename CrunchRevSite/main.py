@@ -16,7 +16,6 @@ from flask import Flask, jsonify, request, send_from_directory, abort, redirect,
 import requests
 from waitress import serve
 from paste.translogger import TransLogger
-from werkzeug.exceptions import InternalServerError
 from flask_bcrypt import Bcrypt
 from functools import lru_cache
 import xml.etree.ElementTree as ET
