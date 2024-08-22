@@ -10,12 +10,12 @@ import logging
 webhook_logger = logging.getLogger('CrunchRev Webhooks Logs')
 webhook_logger.setLevel(logging.INFO)
 
-def send_arbiter_startup_webhook(placeId, client):
+def send_arbiter_startup_webhook(placeId, client, servah):
     webhook_url = "https://discord.com/api/webhooks/1271089751297884271/WwAXdJVNPAd7XVpRKYgphQSUr7rxbQ3v9ScQjQwedrVFRwZ-zF7OLEtuEnqy-32cKoOC"
 
     embed = {
-        "title": "Arbiter Startup Notification",
-        "description": f"The arbiter service has started successfully for placeId: {placeId} and client: {client}.",
+        "title": "RCCService Startup Notification",
+        "description": f"The RCCService has started successfully for placeId: {placeId} and client: {client} on the server IP: {servah}.",
         "color": 0x00ff00,
         "fields": [
             {
@@ -26,6 +26,11 @@ def send_arbiter_startup_webhook(placeId, client):
             {
                 "name": "Client",
                 "value": client,
+                "inline": True
+            },
+            {
+                "name": "Server IP",
+                "value": servah,
                 "inline": True
             },
             {
