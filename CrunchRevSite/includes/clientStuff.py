@@ -104,7 +104,7 @@ class Arbiter:
         if len(execution1) < 1:
             # no servers avaliable, request a new one.
             try:
-                requestArbiter = requests.get(f"http://{self.arbiterURL}/internal/arbiter/startgameserver?year={year}&placeId={placeID}")
+                requestArbiter = requests.get(f"http://{self.arbiterURL}/internal/arbiter/startgameserver?year={year}&placeId={placeID}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
             except:
                 return {
                     "success": False,
@@ -167,11 +167,11 @@ class Arbiter:
         self.db.execute_securely(sql, (jobId,))
 
     def shutdownPlaceIdServers(self, placeId):
-        getRequest = requests.get(f"http://{self.arbiterURL}/internal/gameserver/shutdownallservers?placeId={str(placeId)}")
+        getRequest = requests.get(f"http://{self.arbiterURL}/internal/gameserver/shutdownallservers?placeId={str(placeId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
         self.boomboomjobIds(placeId)
         return getRequest.json()
 
     def shutdownJobId(self, jobId):
-        getRequest = requests.get(f"http://{self.arbiterURL}/internal/gameserver/shutdownjobid?jobId={str(jobId)}")
+        getRequest = requests.get(f"http://{self.arbiterURL}/internal/gameserver/shutdownjobid?jobId={str(jobId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
         self.boomboomjobId(jobId)
         return getRequest.json()
