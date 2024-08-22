@@ -144,13 +144,10 @@ def launchtheplace():
     if 'success' in PlaceLauncherRequest:
         status = PlaceLauncherRequest['status']
         message = PlaceLauncherRequest['message']
+
         if not status in [0, 1, 4, 3]:
             jobID = PlaceLauncherRequest['jobId']
             joinScriptURL = f"http://www.{settings["URL"]}/game/join.ashx?placeId={placeIDarg}&jobId={jobID}"
-
-            IP = ArbiterClass.getServerAddressUsingJobId(jobID)[0]
-
-            send_arbiter_startup_webhook(placeIDarg, year, IP)
 
     json = {
         "jobId": jobID,
