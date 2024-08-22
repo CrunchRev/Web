@@ -90,7 +90,7 @@ class Arbiter:
         self.db.execute_securely(sqlQuery, params=(year, placeID, jobID, networkPort, serverIP))
 
     def requestServer(self, year, placeID):
-        arbiterURL = random.choice(self.arbiterURLs)
+        arbiterURL = random.choice(list(self.arbiterURLs))
         place = self.games.fetchOne(placeID)
 
         if place["info"] is None:
@@ -184,6 +184,6 @@ class Arbiter:
 
     def shutdownJobId(self, jobId):
         arbiterURL = f"{self.getServerAddressUsingJobId(jobId)[0]}:7209"
-        getRequest = requests.get(f"http://{self.arbiterURL}/internal/gameserver/shutdownjobid?jobId={str(jobId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
+        getRequest = requests.get(f"http://{arbiterURL}/internal/gameserver/shutdownjobid?jobId={str(jobId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
         self.boomboomjobId(jobId)
         return getRequest.json()
