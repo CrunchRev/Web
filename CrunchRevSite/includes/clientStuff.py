@@ -4,12 +4,12 @@
 Module description: controls rbxsig and tickets
 """
 
-from __main__ import *
-
 from OpenSSL import crypto
 from datetime import datetime
 import base64
 import random
+
+from includes.webhookStuff import *
 
 class Signer:
     def __init__(self, PK1024Path, PK2048Path):
