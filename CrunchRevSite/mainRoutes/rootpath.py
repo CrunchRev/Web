@@ -11,6 +11,7 @@ def setup():
     if f"setup.{settings["URL"]}" in request.host:
         file_path = request.path.lstrip('/')
         local_path = os.path.join(app.root_path, "staticContentSetup")
+        print(local_path)
         return send_from_directory(local_path, file_path, as_attachment=True)
 
 @app.route("/", methods=settings["HTTPMethods"])
