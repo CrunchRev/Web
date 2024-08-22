@@ -8,8 +8,11 @@ from __main__ import *
 
 @app.before_request
 def setup():
+    print(f"Request host: {request.host}")
     if f"setup.{settings["URL"]}" in request.host:
+        print(f"Request path: {request.path}")
         file_path = request.path.lstrip('/')
+        print(f"Sending file: {file_path}")
         return send_from_directory('staticContentSetup', file_path, as_attachment=True)
 
 @app.route("/", methods=settings["HTTPMethods"])
