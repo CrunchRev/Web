@@ -6,6 +6,12 @@ Route module description: controls everything under "/" path
 
 from __main__ import *
 
+@app.before_request
+def setup():
+    if f"setup.{settings["URL"]}" in request.host:
+        file_path = request.path.lstrip('/')
+        return send_from_directory('staticContentSetup', file_path, as_attachment=True)
+
 @app.route("/", methods=settings["HTTPMethods"])
 def root():
     cookiez = request.cookies

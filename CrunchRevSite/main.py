@@ -4,8 +4,6 @@
 Main CrunchRev core code
 """
 
-# Updater test 2 (ignore this)
-
 import logging
 import traceback
 import json
@@ -24,7 +22,8 @@ from settings import settings
 from includes.clientStuff import *
 from includes.chatStuff import *
 from includes.databaseStuff import *
-from includes.webhookStuff import *
+
+# from includes.webhookStuff import *
 
 print(r"""
    ____                       _     ____             __        __   _         _ _       
