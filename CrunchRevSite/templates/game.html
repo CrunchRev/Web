@@ -241,7 +241,7 @@ function StartClient() {
     ProgressBarReset();
 
     {% if not isRobloxApp %}
-      window.location.href = `crurev-player://${needsExtraFowardSlash ? '/' : ''}1+launchmode:play+gameinfo:${cookie}+placelauncherurl:http://www.unirev.xyz/game/PlaceLauncher.ashx?placeId=${placeid}+clientversion:${clientversion}`;
+      window.location.href = `crurev-player://${needsExtraFowardSlash ? '/' : ''}1+launchmode:play+gameinfo:${cookie}+placelauncherurl:http://www.unirev.xyz/game/PlaceLauncher.ashx?placeId=${placeid}+client:${clientversion}`;
     {% else %}
       window.location.href = `/games/start?placeid=${placeid}&userID={{ usrid|e }}`;
     {% endif %}
