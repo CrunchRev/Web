@@ -296,3 +296,7 @@ Disallow: *.php""", 200, {'Content-Type': 'text/plain'}
 @app.route("/favicon.ico", methods=settings["HTTPMethods"])
 def favicon():
     return send_from_directory('staticContent', "CrunchRevAsset1.png"), 200, {'Content-Type': 'image/png'}
+
+@app.route("/download", methods=settings["HTTPMethods"])
+def downloadakaredirect():
+    return redirect("https://discord.gg/6ruRdK9zkv")
