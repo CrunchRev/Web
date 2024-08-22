@@ -13,12 +13,16 @@ settings = {
         "DatabaseName": "crunchrev_database"
     },
     "whitelistedPlaceIPs": {
-        "86.209.13.245"
+        "86.209.13.245",
+        "52.5.217.76"
     },
     "PK1024Path": "../CrunchRevKeys/PrivateKey1024.pem",
     "PK2048Path": "../CrunchRevKeys/PrivateKey2048.pem",
     "FFlagsPath": "../ClientSettings/",
     "FFlags2018LPath": "../Client2018LSettings/",
     "HTTPMethods": ['GET', 'POST'],
-    "arbiterURL": "localhost:7209"
+    "arbiterURLs": {
+        "infra.unirev.xyz:7209",
+        "infra2.unirev.xyz:7209"
+    }
 }

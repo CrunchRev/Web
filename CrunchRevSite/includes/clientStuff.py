@@ -9,6 +9,7 @@ from __main__ import *
 from OpenSSL import crypto
 from datetime import datetime
 import base64
+import random
 
 class Signer:
     def __init__(self, PK1024Path, PK2048Path):
@@ -77,8 +78,8 @@ class Tickets:
         return final
 
 class Arbiter:
-    def __init__(self, arbiterURL, DBClass, GamesClass):
-        self.arbiterURL = arbiterURL
+    def __init__(self, arbiterURLs, DBClass, GamesClass):
+        self.arbiterURLs = arbiterURLs
         self.db = DBClass
         self.games = GamesClass
         return None
@@ -89,6 +90,7 @@ class Arbiter:
         self.db.execute_securely(sqlQuery, params=(year, placeID, jobID, networkPort, serverIP))
 
     def requestServer(self, year, placeID):
+        arbiterURL = random.choice(self.arbiterURLs)
         place = self.games.fetchOne(placeID)
 
         if place["info"] is None:
@@ -104,7 +106,7 @@ class Arbiter:
         if len(execution1) < 1:
             # no servers avaliable, request a new one.
             try:
-                requestArbiter = requests.get(f"http://{self.arbiterURL}/internal/arbiter/startgameserver?year={year}&placeId={placeID}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
+                requestArbiter = requests.get(f"http://{arbiterURL}/internal/arbiter/startgameserver?year={year}&placeId={placeID}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
             except:
                 return {
                     "success": False,
@@ -165,13 +167,23 @@ class Arbiter:
     def boomboomjobId(self, jobId): # I am silly xD x2
         sql = "DELETE FROM `jobs_in_use` WHERE `jobId` = %s"
         self.db.execute_securely(sql, (jobId,))
+    
+    def getServerAddressUsingPlaceId(self, placeId):
+        sql = "SELECT server_address FROM `jobs_in_use` WHERE `place_id` = %s"
+        return self.db.execute_securely(sql, (placeId,))
+
+    def getServerAddressUsingJobId(self, jobId):
+        sql = "SELECT server_address FROM `jobs_in_use` WHERE `jobId` = %s"
+        return self.db.execute_securely(sql, (jobId,))
 
     def shutdownPlaceIdServers(self, placeId):
-        getRequest = requests.get(f"http://{self.arbiterURL}/internal/gameserver/shutdownallservers?placeId={str(placeId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
+        arbiterURL = f"{self.getServerAddressUsingPlaceId(placeId)[0]}:7209"
+        getRequest = requests.get(f"http://{arbiterURL}/internal/gameserver/shutdownallservers?placeId={str(placeId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
         self.boomboomjobIds(placeId)
         return getRequest.json()
 
     def shutdownJobId(self, jobId):
+        arbiterURL = f"{self.getServerAddressUsingJobId(jobId)[0]}:7209"
         getRequest = requests.get(f"http://{self.arbiterURL}/internal/gameserver/shutdownjobid?jobId={str(jobId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
         self.boomboomjobId(jobId)
         return getRequest.json()

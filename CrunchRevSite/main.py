@@ -71,7 +71,7 @@ Filter = TextFilter()
 Tickets = Tickets(settings["PK1024Path"], settings["PK2048Path"])
 UserDB = UserDB(Database, bcrypt)
 GamesDB = GamesDB(Database, settings["URL"])
-ArbiterClass = Arbiter(settings["arbiterURL"], Database, GamesDB)
+ArbiterClass = Arbiter(settings["arbiterURLs"], Database, GamesDB)
 Assets = Assets(Database)
 
 def includeRoutes():
