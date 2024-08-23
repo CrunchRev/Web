@@ -193,7 +193,7 @@ def signup():
 
                 return resp
             else:
-                return jsonify({"message": "Not valid username or invite key. Make sure the username is unique, does not contain spaces. It must be 20 characters maximum and 3 character minimum. Also make sure your invite key is valid. It might be also an internal error. 400"}), 400
+                return jsonify({"message": "Not valid username or invite key. Make sure the username is unique, does not contain spaces. It must be 20 characters maximum and 3 characters minimum. Also make sure your invite key is valid. It might be also an internal error. 400"}), 400
         else:
             return jsonify({"message": "Passwords do not match. 400"}), 400
 
