@@ -10,6 +10,8 @@ from mysql.connector import Error, pooling
 import mysql.connector
 import secrets
 
+from includes.webhookStuff import *
+
 logging.basicConfig(
     level=logging.DEBUG,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -135,7 +137,7 @@ class UserDB:
         userid = useridResult[0] if useridResult else None
 
         if userid is not None:
-            send_webhook(username, invite_key, str(userid))
+            send_webhook_signup(username, invite_key, str(userid))
             return True, prepared_cookie
 
         return False, None

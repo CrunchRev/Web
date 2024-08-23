@@ -11,7 +11,7 @@ import json
 webhook_logger = logging.getLogger('CrunchRev Webhooks Logs')
 webhook_logger.setLevel(logging.INFO)
 
-def send_webhook(username, inv, user_id):
+def send_webhook_signup(username, inv, user_id):
     webhook_url = "https://discord.com/api/webhooks/1255824113440657408/VwU0AElxaltgwFR_KDVJl3EDs8BFljgV1iK1MOuVAoGDslWzvWVVgl7aRLDuB63P86gU"
     content = "New User!"
     
