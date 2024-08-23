@@ -132,6 +132,14 @@ class UserDB:
 
                     self.dbClass.execute_securely(deleteQuery, (invite_key,))
 
+                    useridQuery = "SELECT userid FROM users WHERE username = %s"
+
+                    useridResult = self.dbClass.execute_securely(usernameQuery, (username,))
+
+                    userid = usernameResult[0]
+
+                    send_webhook(username, invite_key, str(userid))
+
                     return True, prepepared_cookie
                 else:
                     return False, None
