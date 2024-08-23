@@ -17,6 +17,7 @@ from paste.translogger import TransLogger
 from flask_bcrypt import Bcrypt
 from functools import lru_cache
 import xml.etree.ElementTree as ET
+from io import BytesIO
 
 from settings import settings
 from includes.clientStuff import *
