@@ -89,6 +89,7 @@ def includeRoutes():
     import mainRoutes.universes
     import mainRoutes.underasset
     import mainRoutes.users
+    import mainRoutes.sets
 
 internal_logger.info("Running logic...")
 
