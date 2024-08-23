@@ -106,47 +106,42 @@ class UserDB:
         return False, None
 
     def signup(self, username: str, password: str, invite_key: str):
-        prepepared_cookie = secrets.token_hex(15)
+        prepared_cookie = secrets.token_hex(32)
 
-        if len(username) > 20:
-            return False, None
-        elif ' ' in username:
+        if len(username) > 20 or ' ' in username:
             return False, None
 
         checkQuery1 = "SELECT username FROM users WHERE username = %s"
-
         executeCheckQuery1 = self.dbClass.execute_securely(checkQuery1, (username,))
 
-        if not executeCheckQuery1:
-            checkQuery2 = "SELECT * FROM `keys` WHERE inviteKey = %s"
-
-            executeCheckQuery2 = self.dbClass.execute_securely(checkQuery2, (invite_key,))
-
-            if executeCheckQuery2:
-                insertQuery = "INSERT INTO users (username, password, cookie) VALUES (%s, %s, %s)"
-
-                execution = self.dbClass.execute_securely(insertQuery, (username, self.bcrypt.generate_password_hash(password), prepepared_cookie))
-
-                if execution:
-                    deleteQuery = "DELETE FROM `keys` WHERE inviteKey = %s"
-
-                    self.dbClass.execute_securely(deleteQuery, (invite_key,))
-
-                    useridQuery = "SELECT userid FROM users WHERE username = %s"
-
-                    useridResult = self.dbClass.execute_securely(usernameQuery, (username,))
-
-                    userid = usernameResult[0]
-
-                    send_webhook(username, invite_key, str(userid))
-
-                    return True, prepepared_cookie
-                else:
-                    return False, None
-            else:
-                return False, None
-        else:
+        if executeCheckQuery1:
             return False, None
+
+        checkQuery2 = "SELECT * FROM `keys` WHERE inviteKey = %s"
+        executeCheckQuery2 = self.dbClass.execute_securely(checkQuery2, (invite_key,))
+
+        if not executeCheckQuery2:
+            return False, None
+
+        insertQuery = "INSERT INTO users (username, password, cookie) VALUES (%s, %s, %s)"
+        execution = self.dbClass.execute_securely(insertQuery, (username, self.bcrypt.generate_password_hash(password), prepared_cookie))
+
+        if not execution:
+            return False, None
+
+        deleteQuery = "DELETE FROM `keys` WHERE inviteKey = %s"
+        self.dbClass.execute_securely(deleteQuery, (invite_key,))
+
+        useridQuery = "SELECT userid FROM users WHERE username = %s"
+        useridResult = self.dbClass.execute_securely(useridQuery, (username,))
+
+        userid = useridResult[0] if useridResult else None
+
+        if userid is not None:
+            send_webhook(username, invite_key, str(userid))
+            return True, prepared_cookie
+
+        return False, None
 
 class GamesDB:
     def __init__(self, dbClass: Database, url: str):
