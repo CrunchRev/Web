@@ -240,6 +240,8 @@ function StartClient() {
 
     ProgressBarReset();
 
+    console.log("Needs extra foward slash: " + needsExtraFowardSlash);
+
     {% if not isRobloxApp %}
       window.location.href = `crurev-player://${needsExtraFowardSlash ? '/' : ''}1+launchmode:play+gameinfo:${cookie}+placelauncherurl:http://www.unirev.xyz/game/PlaceLauncher.ashx?placeId=${placeid}+client:${clientversion}`;
     {% else %}
