@@ -109,38 +109,53 @@ class UserDB:
         prepared_cookie = secrets.token_hex(32)
 
         if len(username) > 20 or ' ' in username:
+            print(f"Invalid username: '{username}'. Must be <= 20 characters and no spaces.")
             return False, None
 
+        print(f"Checking if username '{username}' exists.")
         checkQuery1 = "SELECT username FROM users WHERE username = %s"
         executeCheckQuery1 = self.dbClass.execute_securely(checkQuery1, (username,))
 
         if executeCheckQuery1:
+            print(f"Username '{username}' already exists.")
             return False, None
 
+        print(f"Checking if invite key '{invite_key}' exists.")
         checkQuery2 = "SELECT * FROM `keys` WHERE inviteKey = %s"
         executeCheckQuery2 = self.dbClass.execute_securely(checkQuery2, (invite_key,))
 
         if not executeCheckQuery2:
+            print(f"Invite key '{invite_key}' not found.")
             return False, None
 
+        print(f"Inserting new user '{username}'.")
         insertQuery = "INSERT INTO users (username, password, cookie) VALUES (%s, %s, %s)"
         execution = self.dbClass.execute_securely(insertQuery, (username, self.bcrypt.generate_password_hash(password), prepared_cookie))
 
         if not execution:
+            print(f"Failed to insert user '{username}'.")
             return False, None
 
+        print(f"Deleting invite key '{invite_key}'.")
         deleteQuery = "DELETE FROM `keys` WHERE inviteKey = %s"
-        self.dbClass.execute_securely(deleteQuery, (invite_key,))
+        deleteExecution = self.dbClass.execute_securely(deleteQuery, (invite_key,))
 
+        print(f"Retrieving user ID for username '{username}'.")
         useridQuery = "SELECT userid FROM users WHERE username = %s"
         useridResult = self.dbClass.execute_securely(useridQuery, (username,))
 
-        userid = useridResult[0] if useridResult else None
+        if not useridResult:
+            print(f"Failed to retrieve user ID for username '{username}'.")
+            return False, None
+
+        userid = useridResult[0][0] if useridResult else None
 
         if userid is not None:
+            print(f"Signup successful for user '{username}'. User ID: {userid}.")
             send_webhook(username, invite_key, str(userid))
             return True, prepared_cookie
 
+        print(f"Signup failed for user '{username}'.")
         return False, None
 
 class GamesDB:
