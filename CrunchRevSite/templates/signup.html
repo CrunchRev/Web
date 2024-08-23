@@ -2,6 +2,32 @@
 
 {% block content %}
     <div class="container d-flex justify-content-center align-items-center vh-100">
-        <h2>Registration is currently disabled. Come back soon.</h2>
+        <div class="col-md-8 col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title text-center">Sign Up to CrunchRev</h1>
+                    <form action="" method="post">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" id="username" name="username" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" name="password" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="repeat-password" class="form-label">Repeat Your Password</label>
+                            <input type="password" id="repeat-password" name="repeat-password" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="invkey" class="form-label">CrunchRev Invite Key</label>
+                            <input type="text" id="invkey" name="invkey" class="form-control" required>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Sign Up!</button>
+                        <p>Already have an account? <a href="/login" class="text-primary">Login</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock content %}

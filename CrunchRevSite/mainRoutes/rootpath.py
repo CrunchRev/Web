@@ -175,25 +175,27 @@ def signup():
     if (loggedIn):
         return redirect("/home")
 
-    """
-
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
-        loggedInResult, cookie = UserDB.login(username, password)
+        invite_key = request.form.get("invkey")
+        repeat_password = request.form.get("repeat-password")
 
-        if loggedInResult is True:
-            resp = make_response("Success! <a href='/games'>Get started!</a>", 200)
-            domain = f".{settings['URL']}"
-            expiration = int(time.time() + (365 * 24 * 60 * 60))
+        if password == repeat_password:
+            signUpResult, cookie = UserDB.signup(username, password, invite_key)
 
-            resp.set_cookie(key=".ROBLOSECURITY", value=cookie, expires=expiration, domain=domain)
+            if signUpResult is True:
+                resp = make_response("Success! <a href='/home'>Go to home page</a>", 200)
+                domain = f".{settings['URL']}"
+                expiration = int(time.time() + (365 * 24 * 60 * 60))
 
-            return resp
+                resp.set_cookie(key=".ROBLOSECURITY", value=cookie, expires=expiration, domain=domain, samesite='Lax')
+
+                return resp
+            else:
+                return jsonify({"message": "Not valid username or invite key. Make sure the username is unique, does not contain spaces and is 20 characters maximum. Also make sure your invite key is valid. It might be also an internal error. 400"}), 400
         else:
-            return jsonify({"message": "Invalid username or password, 400"}), 400
-            
-    """
+            return jsonify({"message": "Passwords do not match. 400"}), 400
 
     return render_template("signup.html", baseurl=settings["URL"]), 200
 

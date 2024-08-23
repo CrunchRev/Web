@@ -8,6 +8,7 @@ import logging
 from typing import Optional, Union, List, Tuple, Any
 from mysql.connector import Error, pooling
 import mysql.connector
+import secrets
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -103,6 +104,41 @@ class UserDB:
             if self.bcrypt.check_password_hash(execution[1], password):
                 return True, execution[2]
         return False, None
+
+    def signup(self, username: str, password: str, invite_key: str):
+        prepepared_cookie = secrets.token_hex(15)
+
+        if len(username) > 20:
+            return False, None
+        elif ' ' in username:
+            return False, None
+
+        checkQuery1 = "SELECT username FROM users WHERE username = %s"
+
+        executeCheckQuery1 = self.dbClass.execute_securely(checkQuery1, (username,))
+
+        if not executeCheckQuery1:
+            checkQuery2 = "SELECT invite_key FROM `keys` WHERE invite_key = %s"
+
+            executeCheckQuery2 = self.dbClass.execute_securely(checkQuery2, (invite_key,))
+
+            if executeCheckQuery2:
+                insertQuery = "INSERT INTO users (username, password, cookie) VALUES (%s, %s, %s)"
+
+                execution = self.dbClass.execute_securely(insertQuery, (username, self.bcrypt.generate_password_hash(password), prepepared_cookie))
+
+                if execution:
+                    deleteQuery = "DELETE FROM `keys` WHERE invite_key = %s"
+
+                    self.dbClass.execute_securely(deleteQuery, (invite_key,))
+
+                    return True, prepepared_cookie
+                else:
+                    return False, None
+            else:
+                return False, None
+        else:
+            return False, None
 
 class GamesDB:
     def __init__(self, dbClass: Database, url: str):
