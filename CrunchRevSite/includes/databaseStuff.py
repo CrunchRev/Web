@@ -118,7 +118,7 @@ class UserDB:
         executeCheckQuery1 = self.dbClass.execute_securely(checkQuery1, (username,))
 
         if not executeCheckQuery1:
-            checkQuery2 = "SELECT invite_key FROM `keys` WHERE invite_key = %s"
+            checkQuery2 = "SELECT * FROM `keys` WHERE inviteKey = %s"
 
             executeCheckQuery2 = self.dbClass.execute_securely(checkQuery2, (invite_key,))
 
@@ -128,7 +128,7 @@ class UserDB:
                 execution = self.dbClass.execute_securely(insertQuery, (username, self.bcrypt.generate_password_hash(password), prepepared_cookie))
 
                 if execution:
-                    deleteQuery = "DELETE FROM `keys` WHERE invite_key = %s"
+                    deleteQuery = "DELETE FROM `keys` WHERE inviteKey = %s"
 
                     self.dbClass.execute_securely(deleteQuery, (invite_key,))
 
