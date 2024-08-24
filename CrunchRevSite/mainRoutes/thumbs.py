@@ -12,9 +12,9 @@ def GameIcon():
     fetchGamezzzz = GamesDB.fetchOne(assetId)
 
     if fetchGamezzzz["info"]:
-        return redirect(f"/staticContent/thumbnailGamesStorage/{fetchGamezzzz["info"][3]}")
+        return redirect(f"https://thumbscdn.{settings['URL']}/{fetchGamezzzz["info"][3]}")
     else:
-        return redirect("/staticContent/thumbnailGamesStorage/Default.png")
+        return redirect(F"https://thumbscdn.{settings['URL']}/Default.png")
 
 @app.route("/asset-thumbnail/json", methods=settings["HTTPMethods"])
 def jsonasset():
