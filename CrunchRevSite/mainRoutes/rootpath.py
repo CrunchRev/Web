@@ -150,6 +150,11 @@ def login():
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
+        passedToken = request.form.get("safetyToken") or ""
+
+        if Token.checkToken(passedToken) is False:
+            return jsonify({"message": "Invalid safety token, try regoing to the page. 400"}), 400
+
         loggedInResult, cookie = UserDB.login(username, password)
 
         if loggedInResult is True:
@@ -163,7 +168,9 @@ def login():
         else:
             return jsonify({"message": "Invalid username or password, 400"}), 400
 
-    return render_template("login.html", baseurl=settings["URL"]), 200
+    safety_token = Token.generateToken()
+
+    return render_template("login.html", baseurl=settings["URL"], safety_token=safety_token), 200
 
 @app.route("/signup", methods=settings["HTTPMethods"])
 def signup():
@@ -184,6 +191,10 @@ def signup():
         password = request.form.get("password")
         invite_key = request.form.get("invkey")
         repeat_password = request.form.get("repeat-password")
+        passedToken = request.form.get("safetyToken") or ""
+
+        if Token.checkToken(passedToken) is False:
+            return jsonify({"message": "Invalid safety token, try regoing to the page. 400"}), 400
 
         if password == repeat_password:
             signUpResult, cookie = UserDB.signup(username, password, invite_key)
@@ -201,7 +212,9 @@ def signup():
         else:
             return jsonify({"message": "Passwords do not match. 400"}), 400
 
-    return render_template("signup.html", baseurl=settings["URL"]), 200
+    safety_token = Token.generateToken()
+
+    return render_template("signup.html", baseurl=settings["URL"], safety_token=safety_token), 200
 
 # module
 

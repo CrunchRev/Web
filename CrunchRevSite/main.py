@@ -23,6 +23,7 @@ from settings import settings
 from includes.clientStuff import *
 from includes.chatStuff import *
 from includes.databaseStuff import *
+from includes.safeTokensStuff import *
 
 # from includes.webhookStuff import *
 
@@ -73,6 +74,7 @@ UserDB = UserDB(Database, bcrypt)
 GamesDB = GamesDB(Database, settings["URL"])
 ArbiterClass = Arbiter(settings["arbiterURLs"], Database, GamesDB)
 Assets = Assets(Database)
+Token = Token()
 
 def includeRoutes():
     import mainRoutes.join

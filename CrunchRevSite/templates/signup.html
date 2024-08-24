@@ -23,6 +23,7 @@
                             <label for="invkey" class="form-label">CrunchRev Invite Key</label>
                             <input type="text" id="invkey" name="invkey" class="form-control" required>
                         </div>
+                        <input type="hidden" name="safetyToken" value="{{ safety_token|e }}">
                         <button class="btn btn-primary" type="submit">Sign Up!</button>
                         <p>Already have an account? <a href="/login" class="text-primary">Login</a></p>
                     </form>
