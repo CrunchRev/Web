@@ -801,6 +801,8 @@
     "FFlagFixUphillClimb": "True",
     "FFlagFixUsePartColorBug": "True",
     "FFlagFixWindowsMultipleMonitorMaximize": "True",
+    "FFlagFreeCameraForAdmins": "True",
+    "FFlagFreeCameraForDevelopers": "True",
     "FFlagFlexibleTipping": "True",
     "FFlagFlyCamOnRenderStep": "True",
     "FFlagFontSizeUseLargest": "True",
@@ -1611,7 +1613,5 @@
     "SFFlagUseNewSetFMOD3D": "True",
     "StartPageUrl": "/ide/welcome",
     "VideoPreRollWaitTimeSeconds": "45",
-    "FFlagRequireRbxSig2":"True",
-    "FFlagFreeCameraForAdmins": "True",
-    "FFlagFreeCameraForDevelopers": "True"
+    "FFlagRequireRbxSig2":"True"
   }
