@@ -12,7 +12,7 @@ def GameIcon():
     fetchGamezzzz = GamesDB.fetchOne(assetId)
 
     if fetchGamezzzz["info"]:
-        return redirect(f"staticContent/thumbnailGamesStorage/{fetchGamezzzz["info"][3]}")
+        return redirect(f"/staticContent/thumbnailGamesStorage/{fetchGamezzzz["info"][3]}")
     else:
         return redirect("/staticContent/thumbnailGamesStorage/Default.png")
 
