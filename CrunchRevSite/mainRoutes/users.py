@@ -17,4 +17,4 @@ def ownership(playerId, placeId):
 
     ownership = (user_info[0] == game_data["assets"][4]) or (user_info[8] == 1)
 
-    return jsonify({"Success": True, "CanManage": ownership})
+    return jsonify({"Success": True, "CanManage": ownership}), 200

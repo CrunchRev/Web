@@ -1611,5 +1611,7 @@
     "SFFlagUseNewSetFMOD3D": "True",
     "StartPageUrl": "/ide/welcome",
     "VideoPreRollWaitTimeSeconds": "45",
-    "FFlagRequireRbxSig2":"True"
+    "FFlagRequireRbxSig2":"True",
+    "FFlagFreeCameraForAdmins": "True",
+    "FFlagFreeCameraForDevelopers": "True"
   }

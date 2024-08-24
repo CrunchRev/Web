@@ -29,13 +29,13 @@ def processsocialrequest():
         root.text = 'false'
     elif method == "IsInGroup":
         root.set('Type', 'boolean')
-        if groupid == "1200769":
+        if groupid in ["1200769", "3013794", "4358041"]:
             root.text = 'true' if is_an_admin else 'false'
         else:
             root.text = 'false'
     elif method == "GetGroupRank":
         root.set('Type', 'integer')
-        if groupid == "1200769":
+        if groupid in ["1200769", "3013794", "4358041"]:
             root.text = '255' if is_an_admin else '0'
         else:
             root.text = '0'
