@@ -110,7 +110,7 @@ class UserDB:
     def signup(self, username: str, password: str, invite_key: str):
         prepared_cookie = secrets.token_hex(32)
 
-        if len(username) > 20 or len(username) < 3 or ' ' in username:
+        if len(username) > 20 or len(username) < 3 or ' ' in username or username.lower() == "roblox":
             return False, None
 
         checkQuery1 = "SELECT username FROM users WHERE username = %s"
