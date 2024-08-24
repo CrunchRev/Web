@@ -8,7 +8,13 @@ from __main__ import *
 
 @app.route("/Thumbs/GameIcon.ashx", methods=settings["HTTPMethods"])
 def GameIcon():
-    return redirect("/staticContent/thumbnailForPlaces.png")
+    assetId = request.args.get("assetId")
+    fetchGamezzzz = GamesDB.fetchOne(assetId)
+
+    if fetchGamezzzz["info"]:
+        return redirect(f"staticContent/thumbnailGamesStorage/{fetchGamezzzz["info"][3]}")
+    else:
+        return redirect("/staticContent/thumbnailGamesStorage/Default.png")
 
 @app.route("/asset-thumbnail/json", methods=settings["HTTPMethods"])
 def jsonasset():
