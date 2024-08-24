@@ -28,7 +28,7 @@ class Token:
         return secretToken
 
     def checkToken(self, token):
-        if token in avaliable_tokens:
+        if token in self.avaliable_tokens:
             self.avaliable_tokens.remove(token)
             return True
         else:
