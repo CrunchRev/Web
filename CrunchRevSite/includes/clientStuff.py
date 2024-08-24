@@ -8,8 +8,15 @@ from OpenSSL import crypto
 from datetime import datetime
 import base64
 import random
+import logging
 
 from includes.webhookStuff import *
+
+logging.basicConfig(logging.INFO,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+sm_logger = logging.getLogger('CrunchRev Server Management Logs')
+sm_logger.setLevel(logging.INFO)
 
 class Signer:
     def __init__(self, PK1024Path, PK2048Path):
@@ -108,11 +115,8 @@ class Arbiter:
             try:
                 requestArbiter = requests.get(f"http://{arbiterURL}/internal/arbiter/startgameserver?year={year}&placeId={placeID}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
             except:
-                return {
-                    "success": False,
-                    "status": 4,
-                    "message": "Game failed to start"
-                }
+                sm_logger.error(f"Failed to request server from {arbiterURL}, retrying...")
+                return self.requestServer(year, placeID)
             
             if not requestArbiter.status_code == requests.codes.ok:
                 return {
@@ -176,12 +180,19 @@ class Arbiter:
     def shutdownPlaceIdServers(self, placeId):
         arbiterURLsList = list(self.arbiterURLs)
         for url in arbiterURLsList:
-            getRequest = requests.get(f"http://{url}/internal/gameserver/shutdownallservers?placeId={str(placeId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
+            try:
+                getRequest = requests.get(f"http://{url}/internal/gameserver/shutdownplaceidservers?placeId={str(placeId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
+            except:
+                sm_logger.error(f"Failed to shutdown servers on {url}, skipping...")
+                continue
         self.boomboomjobIds(placeId)
         return getRequest.json()
 
     def shutdownJobId(self, jobId):
         arbiterURL = f"{self.getServerAddressUsingJobId(jobId)[0]}:7209"
-        getRequest = requests.get(f"http://{arbiterURL}/internal/gameserver/shutdownjobid?jobId={str(jobId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
+        try:
+            getRequest = requests.get(f"http://{arbiterURL}/internal/gameserver/shutdownjobid?jobId={str(jobId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
+        except:
+            sm_logger.error(f"Failed to shutdown servers on {arbiterURL}")
         self.boomboomjobId(jobId)
         return getRequest.json()
