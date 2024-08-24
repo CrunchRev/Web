@@ -16,10 +16,11 @@
 
 <body>
     <div id="crunch-root">
-        <div class="sticky-top">
+        <div class="fixed-top">
             <nav class="navbar crunch-navbar navbar-expand-sm navbar-light shadow-sm">
                 <a class="navbar-brand" href="/">
-                    <img src="/staticContent/CrunchRevAsset1.png" id="crunch-logo" alt="CrunchRev Logo" loading="lazy">
+                    <img src="/staticContent/CrunchRevAsset1.png" id="crunch-logo" alt="CrunchRev Logo" loading="lazy"
+                        class="img-fluid">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -28,7 +29,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item active">
                             <a class="nav-link" href="/home">Home</a>
                         </li>
@@ -53,7 +54,7 @@
                         </a>
                     </li>
                     <a class="nav-item text-decoration-none text-dark" href="/users/{{ userinfo[0]|e }}">
-                        <img src="/staticContent/Placeholder.png" class="rounded-circle" height="40" width="40"
+                        <img src="/staticContent/Placeholder.png" class="rounded-circle img-fluid" height="40" width="40"
                             alt="{{ userinfo[1]|e }}'s Avatar Headshot">
                         {{ userinfo[1]|e }}
                     </a>
@@ -70,7 +71,7 @@
                         </div>
                     </div>
                     {% else %}
-                    <li class="nav-item" style="margin-right: 10px;">
+                    <li class="nav-item me-2">
                         <a class="btn btn-secondary" href="/login">Log In</a>
                     </li>
                     <li class="nav-item">
@@ -112,7 +113,7 @@
             {% endif %}
         </div>
 
-        <div class="mt-5 crunch-content-body">
+        <div class="mt-5 pt-4 crunch-content-body">
             {% block content %}{% endblock content %}
         </div>
 
