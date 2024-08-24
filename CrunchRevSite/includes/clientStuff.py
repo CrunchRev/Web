@@ -12,7 +12,7 @@ import logging
 
 from includes.webhookStuff import *
 
-logging.basicConfig(logging.INFO,
+logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 sm_logger = logging.getLogger('CrunchRev Server Management Logs')

@@ -8,7 +8,7 @@ import requests
 import logging
 import json
 
-logging.basicConfig(logging.INFO,
+logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 webhook_logger = logging.getLogger('CrunchRev Webhooks Logs')
