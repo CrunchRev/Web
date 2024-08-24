@@ -181,12 +181,15 @@ class Arbiter:
         arbiterURLsList = list(self.arbiterURLs)
         for url in arbiterURLsList:
             try:
-                getRequest = requests.get(f"http://{url}/internal/gameserver/shutdownplaceidservers?placeId={str(placeId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
+                getRequest = requests.get(f"http://{url}/internal/gameserver/shutdownallservers?placeId={str(placeId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
                 self.boomboomjobIds(placeId)
                 return getRequest.json()
             except:
                 sm_logger.error(f"Failed to shutdown servers on {url}, skipping...")
                 continue
+        
+        return {"success": False, "message": "Failed to shutdown servers"}
+
     def shutdownJobId(self, jobId):
         arbiterURL = f"{self.getServerAddressUsingJobId(jobId)[0]}:7209"
         try:
@@ -195,3 +198,5 @@ class Arbiter:
             return getRequest.json()
         except:
             sm_logger.error(f"Failed to shutdown servers on {arbiterURL}")
+
+        return {"success": False, "message": "Failed to shutdown job id"}
