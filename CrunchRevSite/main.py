@@ -18,6 +18,7 @@ from flask_bcrypt import Bcrypt
 from functools import lru_cache
 import xml.etree.ElementTree as ET
 from io import BytesIO
+import itertools
 
 from settings import settings
 from includes.clientStuff import *
@@ -75,6 +76,7 @@ GamesDB = GamesDB(Database, settings["URL"])
 ArbiterClass = Arbiter(settings["arbiterURLs"], Database, GamesDB)
 Assets = Assets(Database)
 Token = Token()
+DataStore = DataStore(Database)
 
 def includeRoutes():
     import mainRoutes.join
@@ -93,6 +95,7 @@ def includeRoutes():
     import mainRoutes.underasset
     import mainRoutes.users
     import mainRoutes.sets
+    import mainRoutes.persistence
 
 internal_logger.info("Running logic...")
 

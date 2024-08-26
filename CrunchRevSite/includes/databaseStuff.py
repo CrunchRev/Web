@@ -198,3 +198,22 @@ class Assets:
         execution1 = self.dbClass.execute_securely(query1, (playerId,), True) # I think it would be like [(2383822), (328734818)], etc.
 
         return execution1
+
+class DataStore:
+    def __init__(self, dbClass: Database):
+        self.dbClass = dbClass
+
+    def setData(self, scope: str, target: str, key: str, value):
+        executionQuery = "INSERT INTO `data_persistence` (`scope`, `target`, `key`, `value`) VALUES (%s, %s, %s, %s)"
+        self.dbClass.execute_securely(executionQuery, (scope, target, key, value))
+
+        return True
+    
+    def getData(self, scope: str, target: str, key: str):
+        execQueryFetch = "SELECT `value` FROM `data_persistence` WHERE `scope` = %s AND `target` = %s AND `key` = %s"
+        fetchedResult = self.dbClass.execute_securely(execQueryFetch, (scope, target, key))
+
+        if fetchedResult is None:
+            return None
+        
+        return fetchedResult
