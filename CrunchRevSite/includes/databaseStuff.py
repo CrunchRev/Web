@@ -216,5 +216,7 @@ class DataStore:
         if fetchedResult is None or fetchedResult == True:
             return None
         
+        logging.info(fetchedResult)
+        
         finalResult = fetchedResult[3]
         return finalResult
