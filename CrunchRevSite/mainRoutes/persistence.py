@@ -51,13 +51,8 @@ def getVersion2():
 
         result = DataStore.getData(scope, target, key)
 
-        if result is None:
-            break
-
-        value = result[3]
-
         return_data.append({
-            "Value": json.dumps(value),
+            "Value": json.dumps(result),
             "Scope": scope,
             "Key": key,
             "Target": target,

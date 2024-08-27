@@ -213,7 +213,8 @@ class DataStore:
         execQueryFetch = "SELECT `value` FROM `data_persistence` WHERE `scope` = %s AND `target` = %s AND `key` = %s"
         fetchedResult = self.dbClass.execute_securely(execQueryFetch, (scope, target, key))
 
-        if fetchedResult is None:
+        if fetchedResult is None or fetchedResult == True:
             return None
         
-        return fetchedResult
+        finalResult = fetchedResult[3]
+        return finalResult
