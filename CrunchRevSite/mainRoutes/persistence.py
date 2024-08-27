@@ -46,7 +46,12 @@ def getVersion2():
         result = DataStore.getData(scope, target, key)
 
         if result is None:
-            break
+            # gonna experiment with that \/ \/ \/
+
+            # break
+
+            DataStore.setData(scope, target, key, "0")
+            result = DataStore.getData(scope, target, key)
 
         logger.info(f"Retrieved data for scope: {scope}, target: {target}, key: {key}, result: {result}")
 
