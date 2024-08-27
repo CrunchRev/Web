@@ -72,11 +72,11 @@ def getVersion2():
 
         starting_count += 1
 
-    if not return_data or starting_count == 0:
+    if len(return_data) == 0:
         logger.warning("No data being requested.")
-        return jsonify({"data": [], "message": "No data being requested"}), 200
+        return jsonify({"data":[], "message": "No data being requested"}), 200
     
-    data = {"data": return_data}
+    data = {"data":return_data}
     logger.info(f"Data: {data}")
     
     return jsonify(data), 200
