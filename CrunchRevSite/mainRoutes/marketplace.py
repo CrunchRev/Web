@@ -13,7 +13,7 @@ from __main__ import *
 @app.route("/marketplace/productDetails", methods=settings["HTTPMethods"])
 @app.route("/marketplace/productDetails/", methods=settings["HTTPMethods"]) # adding these two because they are the same (?)
 def prodInfo():
-    assetId = int(request.args.get("assetId"))
+    assetId = int(request.args.get("assetId") or request.args.get("productId"))
 
     if not assetId:
         return {"success": False, "message": "400, Please specify assetId argument."}, 400, {"Content-Type": "application/json"}
