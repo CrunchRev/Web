@@ -56,10 +56,13 @@ def getVersion2():
 
         result = DataStore.getData(scope, target, key)
 
+        if result is None:
+            return jsonify({"data": []}), 200
+
         logger.info(f"Retrieved data for scope: {scope}, target: {target}, key: {key}, result: {result}")
 
         return_data.append({
-            "Value": str(result),
+            "Value": result,
             "Scope": scope,
             "Key": key,
             "Target": target,
