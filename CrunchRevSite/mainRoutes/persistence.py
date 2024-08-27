@@ -27,7 +27,7 @@ def setPersistence():
 
 @app.route('/persistence/getv2', methods=["POST"])
 @app.route('/persistence/getV2', methods=["POST"])
-@app.route('/persistence/getSortedValues', methods=["POST"])
+# @app.route('/persistence/getSortedValues', methods=["POST"]) # this one will have other format
 def getVersion2():
     form_data = request.form
 
@@ -46,15 +46,15 @@ def getVersion2():
         result = DataStore.getData(scope, target, key)
 
         if result is None:
-            return jsonify({"data": []}), 200
+            break
 
         logger.info(f"Retrieved data for scope: {scope}, target: {target}, key: {key}, result: {result}")
 
         return_data.append({
-            "Value": result,
-            "Scope": scope,
-            "Key": key,
-            "Target": target,
+            "Value": str(result),
+            "Scope": str(scope),
+            "Key": str(key),
+            "Target": str(target),
         })
 
         starting_count += 1
