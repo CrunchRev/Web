@@ -6,6 +6,8 @@ Route module description: controls everything under "/persistence/" path
 
 from __main__ import *
 
+loggerThis = logging.getLogger(__name__)
+
 @app.route("/persistence/set", methods=["POST"])
 def setPersistence():
     query = request.args
@@ -18,6 +20,8 @@ def setPersistence():
     value_str = form_data.get('value', 'null')
     value = json.loads(value_str)
 
+    logger.info(f"Setting data with scope: {scope}, target: {target}, key: {key}, value: {value}")
+    
     DataStore.setData(scope, target, key, value)
     return jsonify({"data": value}), 200
 
@@ -51,6 +55,8 @@ def getVersion2():
 
         result = DataStore.getData(scope, target, key)
 
+        logger.info(f"Retrieved data for scope: {scope}, target: {target}, key: {key}, result: {result}")
+
         return_data.append({
             "Value": json.dumps(result),
             "Scope": scope,
@@ -59,6 +65,7 @@ def getVersion2():
         })
 
     if starting_count == 0:
+        logger.warning("No data being requested.")
         return jsonify({"data": [], "message": "No data being requested"}), 200
     
     return jsonify({"data": return_data}), 200
