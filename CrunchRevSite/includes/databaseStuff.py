@@ -215,35 +215,45 @@ class DataStore:
         except json.JSONDecodeError:
             return value
 
-    def insertData(self, scope: str, target: str, key: str, value: Any) -> bool:
+    def insertData(self, scope: str, target: str, key: str, value: Any, placeId: int) -> bool:
         serialized_value = self.serialize_value(value)
         
-        executionQuery = "INSERT INTO `data_persistence` (`scope`, `target`, `key`, `value`) VALUES (%s, %s, %s, %s)"
-        self.dbClass.execute_securely(executionQuery, (scope, target, key, serialized_value))
+        executionQuery = """
+        INSERT INTO `data_persistence` (`scope`, `target`, `key`, `value`, `dataPlaceID`) 
+        VALUES (%s, %s, %s, %s, %s)
+        """
+        self.dbClass.execute_securely(executionQuery, (scope, target, key, serialized_value, placeId))
 
         return True
     
-    def editData(self, scope: str, target: str, key: str, newValue: Any) -> bool:
+    def editData(self, scope: str, target: str, key: str, newValue: Any, placeId: int) -> bool:
         serialized_value = self.serialize_value(newValue)
         
         executionQuery = """
         UPDATE `data_persistence`
         SET `value` = %s
-        WHERE `scope` = %s AND `target` = %s AND `key` = %s
+        WHERE `scope` = %s AND `target` = %s AND `key` = %s AND `dataPlaceID` = %s
         """
-        self.dbClass.execute_securely(executionQuery, (serialized_value, scope, target, key))
+        self.dbClass.execute_securely(executionQuery, (serialized_value, scope, target, key, placeId))
 
         return True
     
-    def doesExist(self, scope: str, target: str, key: str) -> bool:
-        execCheckFetch = "SELECT 1 FROM `data_persistence` WHERE `scope` = %s AND `target` = %s AND `key` = %s LIMIT 1"
-        CheckResult = self.dbClass.execute_securely(execCheckFetch, (scope, target, key))
+    def doesExist(self, scope: str, target: str, key: str, placeId: int) -> bool:
+        execCheckFetch = """
+        SELECT 1 FROM `data_persistence`
+        WHERE `scope` = %s AND `target` = %s AND `key` = %s AND `dataPlaceID` = %s
+        LIMIT 1
+        """
+        CheckResult = self.dbClass.execute_securely(execCheckFetch, (scope, target, key, placeId))
         
         return len(CheckResult) > 0 if CheckResult else False
     
-    def getData(self, scope: str, target: str, key: str) -> Optional[Any]:
-        execQueryFetch = "SELECT `value` FROM `data_persistence` WHERE `scope` = %s AND `target` = %s AND `key` = %s"
-        fetchedResult = self.dbClass.execute_securely(execQueryFetch, (scope, target, key))
+    def getData(self, scope: str, target: str, key: str, placeId: int) -> Optional[Any]:
+        execQueryFetch = """
+        SELECT `value` FROM `data_persistence`
+        WHERE `scope` = %s AND `target` = %s AND `key` = %s AND `dataPlaceID` = %s
+        """
+        fetchedResult = self.dbClass.execute_securely(execQueryFetch, (scope, target, key, placeId))
         
         if not fetchedResult:
             return None
