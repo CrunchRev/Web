@@ -50,7 +50,7 @@ def getVersion2():
 
             # break
 
-            DataStore.setData(scope, target, key, "0")
+            DataStore.setData(scope, target, key, None)
             result = DataStore.getData(scope, target, key)
 
         logger.info(f"Retrieved data for scope: {scope}, target: {target}, key: {key}, result: {result}")
