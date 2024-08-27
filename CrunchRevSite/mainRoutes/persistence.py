@@ -26,8 +26,8 @@ def setPersistence():
 
     value_str = form_data.get('value', 'null')
     value = json.loads(value_str)
-    value_bytes = json.dumps(value).encode('utf-8')
-
+    value_bytes = str(value)
+    
     if len(value_bytes) > 4 * 1024 * 1024: # 4 megabytes as official roblox limit: There are limits to how much data you can send to datastores per minute […] - and that limit is 4MB.
         logging.warning("Value exceeded 4 MB limit, aborting...")
         return jsonify("data": None, "message": "Value exceeds limit of four megabytes."), 400
