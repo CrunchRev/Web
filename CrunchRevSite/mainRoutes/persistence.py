@@ -30,28 +30,17 @@ def setPersistence():
 @app.route('/persistence/getSortedValues', methods=["POST"])
 def getVersion2():
     form_data = request.form
-    starting_count = 0
 
     return_data = []
-    for starting_count in itertools.count(0):
-        prefix = "qkeys[%d]" % starting_count
-        scope = form_data.get(
-            f"{prefix}.scope",
-            'global',
-        )
+    starting_count = 0
 
-        target = form_data.get(
-            f"{prefix}.target",
-            None,
-        )
-        if target is None:
-            break
-
-        key = form_data.get(
-            f"{prefix}.key",
-            None,
-        )
-        if key is None:
+    while True:
+        prefix = f"qkeys[{starting_count}]"
+        scope = form_data.get(f"{prefix}.scope", 'global')
+        target = form_data.get(f"{prefix}.target")
+        key = form_data.get(f"{prefix}.key")
+        
+        if target is None or key is None:
             break
 
         result = DataStore.getData(scope, target, key)
@@ -68,12 +57,13 @@ def getVersion2():
             "Target": target,
         })
 
-    if starting_count == 0:
+        starting_count += 1
+
+    if not return_data:
         logger.warning("No data being requested.")
         return jsonify({"data": [], "message": "No data being requested"}), 200
     
     data = {"data": return_data}
-    
     logger.info(f"Data: {data}")
     
     return jsonify(data), 200
