@@ -6,7 +6,7 @@ Route module description: controls everything under "/persistence/" path
 
 from __main__ import *
 
-loggerThis = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 @app.route("/persistence/set", methods=["POST"])
 def setPersistence():
