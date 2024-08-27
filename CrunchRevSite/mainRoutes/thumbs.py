@@ -17,6 +17,55 @@ def GameIcon():
         return redirect(F"https://thumbscdn.{settings['URL']}/Default.png")
 
 @app.route("/asset-thumbnail/json", methods=settings["HTTPMethods"])
+@app.route("/asset-thumbnail/json/", methods=settings["HTTPMethods"])
 def jsonasset():
     json = {"Url":f"http://www.{settings["URL"]}/Thumbs/GameIcon.ashx","Final":True,"SubstitutionType":0}
     return json, 200, {'Content-Type': 'application/json'}
+
+@app.route("/avatar-thumbnail/json", methods=settings["HTTPMethods"])
+@app.route("/avatar-thumbnail/json/", methods=settings["HTTPMethods"])
+def jsonthumb():
+    user_id = request.args.get('userId', default='1')
+    width = request.args.get('width', default='420')
+    url = f"https://thumbnails.roblox.com/v1/users/avatar?userIds={user_id}&returnPolicy=PlaceHolder&size={width}x{width}&format=Png&isCircular=false"
+    response = requests.get(url)
+    data = response.json()
+    return jsonify(data)
+
+@app.route("/Thumbs/Avatar.ashx", methods=settings["HTTPMethods"])
+def imagethumb():
+    user_id = request.args.get('userId', default='1')
+    width = request.args.get('width', default='420')
+    url = f"https://thumbnails.roblox.com/v1/users/avatar?userIds={user_id}&returnPolicy=PlaceHolder&format=PNG&size={width}x{width}&isCircular=false"
+    response = requests.get(url)
+    image_url = response.json()['data'][0]['imageUrl']
+    return redirect(image_url)
+
+@app.route("/Thumbs/Asset.ashx", methods=settings["HTTPMethods"])
+def image2thumb():
+    asset_id = request.args.get('assetId', default='1818')
+    width = request.args.get('width', default='420')
+    url = f"https://thumbnails.roblox.com/v1/assets?assetIds={asset_id}&returnPolicy=PlaceHolder&format=PNG&size={width}x{width}&isCircular=false"
+    response = requests.get(url)
+    image_url = response.json()['data'][0]['imageUrl']
+    return redirect(image_url)
+
+@app.route("/avatar-thumbnail/image", methods=settings["HTTPMethods"])
+@app.route("/avatar-thumbnail/image/", methods=settings["HTTPMethods"])
+def image3thumb():
+    user_id = request.args.get('userId', default='1')
+    width = request.args.get('width', default='420')
+    url = f"https://thumbnails.roblox.com/v1/users/avatar?userIds={user_id}&returnPolicy=PlaceHolder&size={width}x{width}&format=Png&isCircular=false"
+    response = requests.get(url)
+    image_url = response.json()['data'][0]['imageUrl']
+    return redirect(image_url)
+
+@app.route("/bust-thumbnail/json", methods=settings["HTTPMethods"])
+@app.route("/bust-thumbnail/json/", methods=settings["HTTPMethods"])
+def json2thumb():
+    user_id = request.args.get('userId', default='1')
+    width = request.args.get('width', default='420')
+    url = f"https://thumbnails.roblox.com/v1/users/avatar?userIds={user_id}&returnPolicy=PlaceHolder&size={width}x{width}&format=Png&isCircular=false"
+    response = requests.get(url)
+    image_url = response.json()['data'][0]['imageUrl']
+    return redirect(image_url)

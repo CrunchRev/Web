@@ -15,6 +15,11 @@ def setPersistence():
 
     placeId = query.get("placeId", type=int)
 
+    checkPlace = GamesDB.fetchOne(placeId)
+
+    if (checkPlace["info"] or checkPlace['assets']) is None:
+        return jsonify({"data":[], "message": "Place does not exist"}), 200
+
     scope = query.get('scope', 'global')
     target = query.get('target')
     key = query.get('key')
@@ -40,6 +45,11 @@ def getVersion2():
     form_data = request.form
 
     placeId = request.args.get("placeId", type=int)
+
+    checkPlace = GamesDB.fetchOne(placeId)
+
+    if (checkPlace["info"] or checkPlace['assets']) is None:
+        return jsonify({"data":[], "message": "Place does not exist"}), 200
 
     return_data = []
     starting_count = 0
