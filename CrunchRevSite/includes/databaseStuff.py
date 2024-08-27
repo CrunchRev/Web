@@ -5,10 +5,11 @@ Module description: controls everything related to database and MySQL
 """
 
 import logging
-from typing import Optional, Union, List, Tuple, Any
+from typing import Optional, Union, List, Tuple, Any, Dict
 from mysql.connector import Error, pooling
 import mysql.connector
 import secrets
+import json
 
 from includes.webhookStuff import *
 
@@ -203,13 +204,19 @@ class DataStore:
     def __init__(self, dbClass: Database):
         self.dbClass = dbClass
 
-    def insertData(self, scope: str, target: str, key: str, value):
+    def insertData(self, scope: str, target: str, key: str, value: Any) -> bool:
+        if isinstance(value, dict):
+            value = json.dumps(value)
+        
         executionQuery = "INSERT INTO `data_persistence` (`scope`, `target`, `key`, `value`) VALUES (%s, %s, %s, %s)"
         self.dbClass.execute_securely(executionQuery, (scope, target, key, value))
 
         return True
     
-    def editData(self, scope: str, target: str, key: str, newValue):
+    def editData(self, scope: str, target: str, key: str, newValue: Any) -> bool:
+        if isinstance(newValue, dict):
+            newValue = json.dumps(newValue)
+        
         executionQuery = """
         UPDATE `data_persistence`
         SET `value` = %s
@@ -219,18 +226,21 @@ class DataStore:
 
         return True
     
-    def doesExist(self, scope: str, target: str, key: str):
-        execCheckFetch = "SELECT * FROM `data_persistence` WHERE `scope` = %s AND `target` = %s AND `key` = %s"
+    def doesExist(self, scope: str, target: str, key: str) -> bool:
+        execCheckFetch = "SELECT 1 FROM `data_persistence` WHERE `scope` = %s AND `target` = %s AND `key` = %s LIMIT 1"
         CheckResult = self.dbClass.execute_securely(execCheckFetch, (scope, target, key))
-
-        return False if CheckResult is None else True
+        
+        return len(CheckResult) > 0 if CheckResult else False
     
-    def getData(self, scope: str, target: str, key: str):
+    def getData(self, scope: str, target: str, key: str) -> Optional[Dict[str, Any]]:
         execQueryFetch = "SELECT `value` FROM `data_persistence` WHERE `scope` = %s AND `target` = %s AND `key` = %s"
         fetchedResult = self.dbClass.execute_securely(execQueryFetch, (scope, target, key))
-
-        if fetchedResult is None or fetchedResult == True:
+        
+        if not fetchedResult:
             return None
         
-        finalResult = fetchedResult[0]
-        return finalResult
+        value = fetchedResult[0]
+        try:
+            return json.loads(value)
+        except (json.JSONDecodeError, TypeError):
+            return value

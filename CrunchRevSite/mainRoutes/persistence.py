@@ -64,7 +64,7 @@ def getVersion2():
         logger.info(f"Retrieved data for scope: {scope}, target: {target}, key: {key}, result: {result}")
 
         return_data.append({
-            "Value": str(result),
+            "Value": result,
             "Scope": str(scope),
             "Key": str(key),
             "Target": str(target),
