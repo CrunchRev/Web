@@ -204,25 +204,34 @@ class DataStore:
     def __init__(self, dbClass: Database):
         self.dbClass = dbClass
 
+    def serialize_value(self, value: Any) -> str:
+        if isinstance(value, (dict, list)):
+            return json.dumps(value)
+        return str(value)
+
+    def deserialize_value(self, value: str) -> Any:
+        try:
+            return json.loads(value)
+        except json.JSONDecodeError:
+            return value
+
     def insertData(self, scope: str, target: str, key: str, value: Any) -> bool:
-        if isinstance(value, dict):
-            value = json.dumps(value)
+        serialized_value = self.serialize_value(value)
         
         executionQuery = "INSERT INTO `data_persistence` (`scope`, `target`, `key`, `value`) VALUES (%s, %s, %s, %s)"
-        self.dbClass.execute_securely(executionQuery, (scope, target, key, value))
+        self.dbClass.execute_securely(executionQuery, (scope, target, key, serialized_value))
 
         return True
     
     def editData(self, scope: str, target: str, key: str, newValue: Any) -> bool:
-        if isinstance(newValue, dict):
-            newValue = json.dumps(newValue)
+        serialized_value = self.serialize_value(newValue)
         
         executionQuery = """
         UPDATE `data_persistence`
         SET `value` = %s
         WHERE `scope` = %s AND `target` = %s AND `key` = %s
         """
-        self.dbClass.execute_securely(executionQuery, (newValue, scope, target, key))
+        self.dbClass.execute_securely(executionQuery, (serialized_value, scope, target, key))
 
         return True
     
@@ -232,7 +241,7 @@ class DataStore:
         
         return len(CheckResult) > 0 if CheckResult else False
     
-    def getData(self, scope: str, target: str, key: str) -> Optional[Dict[str, Any]]:
+    def getData(self, scope: str, target: str, key: str) -> Optional[Any]:
         execQueryFetch = "SELECT `value` FROM `data_persistence` WHERE `scope` = %s AND `target` = %s AND `key` = %s"
         fetchedResult = self.dbClass.execute_securely(execQueryFetch, (scope, target, key))
         
@@ -240,7 +249,4 @@ class DataStore:
             return None
         
         value = fetchedResult[0]
-        try:
-            return json.loads(value)
-        except (json.JSONDecodeError, TypeError):
-            return value
+        return self.deserialize_value(value)

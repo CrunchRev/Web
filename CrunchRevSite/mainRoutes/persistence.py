@@ -64,11 +64,13 @@ def getVersion2():
         logger.info(f"Retrieved data for scope: {scope}, target: {target}, key: {key}, result: {result}")
 
         return_data.append({
-            "Value": result,
+            "Value": str(result),
             "Scope": str(scope),
             "Key": str(key),
             "Target": str(target),
         })
+
+        logger.info("Appended.")
 
         starting_count += 1
 
