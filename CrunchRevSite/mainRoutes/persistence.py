@@ -24,6 +24,10 @@ def setPersistence():
     target = query.get('target')
     key = query.get('key')
 
+    if (len(scope) or len(target) or len(key)) > 50:
+        logging.warning("Scope, target or key exceeded 50 characters limit, aborting...")
+        return jsonify({"data": None, "message": "Scope, target or key exceeds limit of 50 characters."}), 400
+
     value_str = form_data.get('value', 'null')
     value = json.loads(value_str)
 
@@ -67,6 +71,10 @@ def getVersion2():
         if target is None or key is None:
             break
 
+        if (len(scope) or len(target) or len(key)) > 50:
+            logging.warning("Scope, target or key exceeded 50 characters limit, aborting...")
+            return jsonify({"data":[], "message": "Scope, target or key exceeds limit of 50 characters."}), 400
+
         logger.info(f"Retrieving data for scope: {scope}, target: {target}, key: {key}, placeId: {str(placeId)}")
 
         result = DataStore.getData(scope, target, key, placeId)
@@ -88,7 +96,7 @@ def getVersion2():
         starting_count += 1
 
     if len(return_data) == 0:
-        logger.warning("No data being requested.")
+        logger.warning("Not found the datastore query in the database.")
         return jsonify({"data":[], "message": "No data being requested"}), 200
     
     data = {"data":return_data}
