@@ -30,6 +30,7 @@ def setPersistence():
 @app.route('/persistence/getSortedValues', methods=["POST"])
 def getVersion2():
     form_data = request.form
+    starting_count = 0
 
     return_data = []
     for starting_count in itertools.count(0):
@@ -68,4 +69,8 @@ def getVersion2():
         logger.warning("No data being requested.")
         return jsonify({"data": [], "message": "No data being requested"}), 200
     
-    return jsonify({"data": return_data}), 200
+    data = {"data": return_data}
+    
+    logger.info(f"Data: {data}")
+    
+    return jsonify(data), 200
