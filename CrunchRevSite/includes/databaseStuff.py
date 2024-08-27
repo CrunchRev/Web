@@ -203,11 +203,27 @@ class DataStore:
     def __init__(self, dbClass: Database):
         self.dbClass = dbClass
 
-    def setData(self, scope: str, target: str, key: str, value):
+    def insertData(self, scope: str, target: str, key: str, value):
         executionQuery = "INSERT INTO `data_persistence` (`scope`, `target`, `key`, `value`) VALUES (%s, %s, %s, %s)"
         self.dbClass.execute_securely(executionQuery, (scope, target, key, value))
 
         return True
+    
+    def editData(self, scope: str, target: str, key: str, newValue):
+        executionQuery = """
+        UPDATE `data_persistence`
+        SET `value` = %s
+        WHERE `scope` = %s AND `target` = %s AND `key` = %s
+        """
+        self.dbClass.execute_securely(executionQuery, (newValue, scope, target, key))
+
+        return True
+    
+    def doesExist(self, scope: str, target: str, key: str):
+        execCheckFetch = "SELECT * FROM `data_persistence` WHERE `scope` = %s AND `target` = %s AND `key` = %s"
+        CheckResult = self.dbClass.execute_securely(execCheckFetch, (scope, target, key))
+
+        return False if CheckResult is None else True
     
     def getData(self, scope: str, target: str, key: str):
         execQueryFetch = "SELECT `value` FROM `data_persistence` WHERE `scope` = %s AND `target` = %s AND `key` = %s"

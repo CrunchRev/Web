@@ -21,8 +21,14 @@ def setPersistence():
     value = json.loads(value_str)
 
     logger.info(f"Setting data with scope: {scope}, target: {target}, key: {key}, value: {value}")
-    
-    DataStore.setData(scope, target, key, value)
+
+    check = DataStore.doesExist(scope, target, key)
+
+    if check == False:
+        DataStore.insertData(scope, target, key, value)
+    else:
+        DataStore.editData(scope, target, key, value)
+
     return jsonify({"data": value}), 200
 
 @app.route('/persistence/getv2', methods=["POST"])
@@ -48,10 +54,12 @@ def getVersion2():
         if result is None:
             # gonna experiment with that \/ \/ \/
 
-            # break
+            break
 
-            DataStore.setData(scope, target, key, "0")
-            result = DataStore.getData(scope, target, key)
+            """
+                DataStore.setData(scope, target, key, "0")
+                result = DataStore.getData(scope, target, key)
+            """
 
         logger.info(f"Retrieved data for scope: {scope}, target: {target}, key: {key}, result: {result}")
 
@@ -64,7 +72,7 @@ def getVersion2():
 
         starting_count += 1
 
-    if not return_data:
+    if not return_data or starting_count == 0:
         logger.warning("No data being requested.")
         return jsonify({"data": [], "message": "No data being requested"}), 200
     
