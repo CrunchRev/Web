@@ -7,6 +7,11 @@ Route module description: controls everything under /marketplace/
 from __main__ import *
 
 @app.route("/marketplace/productinfo", methods=settings["HTTPMethods"])
+@app.route("/marketplace/productinfo/", methods=settings["HTTPMethods"])
+@app.route("/marketplace/productInfo", methods=settings["HTTPMethods"])
+@app.route("/marketplace/productInfo/", methods=settings["HTTPMethods"])
+@app.route("/marketplace/productDetails", methods=settings["HTTPMethods"])
+@app.route("/marketplace/productDetails/", methods=settings["HTTPMethods"]) # adding these two because they are the same (?)
 def prodInfo():
     assetId = int(request.args.get("assetId"))
 
