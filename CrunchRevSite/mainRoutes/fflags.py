@@ -40,7 +40,7 @@ def setting2018Llegcacy(settingstype):
 @app.route("/v1/settings/application/", methods=settings["HTTPMethods"])
 def setting2021E():
     typeOfFFlag = request.args.get("applicationName") or "PCDesktopClient"
-    path = f'{settings["FFlags2021EPath"]}{typeOfFFlag}'
+    path = f'{settings["FFlags2021EPath"]}{typeOfFFlag}.json'
 
     # print(path)
 
