@@ -1,0 +1,56 @@
+{% extends "layoutv2.html" %}
+
+{% block content %}
+    <div class="pt-4 container">
+        <style>
+            .error-container {
+                text-align: center;
+                max-width: 600px;
+                padding: 40px;
+                background-color: #ffffff;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+            }
+            .error-container img {
+                width: 200px;
+                margin-bottom: 30px;
+            }
+            .error-container h1 {
+                font-size: 72px;
+                margin-bottom: 20px;
+                color: #343a40;
+            }
+            .error-container p {
+                font-size: 18px;
+                margin-bottom: 30px;
+                color: #6c757d;
+            }
+            .error-container .btn {
+                padding: 12px 20px;
+                font-size: 16px;
+                margin: 5px;
+                border-radius: 30px;
+                transition: all 0.3s ease;
+            }
+            .error-container .btn-primary {
+                background-color: #007bff;
+                border: none;
+            }
+            .error-container .btn-secondary {
+                background-color: #6c757d;
+                border: none;
+            }
+            .error-container .btn:hover {
+                opacity: 0.9;
+                text-decoration: none;
+            }
+        </style>
+        <div class="error-container">
+            <img src="https://i.imgur.com/qIufhof.png" alt="404 Error">
+            <h1>404</h1>
+            <p>Oops! The page you are looking for does not exist.<br>It might have been moved or deleted.</p>
+            <a href="/" class="btn btn-primary">Take me to Home Page</a>
+            <a href="javascript:history.back()" class="btn btn-secondary">Go Back</a>
+        </div>
+    </div>
+{% endblock content %}

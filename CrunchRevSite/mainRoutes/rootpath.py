@@ -16,6 +16,10 @@ def setup():
         file_path = request.path.lstrip('/')
         local_path = os.path.join(app.root_path, "staticContentThumbs")
         return send_from_directory(local_path, file_path, as_attachment=True)
+    
+@app.errorhandler(404)
+def notfound():
+    return render_template("notfound.html"), 404
 
 @app.route("/", methods=settings["HTTPMethods"])
 def root():
