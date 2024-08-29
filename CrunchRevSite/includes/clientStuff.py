@@ -110,7 +110,7 @@ class Arbiter:
         sql = "SELECT * FROM `jobs_in_use` WHERE `place_id` = %s AND `players` < %s ORDER BY RAND() LIMIT 1;"
         execution1 = self.db.execute_securely(sql, params=(placeID, place["info"][2]))
 
-        if len(execution1) < 1:
+        if execution1 is None:
             # no servers avaliable, request a new one.
             try:
                 requestArbiter = requests.get(f"http://{arbiterURL}/internal/arbiter/startgameserver?year={year}&placeId={placeID}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
