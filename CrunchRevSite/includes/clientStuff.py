@@ -107,8 +107,8 @@ class Arbiter:
                 "message": "Game failed to start"
             }
 
-        sql = "SELECT * FROM `jobs_in_use` WHERE `place_id` = %s AND `players` < %s"
-        execution1 = self.db.execute_securely(sql, params=(placeID, place["info"][2]), fetch_all=True)
+        sql = "SELECT * FROM `jobs_in_use` WHERE `place_id` = %s AND `players` < %s ORDER BY RAND() LIMIT 1;"
+        execution1 = self.db.execute_securely(sql, params=(placeID, place["info"][2]))
 
         if len(execution1) < 1:
             # no servers avaliable, request a new one.
@@ -157,7 +157,7 @@ class Arbiter:
                 "success": True,
                 "status": 2,
                 "message": "",
-                "jobId": execution1[0][2]
+                "jobId": execution1[2]
             }
 
     def getInformationViaJobID(self, jobID):
