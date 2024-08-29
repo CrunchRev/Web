@@ -19,7 +19,16 @@ def setup():
     
 @app.errorhandler(404)
 def notfound(e):
-    return render_template("notfound.html"), 404
+    loggedIn = False
+    info = None
+    if ".ROBLOSECURITY" in cookiez:
+        cookie = cookiez.get(".ROBLOSECURITY")
+        info = UserDB.fetchUser(method=1, cookie=cookie)
+        
+        if info:
+            loggedIn = True
+
+    return render_template("notfound.html", userinfo=info, baseurl=settings["URL"], loggedIn=loggedIn), 404
 
 @app.route("/", methods=settings["HTTPMethods"])
 def root():
