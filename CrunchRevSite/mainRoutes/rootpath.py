@@ -244,6 +244,8 @@ def cached_fetch_asset(asset_id):
 @app.route("/Asset", methods=settings["HTTPMethods"])
 @app.route("/asset/", methods=settings["HTTPMethods"])
 @app.route("/asset", methods=settings["HTTPMethods"])
+@app.route("/v1/asset", methods=settings["HTTPMethods"])
+@app.route("/v1/asset/", methods=settings["HTTPMethods"])
 def assetdelivery():
     idarg = 1818
 

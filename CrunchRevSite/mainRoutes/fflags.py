@@ -37,9 +37,10 @@ def setting2018Llegcacy(settingstype):
     return file, 200, {'Content-Type': 'application/json'}
 
 @app.route("/v1/settings/application", methods=settings["HTTPMethods"])
-def setting2018L():
-    # typeOfFFlag = request.args.get("applicationName") or "PCDesktopClient"
-    path = f'{settings["FFlags2018LPath"]}ClientAppSettingsv2.json' # if typeOfFFlag == "PCDesktopClient" else f'{settings["FFlags2018LPath"]}RCCService.json'
+@app.route("/v1/settings/application/", methods=settings["HTTPMethods"])
+def setting2021E():
+    typeOfFFlag = request.args.get("applicationName") or "PCDesktopClient"
+    path = f'{settings["FFlags2021EPath"]}{typeOfFFlag}'
 
     # print(path)
 

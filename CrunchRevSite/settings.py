@@ -20,6 +20,7 @@ settings = {
     "PK2048Path": "../CrunchRevKeys/PrivateKey2048.pem",
     "FFlagsPath": "../ClientSettings/",
     "FFlags2018LPath": "../Client2018LSettings/",
+    "FFlags2021EPath": "../Client2021ESettings/",
     "HTTPMethods": ['GET', 'POST'],
     "arbiterURLs": {
         "infra.unirev.xyz:7209",
