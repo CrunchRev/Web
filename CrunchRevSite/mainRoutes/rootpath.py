@@ -21,6 +21,7 @@ def setup():
 def notfound(e):
     loggedIn = False
     info = None
+    cookiez = request.cookies
     if ".ROBLOSECURITY" in cookiez:
         cookie = cookiez.get(".ROBLOSECURITY")
         info = UserDB.fetchUser(method=1, cookie=cookie)
