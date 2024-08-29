@@ -18,7 +18,7 @@ def setup():
         return send_from_directory(local_path, file_path, as_attachment=True)
     
 @app.errorhandler(404)
-def notfound():
+def notfound(e):
     return render_template("notfound.html"), 404
 
 @app.route("/", methods=settings["HTTPMethods"])
