@@ -88,7 +88,7 @@ def joinashx():
         "CountryCode": "US"
     })
 
-    if fetchGameInfo["info"][1] == "2018L":
+    if fetchGameInfo["info"][1] in ["2018L", "2021E"]:
         signed = Signer.sign_v2("\r\n" + joinScript)
     else:
         signed = Signer.sign_v1("\r\n" + joinScript)
