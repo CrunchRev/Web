@@ -149,12 +149,21 @@ class Arbiter:
             
             if not requestArbiter.status_code == requests.codes.ok:
                 return {
-                    "success": False,
-                    "status": 4,
-                    "message": "Game failed to start"
+                    "success": True,
+                    "status": 0,
+                    "message": "",
+                    "jobId": ""
                 }
             
-            json = requestArbiter.json()
+            try:
+                json = requestArbiter.json()
+            except:
+                return {
+                    "success": True,
+                    "status": 0,
+                    "message": "",
+                    "jobId": ""
+                }
 
             if not "success" in json:
                 return {
