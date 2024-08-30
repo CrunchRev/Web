@@ -139,8 +139,13 @@ class Arbiter:
             try:
                 requestArbiter = requests.get(f"http://{arbiterURL}/internal/arbiter/startgameserver?year={year}&placeId={placeID}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
             except:
-                sm_logger.error(f"Failed to request server from {arbiterURL}, retrying...")
-                return self.requestServer(year, placeID)
+                sm_logger.error(f"Failed to request server from {arbiterURL}")
+                return {
+                    "success": True,
+                    "status": 0,
+                    "message": "",
+                    "jobId": ""
+                }
             
             if not requestArbiter.status_code == requests.codes.ok:
                 return {
