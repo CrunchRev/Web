@@ -35,7 +35,7 @@ def avatar_fetch_v1():
     if assetsCharAppFetch:
         for assetIdTuple in assetsCharAppFetch:
             assetId = assetIdTuple[0]
-            assetFetch = Assets.fetchAssetForAsset(assetId)
+            assetFetch = Assets.fetchAssetforAsset(assetId)
             assetType = assetFetch[1]
             charappItemzzz.append({"assetId": assetId, "assetTypeId": assetType})
 
