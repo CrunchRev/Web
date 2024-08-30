@@ -26,6 +26,8 @@ def moderate():
 @app.route("/moderation/v2", methods=settings["HTTPMethods"])
 @app.route("/moderation/v2/filter/text/", methods=settings["HTTPMethods"])
 @app.route("/moderation/v2/filter/text", methods=settings["HTTPMethods"])
+@app.route("/v2/moderation/textfilter", methods=settings["HTTPMethods"])
+@app.route("/v2/moderation/textfilter/", methods=settings["HTTPMethods"])
 def moderatev2():
     unfilteredText = request.form.get("text") or ""
     moderated = Filter.censor(unfilteredText)
