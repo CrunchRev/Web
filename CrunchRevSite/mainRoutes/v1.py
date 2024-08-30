@@ -81,7 +81,7 @@ def policies():
 
     return jsonify(json), 200
 
-@app.route("v1/users/<playerId>/friends", methods=settings["HTTPMethods"])
-@app.route("v1/users/<playerId>/friends/", methods=settings["HTTPMethods"])
+@app.route("/v1/users/<playerId>/friends", methods=settings["HTTPMethods"])
+@app.route("/v1/users/<playerId>/friends/", methods=settings["HTTPMethods"])
 def friends(playerId):
     return jsonify({"data": []}), 200
