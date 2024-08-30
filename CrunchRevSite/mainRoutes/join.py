@@ -38,10 +38,10 @@ def joinashx():
     is_roblox_place = (fetchGameInfo["assets"][4] == 1)
     
     if fetchGameInfo["info"][1] == "2018L":
-        charapp = f"http://api.{settings["URL"]}/v1.1/avatar-fetch/?placeId={placeIDarg}&userId={userid}"
+        charapp = f"http://api.{settings["URL"]}/v1.1/avatar-fetch/?userId={userid}&placeId={placeIDarg}"
         ticket = Tickets.generate_client_ticket_v2(userid, username, jobIDarg)
     elif fetchGameInfo["info"][1] == "2021E":
-        charapp = f"http://api.{settings["URL"]}/v1.1/avatar-fetch/?placeId={placeIDarg}&userId={userid}"
+        charapp = f"http://api.{settings["URL"]}/v1.1/avatar-fetch/?userId={userid}&placeId={placeIDarg}"
         ticket = Tickets.generate_client_ticket_v4(userid, username, jobIDarg, charapp)
     else:
         charapp = f"http://www.{settings["URL"]}/asset/CharacterFetch.ashx?userId={userid}"
@@ -84,8 +84,8 @@ def joinashx():
         "CookieStoreFiveMinutePlayKey": "rbx_evt_fmp",
         "CookieStoreEnabled": True,
         "IsRobloxPlace": is_roblox_place,
-        # "RobloxLocale": "en_us",
-        # "GameLocale": "en_us",
+        "RobloxLocale": "en_us",
+        "GameLocale": "en_us",
         "GenerateTeleportJoin": False,
         "IsUnknownOrUnder13": False,
         "SessionId": f"SessionId-{uuid.uuid4()}",
