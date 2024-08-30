@@ -23,7 +23,7 @@ def isDevConsoleEnabled2018L(playerId):
 
 @app.route("/v1/avatar-fetch", methods=settings["HTTPMethods"])
 @app.route("/v1/avatar-fetch/", methods=settings["HTTPMethods"])
-def avatar_fetch():
+def avatar_fetch_v1():
     userId = request.args.get("userId", 0)
     userInfo = UserDB.fetchUser(method=2, userId=userId)
 
