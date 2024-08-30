@@ -90,15 +90,21 @@ class Tickets:
 
         ticket = f"{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}\n{job_id}\n{user_id}\n0\n0\n1000\nf\n{len(username)}\n{username}\n4\nNone\n0\n\n0\n\n{len(username)}\n{username}"
 
+        logging.info(f"Ticket 1: {ticket}")
+
         sig = crypto.sign(private_key, ticket.encode(), "sha1")
         sig = base64.b64encode(sig).decode()
 
         ticket2 = f"{user_id}\n{username}\n{charapp}\n{job_id}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
 
+        logging.info(f"Ticket 2: {ticket2}")
+
         sig2 = crypto.sign(private_key, ticket2.encode(), "sha1")
         sig2 = base64.b64encode(sig2).decode()
 
         final = f"{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')};{sig2};{sig};4"
+
+        logging.info(f"Final Ticket: {final}")
 
         return final
 
