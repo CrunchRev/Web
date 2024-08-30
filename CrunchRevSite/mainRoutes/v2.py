@@ -10,7 +10,7 @@ from __main__ import *
 def createorupdate():
     return {"success": True}, 200, {"Content-Type": "application/json"}
 
-@app.routes("/v2/users/<playerId>/groups/roles", methods=settings["HTTPMethods"]) # we need that for admin icon ig
+@app.route("/v2/users/<playerId>/groups/roles", methods=settings["HTTPMethods"]) # we need that for admin icon ig
 def rolez(playerId):
     user_info = UserDB.fetchUser(method=2, userId=playerId)
 
