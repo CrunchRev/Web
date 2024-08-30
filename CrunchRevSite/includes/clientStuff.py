@@ -142,7 +142,7 @@ class Arbiter:
                 sm_logger.error(f"Failed to request server from {arbiterURL}")
                 return {
                     "success": True,
-                    "status": 0,
+                    "status": 1,
                     "message": "",
                     "jobId": ""
                 }
@@ -150,7 +150,7 @@ class Arbiter:
             if not requestArbiter.status_code == requests.codes.ok:
                 return {
                     "success": True,
-                    "status": 0,
+                    "status": 1,
                     "message": "",
                     "jobId": ""
                 }
@@ -160,7 +160,7 @@ class Arbiter:
             except:
                 return {
                     "success": True,
-                    "status": 0,
+                    "status": 1,
                     "message": "",
                     "jobId": ""
                 }
