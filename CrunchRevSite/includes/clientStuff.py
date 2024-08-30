@@ -88,7 +88,7 @@ class Tickets:
         with open(self.PK2048Path, "r") as key_file:
             private_key = crypto.load_privatekey(crypto.FILETYPE_PEM, key_file.read())
 
-        ticket = f"{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}\n{job_id}\n{user_id}\n{user_id}\n0\n1000\nf\n{len(username)}\n{username}\n4\nNone\n5\nen-us\n0\n\n{len(username)}\n{username}"
+        ticket = f"{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}\n{job_id}\n{user_id}\n{user_id}\n0\n1000\nf\n{len(username)}\n{username}\n4\nNone\n0\n\n0\n\n{len(username)}\n{username}"
 
         sig = crypto.sign(private_key, ticket.encode(), "sha1")
         sig = base64.b64encode(sig).decode()
