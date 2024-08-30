@@ -95,9 +95,9 @@ def joinashx():
         "BrowserTrackerId": 0,
         "UsePortraitMode": False,
         "FollowUserId": 0,
-        'characterAppearanceId': userid,
-        'CharacterAppearanceId': userid,
-        "CountryCode": "US"
+        "characterAppearanceId": userid,
+        "CharacterAppearanceId": userid
+        # "CountryCode": "US"
     })
 
     if fetchGameInfo["info"][1] in ["2018L", "2021E"]:
