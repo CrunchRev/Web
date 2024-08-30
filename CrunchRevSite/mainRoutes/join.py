@@ -50,6 +50,12 @@ def joinashx():
     joinScript = json.dumps({
         "ClientPort": 0,
         "MachineAddress": fetchJobID[5],
+        "ServerConnections": [
+            {
+                "Port": fetchJobID[4],
+                "Address": fetchJobID[5]
+            }
+        ],
         "ServerPort": fetchJobID[4],
         "PingUrl": "",
         "PingInterval": 120,
@@ -79,7 +85,7 @@ def joinashx():
         "CookieStoreEnabled": True,
         "IsRobloxPlace": is_roblox_place,
         "RobloxLocale": "en_us",
-        "GameLocale": "en_us#RobloxTranslateAbTest2",
+        "GameLocale": "en_us",
         "GenerateTeleportJoin": False,
         "IsUnknownOrUnder13": False,
         "SessionId": f"SessionId-{uuid.uuid4()}",
