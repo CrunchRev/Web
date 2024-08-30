@@ -69,3 +69,19 @@ def avatar_fetch_v1():
         }
 
     return json, 200, {'Content-Type': 'application/json'}
+
+@app.route("/v1/player-policies-client", methods=settings["HTTPMethods"])
+def policies():
+    json = {
+        'isSubjectToChinaPolicies': False,
+        'arePaidRandomItemsRestricted': False,
+        'isPaidItemTradingAllowed': True,
+        'areAdsAllowed': True,
+    }
+
+    return jsonify(json), 200
+
+@app.route("v1/users/<playerId>/friends", methods=settings["HTTPMethods"])
+@app.route("v1/users/<playerId>/friends/", methods=settings["HTTPMethods"])
+def friends(playerId):
+    return jsonify({"data": []}), 200
