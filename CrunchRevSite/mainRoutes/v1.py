@@ -90,3 +90,67 @@ def friends(playerId):
 @app.route("/v1/presence/users/", methods=settings["HTTPMethods"])
 def pplpersence():
     return jsonify({"data": []}), 200
+
+@app.route("/v1/batch", methods=settings["HTTPMethods"])
+@app.route("/v1/batch/", methods=settings["HTTPMethods"])
+def batch():
+    # decoding taken from Syntax source,
+    # please do not hate me.
+
+    if request.headers.get("Content-Encoding") == "gzip":
+        try:
+            data = gzip.decompress(request.data)
+        except Exception as e:
+            return jsonify({"success": False, "message": "Invalid gzip data"}), 400
+        try:
+            JSONData = json.loads(data)
+        except Exception as e:
+            return jsonify({"success": False, "message": "Invalid JSON data"}), 400
+    else:
+        JSONData = request.json
+    if JSONData is None:
+        return jsonify({"success": False, "message": "Missing JSON data"}), 400
+    
+    # [{'requestId': 'type=GameIcon&id=1&w=128&h=128&filters=', 'targetId': 1, 'type': 'GameIcon', 'size': '128x128', 'isCircular': False}]
+    # above is an example of return
+
+    listOfReturn = []
+
+    for object in JSONData:
+        if "requestId" not in object or "targetId" not in object or "type" not in object or "size" not in object:
+            continue
+        if object["type"] not in [ "Avatar", "AvatarHeadShot", "GameIcon", "GameThumbnail", "Asset", "GroupIcon"]:
+            continue
+        
+        targetId = object["targetId"]
+        typeObj = object["type"]
+        size = object["size"]
+        requestId = object["requestId"] # used in json later
+
+        url = None
+
+        if typeObj == "GameIcon" or typeObj == "GameThumbnail" or typeObj == "Asset":
+            fetchGamezzzz = GamesDB.fetchOne(assetId)
+
+            if fetchGamezzzz["info"]:
+                url = f"https://thumbscdn.{settings['URL']}/{fetchGamezzzz["info"][3]}"
+            else:
+                url = F"https://thumbscdn.{settings['URL']}/Default.png"
+        elif typeObj == "Avatar":
+            imgurl = f"https://thumbnails.roblox.com/v1/users/avatar?userIds={targetId}&returnPolicy=PlaceHolder&size={size}&format=Png&isCircular=false"
+            response = requests.get(imurl)
+            url = response.json()['data'][0]['imageUrl']
+        elif typeObj == "AvatarHeadshot"
+            imgurl = f"https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds={targetId}&size={size}&format=Png&isCircular=false"
+            response = requests.get(imurl)
+            url = response.json()['data'][0]['imageUrl']
+
+        listOfReturn.append({
+            "requestId": requestId,
+            "targetId": targetId,
+            "state": "Completed",
+            "imageUrl": url,
+            "version": None
+        })
+
+    return jsonify({"data": listOfReturn}), 200

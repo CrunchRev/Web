@@ -19,6 +19,7 @@ from functools import lru_cache
 import xml.etree.ElementTree as ET
 from io import BytesIO
 import itertools
+import gzip
 
 from settings import settings
 from includes.clientStuff import *
