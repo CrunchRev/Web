@@ -89,7 +89,11 @@ def friends(playerId):
 @app.route("/v1/presence/users", methods=settings["HTTPMethods"])
 @app.route("/v1/presence/users/", methods=settings["HTTPMethods"])
 def pplpersence():
-    return jsonify({"data": []}), 200
+    postData = request.post
+
+    requestToAPI = requests.post("https://apis.roblox.com/v1/presence/users", data = postData)
+
+    return requestToAPI.text, 200 # idk man what it returns so yeah
 
 @app.route("/v1/batch", methods=settings["HTTPMethods"])
 @app.route("/v1/batch/", methods=settings["HTTPMethods"])
