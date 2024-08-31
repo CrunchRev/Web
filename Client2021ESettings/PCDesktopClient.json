@@ -17,7 +17,7 @@
         "DFFlagAccoutrementWeldingFilteringEnabled": "False",
         "DFFlagAdditionalNetworkLogInfo": "True",
         "DFFlagAddMetricsToTextScraperHttpRequest": "True",
-        "DFFlagAdminServerLogs": "False",
+        "DFFlagAdminServerLogs": "True",
         "DFFlagAllowAnimateScripts": "True",
         "DFFlagAllowDataSendBandwidthFullScale": "True",
         "DFFlagAllowHumanoidApplyDescriptionForLocalHumanoids": "True",

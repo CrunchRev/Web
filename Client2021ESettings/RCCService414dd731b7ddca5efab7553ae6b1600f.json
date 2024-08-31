@@ -2,7 +2,7 @@
     "applicationSettings": {
         "AndroidSwipeGestureUseStartingPosition": "True",
         "DFFlagAccoutrementWeldingFilteringEnabled": "False",
-        "DFFlagAdminServerLogs": "False",
+        "DFFlagAdminServerLogs": "True",
         "DFFlagTheseAreSomeOfMyBestAttributes": "True",
         "FFlagTheseAreSomeOfMyBestAttributes": "True",
         "DFFlagAllowAnimateScripts": "true",
