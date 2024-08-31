@@ -129,13 +129,20 @@ def batch():
 
         url = None
 
-        if typeObj == "GameIcon" or typeObj == "GameThumbnail" or typeObj == "Asset":
+        if typeObj == "GameThumbnail":
             fetchGamezzzz = GamesDB.fetchOne(targetId)
 
             if fetchGamezzzz["info"]:
                 url = f"https://thumbscdn.{settings['URL']}/{fetchGamezzzz["info"][3]}"
             else:
                 url = F"https://thumbscdn.{settings['URL']}/Default.png"
+        elif typeObj == "GameIcon" or typeObj == "Asset":
+            fetchGamezzzz = GamesDB.fetchOne(targetId)
+
+            if fetchGamezzzz["info"]:
+                url = f"https://thumbscdn.{settings['URL']}/{fetchGamezzzz["info"][4]}"
+            else:
+                url = F"https://thumbscdn.{settings['URL']}/DefaultIcon.png"
         elif typeObj == "Avatar":
             imgurl = f"https://thumbnails.roblox.com/v1/users/avatar?userIds={targetId}&returnPolicy=PlaceHolder&size={size}&format=Png&isCircular=false"
             response = requests.get(imgurl)
