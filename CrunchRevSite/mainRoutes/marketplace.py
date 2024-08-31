@@ -16,17 +16,30 @@ def prodInfo():
     assetId = int(request.args.get("assetId") or request.args.get("productId"))
 
     if not assetId:
-        return {"success": False, "message": "400, Please specify assetId argument."}, 400, {"Content-Type": "application/json"}
+        return jsonify({"success": False, "message": "400, Please specify assetId argument."}), 400
 
     gameData = GamesDB.fetchOne(assetId)
+    assetsData = None
 
-    if not gameData:
-        return {"success": False, "message": "404, Game does not exist."}, 404, {"Content-Type": "application/json"}
+    try:
+        assetsData = gameData["assets"]
+    except:
+        pass
 
-    assetsData = gameData["assets"]
+    if not assetsData or not gameData:
+        # we just request shit from roblox API then
+        # https://apis.roblox.com/game-passes/v1/game-passes/GAMEPASS-ID/product-info
 
-    if not assetsData:
-        return {"success": False, "message": "404, Game does not exist."}, 404, {"Content-Type": "application/json"}
+        requestURL = f"https://apis.roblox.com/game-passes/v1/game-passes/{assetId}/product-info"
+        requestResource = None
+        requestJSON = {}
+        try:
+            requestResource = requests.get(requestURL)
+            requestJSON = requestResource.json()
+        except:
+            return jsonify({"error": "Error while getting JSON response from Roblox API."})
+        
+        return jsonify(requestJSON), 200
 
     name = assetsData[1]
     description = assetsData[2]
@@ -43,7 +56,7 @@ def prodInfo():
     else:
         is_for_sale = False
 
-    return {
+    return jsonify({
         "AssetId": assetId,
         "ProductId": assetId,
         "Name": str(name),
@@ -69,4 +82,4 @@ def prodInfo():
         "Remaining": None,
         "MinimumMembershipLevel": 0,
         "ContentRatingTypeId": 0
-    }, 200, {"Content-Type": "application/json"}
+    }), 200
