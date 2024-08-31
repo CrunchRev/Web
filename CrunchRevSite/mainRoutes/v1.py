@@ -140,7 +140,7 @@ def batch():
             imgurl = f"https://thumbnails.roblox.com/v1/users/avatar?userIds={targetId}&returnPolicy=PlaceHolder&size={size}&format=Png&isCircular=false"
             response = requests.get(imurl)
             url = response.json()['data'][0]['imageUrl']
-        elif typeObj == "AvatarHeadshot"
+        elif typeObj == "AvatarHeadshot":
             imgurl = f"https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds={targetId}&size={size}&format=Png&isCircular=false"
             response = requests.get(imurl)
             url = response.json()['data'][0]['imageUrl']
