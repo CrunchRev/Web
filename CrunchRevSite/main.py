@@ -98,6 +98,7 @@ def includeRoutes():
     import mainRoutes.sets
     import mainRoutes.persistence
     import mainRoutes.client
+    import mainRoutes.uac
 
 internal_logger.info("Running logic...")
 
