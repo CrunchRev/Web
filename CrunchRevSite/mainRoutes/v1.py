@@ -130,7 +130,7 @@ def batch():
         url = None
 
         if typeObj == "GameIcon" or typeObj == "GameThumbnail" or typeObj == "Asset":
-            fetchGamezzzz = GamesDB.fetchOne(targetIdId)
+            fetchGamezzzz = GamesDB.fetchOne(targetId)
 
             if fetchGamezzzz["info"]:
                 url = f"https://thumbscdn.{settings['URL']}/{fetchGamezzzz["info"][3]}"
