@@ -147,14 +147,10 @@ def batch():
                 url = f"https://thumbscdn.{settings['URL']}/{fetchGamezzzz["info"][4]}"
             else:
                 url = F"https://thumbscdn.{settings['URL']}/DefaultIcon.png"
-        elif typeObj == "Avatar":
-            imgurl = f"https://thumbnails.roblox.com/v1/users/avatar?userIds={targetId}&returnPolicy=PlaceHolder&size={size}&format=Png&isCircular=false"
-            response = requests.get(imgurl)
-            url = response.json()['data'][0]['imageUrl']
-        elif typeObj == "AvatarHeadshot":
-            imgurl = f"https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds={targetId}&size={size}&format=Png&isCircular=false"
-            response = requests.get(imgurl)
-            url = response.json()['data'][0]['imageUrl']
+        else:
+            requestObject = requests.post("https://thumbnails.roblox.com/v1/batch", json=JSONData)
+
+            return jsonify(requestObject.json()), 200
 
         listOfReturn.append({
             "requestId": requestId,
