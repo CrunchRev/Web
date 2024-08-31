@@ -5423,6 +5423,7 @@
         "DFFlagEnableAnalyticsService2": "True",
         "DFFlagEnableRemoteProfiling": "False",
         "DFFlagEnableRemoteProfilingForDevConsole": "True",
+        "DevConsoleAnalyticsIncludeOwner": "True",
         "DFFlagFavorIPV4Connections": "False",
         "DFFlagFindClosestHandleHitTestFixEnabled": "True",
         "DFFlagFixCutAndUndoAfterSavingCSGUnionToNewFile": "True",

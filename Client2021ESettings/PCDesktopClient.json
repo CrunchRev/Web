@@ -216,6 +216,7 @@
         "DFFlagEnablePlayFabBatchEventCompression": "False",
         "DFFlagEnableRemoteProfiling": "True",
         "DFFlagEnableRemoteProfilingForDevConsole": "True",
+        "DevConsoleAnalyticsIncludeOwner": "True",
         "DFFlagEnableReverseCSGDataMigration": "False",
         "DFFlagEnableSessionCount": "True",
         "DFFlagEnableSoapMicroprofiles": "True",
