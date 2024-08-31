@@ -120,7 +120,7 @@ class Arbiter:
         sqlQuery = "INSERT INTO `jobs_in_use`(`RCC_Version`, `place_id`, `jobId`, `network_port`, `server_address`) VALUES ( %s, %s, %s, %s, %s )"
         self.db.execute_securely(sqlQuery, params=(year, placeID, jobID, networkPort, serverIP))
 
-    def requestServer(self, year, placeID):
+    def requestServer(self, year, placeID, maxPlayers, creatorId):
         arbiterURL = random.choice(list(self.arbiterURLs))
         place = self.games.fetchOne(placeID)
 
@@ -137,7 +137,7 @@ class Arbiter:
         if execution1 is None:
             # no servers avaliable, request a new one.
             try:
-                requestArbiter = requests.get(f"http://{arbiterURL}/internal/arbiter/startgameserver?year={year}&placeId={placeID}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
+                requestArbiter = requests.get(f"http://{arbiterURL}/internal/arbiter/startgameserver?year={year}&placeId={placeID}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61&maxPlayers={maxPlayers}&creatorId={creatorId}")
             except:
                 sm_logger.error(f"Failed to request server from {arbiterURL}")
                 return {

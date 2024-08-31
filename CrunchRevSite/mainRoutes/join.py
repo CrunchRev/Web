@@ -137,6 +137,8 @@ def launchtheplace():
             return jsonify({"error": "403, You are not allowed to view this game."}), 403
 
     year = game_data["info"][1]
+    maxPlayers = game_data["info"][2]
+    creatorId = game_data["assets"][4]
 
     logging.info(f"PlaceLauncher requested, args: {placeIDarg}")
     logging.info("Getting server details...")
@@ -144,7 +146,7 @@ def launchtheplace():
     # print(year)
     # print(placeIDarg)
 
-    PlaceLauncherRequest = ArbiterClass.requestServer(year, placeIDarg)
+    PlaceLauncherRequest = ArbiterClass.requestServer(year, placeIDarg, maxPlayers, creatorId)
 
     status = 0
     jobID = None
