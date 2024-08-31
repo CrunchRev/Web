@@ -19,7 +19,7 @@ def isDevConsoleEnabled(playerId):
 
     is_an_admin = True if user_info[8] == 1 else False
 
-    return jsonify({"isAdminDeveloperConsoleEnabled": True}), 200
+    return jsonify({"isAdminDeveloperConsoleEnabled": is_an_admin}), 200
 
 @app.route("/v1/avatar-fetch", methods=settings["HTTPMethods"])
 @app.route("/v1/avatar-fetch/", methods=settings["HTTPMethods"])
