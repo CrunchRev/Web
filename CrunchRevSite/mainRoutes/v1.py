@@ -73,7 +73,7 @@ def avatar_fetch_v1():
 @app.route("/v1/player-policies-client", methods=settings["HTTPMethods"])
 def policies():
     json = {
-        'isSubjectToChinaPolicies': False,
+        'isSubjectToChinaPolicies': True,
         'arePaidRandomItemsRestricted': False,
         'isPaidItemTradingAllowed': True,
         'areAdsAllowed': True,
