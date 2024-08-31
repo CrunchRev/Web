@@ -89,7 +89,7 @@ def friends(playerId):
 @app.route("/v1/presence/users", methods=settings["HTTPMethods"])
 @app.route("/v1/presence/users/", methods=settings["HTTPMethods"])
 def pplpersence():
-    postData = request.post
+    postData = request.form
 
     requestToAPI = requests.post("https://apis.roblox.com/v1/presence/users", data = postData)
 
