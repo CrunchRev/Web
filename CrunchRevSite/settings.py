@@ -14,7 +14,8 @@ settings = {
     },
     "whitelistedPlaceIPs": {
         "86.209.13.245",
-        "52.5.217.76"
+        "52.5.217.76",
+        "46.174.51.158"
     },
     "PK1024Path": "../CrunchRevKeys/PrivateKey1024.pem",
     "PK2048Path": "../CrunchRevKeys/PrivateKey2048.pem",
@@ -24,6 +25,7 @@ settings = {
     "HTTPMethods": ['GET', 'POST'],
     "arbiterURLs": {
         "infra.unirev.xyz:7209",
-        "infra2.unirev.xyz:7209"
+        "infra2.unirev.xyz:7209",
+        "infra3.unirev.xyz:7209"
     }
 }
