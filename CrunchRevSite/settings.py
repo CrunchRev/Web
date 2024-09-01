@@ -9,7 +9,7 @@ settings = {
     "Database": {
         "URL": "localhost",
         "User": "root",
-        "Password": "~yKo8Bp6#it~",
+        "Password": "~TKb$Dw|pE7Fm}8R2fAx{CzLsrJQnR1Q~V7Rf6VP",
         "DatabaseName": "crunchrev_database"
     },
     "whitelistedPlaceIPs": {
