@@ -7,6 +7,7 @@ Route module description: controls placelauncher, joinscript stuff
 from __main__ import *
 
 @app.route("/game/join.ashx", methods=settings["HTTPMethods"])
+@app.route("/Game/join.ashx", methods=settings["HTTPMethods"])
 def joinashx():
     cookiez = request.cookies
     username = "Player1"
@@ -108,6 +109,7 @@ def joinashx():
     return signed, 200, {'Content-Type': 'text/plain'}
 
 @app.route("/game/PlaceLauncher.ashx", methods=settings["HTTPMethods"])
+@app.route("/Game/PlaceLauncher.ashx", methods=settings["HTTPMethods"])
 def launchtheplace():
     cookiez = request.cookies
     cookiers = None
