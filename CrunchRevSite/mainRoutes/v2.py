@@ -10,7 +10,7 @@ from __main__ import *
 def createorupdate():
     jobId = request.args.get("gameId")
     access = request.args.get("apiKey")
-    players = request.args.get("clientCount")
+    players = request.args.get("clientCount", type=int)
 
     if access == "ddec2ab4ae78dda0bb3497b134ae5c61":
         ArbiterClass.updatePlayersOnJob(jobId, players)
