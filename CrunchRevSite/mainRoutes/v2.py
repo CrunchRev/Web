@@ -8,7 +8,16 @@ from __main__ import *
 
 @app.route("/v2/CreateOrUpdate/", methods=settings["HTTPMethods"])
 def createorupdate():
-    return {"success": True}, 200, {"Content-Type": "application/json"}
+    jobId = request.args.get("gameId")
+    access = request.args.get("apiKey")
+    players = request.args.get("clientCount")
+
+    if access == "ddec2ab4ae78dda0bb3497b134ae5c61":
+        ArbiterClass.updatePlayersOnJob(jobId, players)
+
+        return {"success": True}, 200, {"Content-Type": "application/json"}
+    else:
+        return jsonify({"success": False, "error": "403, Access denied."}), 403
 
 @app.route("/v2/users/<playerId>/groups/roles", methods=settings["HTTPMethods"]) # we need that for admin icon ig
 def rolez(playerId):

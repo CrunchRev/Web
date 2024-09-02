@@ -243,3 +243,9 @@ class Arbiter:
             sm_logger.error(f"Failed to shutdown servers on {arbiterURL}")
 
         return {"success": False, "message": "Failed to shutdown job id"}
+
+    def updatePlayersOnJob(self, jobId, playersAmount):
+        query = "UPDATE jobs_in_use SET players = %s WHERE jobId = %s"
+        self.db.execute_securely(query, (playersAmount, jobId))
+
+        return True
