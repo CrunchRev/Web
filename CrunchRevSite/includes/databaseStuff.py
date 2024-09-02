@@ -151,7 +151,7 @@ class GamesDB:
     def fetchAll(self) -> Union[List[dict], dict]:
         games_query = """
         SELECT a.id, a.name, a.creator_id, u.username as creator_name, 
-               gi.client_version
+               gi.client_version, gi.icon_URI
         FROM assets a
         LEFT JOIN users u ON a.creator_id = u.userid
         LEFT JOIN games_info gi ON a.id = gi.asset_id
@@ -172,7 +172,7 @@ class GamesDB:
                 "client": game[4],
                 "creator_id": game[2],
                 "creator_name": game[3] or "Unknown",
-                "thumbnail": f"https://www.{self.url}/staticContent/ITP.jpeg"
+                "thumbnail": f"https://thumbscdn.{self.url}/{game[5]}"
             }
             for game in games
         ]
