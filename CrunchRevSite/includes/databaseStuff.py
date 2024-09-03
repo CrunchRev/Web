@@ -160,7 +160,7 @@ class GamesDB:
             FROM assets a
             LEFT JOIN users u ON a.creator_id = u.userid
             LEFT JOIN games_info gi ON a.id = gi.asset_id
-            LEFT JOIN jobs_in_use j ON a.id = j.id
+            LEFT JOIN jobs_in_use j ON a.id = j.place_id
             WHERE a.asset_type = 9 
             AND a.is_for_sale = 1
             GROUP BY a.id, a.name, a.creator_id, u.username, gi.client_version, gi.icon_URI;
