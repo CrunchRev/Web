@@ -189,11 +189,17 @@ class GamesDB:
     def fetchOne(self, placeId: int) -> dict:
         query1 = "SELECT * FROM assets WHERE asset_type = 9 AND id = %s"
         query2 = "SELECT * FROM games_info WHERE asset_id = %s"
+        query3 = """
+        SELECT COALESCE(SUM(j.players), 0) AS currentPlayers
+        FROM jobs_in_use j
+        WHERE j.place_id = %s
+        """
 
         execution1 = self.dbClass.execute_securely(query1, (placeId,))
         execution2 = self.dbClass.execute_securely(query2, (placeId,))
+        execution3 = self.dbClass.execute_securely(query3, (placeId,))
 
-        return {"assets": execution1, "info": execution2}
+        return {"assets": execution1, "info": execution2, "countersPlayers": str(execution3[0])}
 
 class Assets:
     def __init__(self, dbClass: Database):

@@ -112,6 +112,7 @@ def game(gameid):
 
     is_allowed = (user_info[0] == game_data["assets"][4]) or (user_info[8] == 1)
     is_for_sale = (game_data["assets"][8] == 1)
+    counters = game_data["countersPlayers"]
 
     if not is_for_sale:
         if not is_allowed:
@@ -132,9 +133,9 @@ def game(gameid):
         creatorname=dev_info[1],
         isAllowed=is_allowed,
         description=game_data["assets"][2],
-        currplayers=0,
+        currplayers=counters,
         maxPlayers=game_data["info"][2],
-        createdAt=game_data["assets"][5]
+        createdAt=game_data["assets"][5],
     )
 
 @app.route("/logout", methods=settings["HTTPMethods"])
