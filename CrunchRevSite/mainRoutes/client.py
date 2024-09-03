@@ -14,3 +14,8 @@ def pbe():
 def updatecounters(jobId, players):
     ArbiterClass.updatePlayersOnJob(jobId, players)
     return {"success": True}, 200, {"Content-Type": "application/json"}
+
+@app.route("/ownership/hasasset", methods=settings["HTTPMethods"])
+@app.route("/ownership/hasasset/", methods=settings["HTTPMethods"])
+def hasasset():
+    return "true", 200, {'Content-Type': 'text/plain'}
