@@ -83,3 +83,27 @@ def prodInfo():
         "MinimumMembershipLevel": 0,
         "ContentRatingTypeId": 0
     }), 200
+
+@app.route("/marketplace/purchase", methods=["POST"]) # expects POST from the logs
+def purchaseShit():
+    form_data = request.form
+    gamepass_id = int(form_data.get('productId'))
+
+    cookiez = request.cookies
+    info = None
+    if (".ROBLOSECURITY" or "_ROBLOSECURITY") in cookiez:
+        cookie = cookiez.get(".ROBLOSECURITY") or cookiez.get("_ROBLOSECURITY")
+        info = UserDB.fetchUser(method=1, cookie=cookie)
+
+    # I hope that shit sends the roblosecurity cookie ^^^^^
+
+    currentBalance = int(info[9])
+    getShitFromAPIURL = f"https://economy.roblox.com/v2/assets/{gamepass_id}/details"
+    getShit = requests.get(getShitFromAPIURL)
+
+    price = int(getShit.json()["PriceInRobux"])
+
+    if price > currentBalance:
+        return jsonify({"status": "error", "error": "Too poor!"})
+    
+    self.send_json({"success": True, "status": "Bought"}) # just a placeholder for now
