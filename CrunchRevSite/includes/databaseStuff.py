@@ -200,6 +200,13 @@ class GamesDB:
         execution3 = self.dbClass.execute_securely(query3, (placeId,))
 
         return {"assets": execution1, "info": execution2, "countersPlayers": str(execution3[0])}
+    
+    def incrementVisitsForGame(self, placeId: int):
+        query = "UPDATE games_info SET visits = visits + 1 WHERE asset_id = %s"
+
+        self.dbClass.execute_securely(query, (placeId,))
+
+        return True
 
 class Assets:
     def __init__(self, dbClass: Database):

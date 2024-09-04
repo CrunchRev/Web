@@ -48,6 +48,8 @@ def joinashx():
         charapp = f"http://www.{settings["URL"]}/asset/CharacterFetch.ashx?userId={userid}"
         ticket = Tickets.generate_client_ticket_v1(userid, username, charapp, jobIDarg)
 
+    GamesDB.incrementVisitsForGame(int(placeIDarg))
+
     joinScript = json.dumps({
         "ClientPort": 0,
         "MachineAddress": fetchJobID[5],

@@ -136,6 +136,7 @@ def game(gameid):
         currplayers=counters,
         maxPlayers=game_data["info"][2],
         createdAt=game_data["assets"][5],
+        visits=game_data["info"][5]
     )
 
 @app.route("/logout", methods=settings["HTTPMethods"])
