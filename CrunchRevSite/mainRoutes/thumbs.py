@@ -33,6 +33,7 @@ def jsonthumb():
     return jsonify(data)
 
 @app.route("/Thumbs/Avatar.ashx", methods=settings["HTTPMethods"])
+@app.route("/thumbs/avatar.ashx", methods=settings["HTTPMethods"])
 def imagethumb():
     user_id = request.args.get('userId', default='1')
     width = request.args.get('width', default='420')
@@ -42,6 +43,7 @@ def imagethumb():
     return redirect(image_url)
 
 @app.route("/Thumbs/Asset.ashx", methods=settings["HTTPMethods"])
+@app.route("/thumbs/asset.ashx", methods=settings["HTTPMethods"])
 def image2thumb():
     asset_id = request.args.get('assetId', default='1818')
     width = request.args.get('width', default='420')
