@@ -136,6 +136,7 @@ def game(gameid):
         currplayers=counters,
         maxPlayers=game_data["info"][2],
         createdAt=game_data["assets"][5],
+        updatedAt=game_data["assets"][6],
         visits=game_data["info"][5]
     )
 
