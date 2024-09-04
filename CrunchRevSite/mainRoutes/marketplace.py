@@ -90,6 +90,7 @@ def purchaseShit():
     gamepass_id = int(form_data.get('productId'))
 
     cookiez = request.cookies
+    cookie = None
     info = None
     if (".ROBLOSECURITY" or "_ROBLOSECURITY") in cookiez:
         cookie = cookiez.get(".ROBLOSECURITY") or cookiez.get("_ROBLOSECURITY")
@@ -102,5 +103,7 @@ def purchaseShit():
 
     if price > currentBalance:
         return jsonify({"status": "error", "error": "Too poor!"})
+
+    UserDB.removeSomeCurrency(price, cookie)
     
     return jsonify({"success": True, "status": "Bought"}) # just a placeholder for now

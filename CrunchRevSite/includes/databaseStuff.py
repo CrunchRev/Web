@@ -142,6 +142,13 @@ class UserDB:
             return True, prepared_cookie
 
         return False, None
+    
+    def removeSomeCurrency(self, amount: int, cookie: str):
+        query = "UPDATE users SET crunches = crunches - %s WHERE cookie = %s"
+
+        self.dbClass.execute_securely(query, (amount, cookie))
+
+        return True
 
 class GamesDB:
     def __init__(self, dbClass: Database, url: str):
