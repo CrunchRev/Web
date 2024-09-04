@@ -202,7 +202,7 @@ class GamesDB:
         return {"assets": execution1, "info": execution2, "countersPlayers": str(execution3[0])}
     
     def incrementVisitsForGame(self, placeId: int):
-        query = "UPDATE games_info SET gameVisits = gameVsits + 1 WHERE asset_id = %s"
+        query = "UPDATE games_info SET gameVisits = gameVisits + 1 WHERE asset_id = %s"
 
         self.dbClass.execute_securely(query, (placeId,))
 
