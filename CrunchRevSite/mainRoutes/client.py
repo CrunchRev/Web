@@ -21,3 +21,23 @@ def updatecounters(jobId, players):
 @app.route("/ownership/hasAsset/", methods=settings["HTTPMethods"])
 def hasasset():
     return "false", 200, {'Content-Type': 'text/plain'}
+
+@app.route("/currency/balance", methods=settings["HTTPMethods"])
+def balance():
+    cookiez = request.cookies
+    info = None
+    json = {}
+    if (".ROBLOSECURITY" or "_ROBLOSECURITY") in cookiez:
+        cookie = cookiez.get(".ROBLOSECURITY") or cookiez.get("_ROBLOSECURITY")
+        info = UserDB.fetchUser(method=1, cookie=cookie)
+
+    if not info:
+        json = {"success": False}
+    else:
+        json = {
+            "success": True,
+            "robux": info[9],
+            "tickets": info[9]
+        }
+
+    return jsonify(json), 200
