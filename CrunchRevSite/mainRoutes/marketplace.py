@@ -98,14 +98,9 @@ def purchaseShit():
     # I hope that shit sends the roblosecurity cookie ^^^^^
 
     currentBalance = int(info[9])
-    getShitFromAPIURL = f"https://economy.roblox.com/v2/assets/{gamepass_id}/details"
-    getShit = requests.get(getShitFromAPIURL)
-
-    print(getShit.text)
-
-    price = int(getShit.json()["PriceInRobux"])
+    price = 50 # placeholder
 
     if price > currentBalance:
         return jsonify({"status": "error", "error": "Too poor!"})
     
-    self.send_json({"success": True, "status": "Bought"}) # just a placeholder for now
+    return jsonify({"success": True, "status": "Bought"}) # just a placeholder for now
