@@ -28,9 +28,9 @@ def prodInfo():
 
     if not assetsData or not gameData:
         # we just request shit from roblox API then
-        # https://apis.roblox.com/game-passes/v1/game-passes/GAMEPASS-ID/product-info
+        # https://economy.roblox.com/v2/assets/{assetId}/details
 
-        requestURL = f"https://apis.roblox.com/game-passes/v1/game-passes/{assetId}/product-info"
+        requestURL = f"https://economy.roblox.com/v2/assets/{assetId}/details"
         requestResource = None
         requestJSON = {}
         try:
