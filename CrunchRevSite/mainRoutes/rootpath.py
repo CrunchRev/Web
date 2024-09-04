@@ -141,7 +141,7 @@ def game(gameid):
 
 @app.route("/logout", methods=settings["HTTPMethods"])
 def log_theout():
-    resp = make_response("Success! <a href='/login'>Login</a>")
+    resp = make_response(f'<meta http-equiv="refresh" content="0; url=https://www.{settings["URL"]}/login">') # redirect doesnt work, so yeah
     domain = f".{settings['URL']}"
     expiration = int(0)
 
@@ -174,7 +174,7 @@ def login():
         loggedInResult, cookie = UserDB.login(username, password)
 
         if loggedInResult is True:
-            resp = make_response("Success! <a href='/games'>Get started!</a>", 200)
+            resp = make_response(f'<meta http-equiv="refresh" content="0; url=https://www.{settings["URL"]}/home">') # redirect doesnt work, so yeah
             domain = f".{settings['URL']}"
             expiration = int(time.time() + (365 * 24 * 60 * 60))
 
@@ -216,7 +216,7 @@ def signup():
             signUpResult, cookie = UserDB.signup(username, password, invite_key)
 
             if signUpResult is True:
-                resp = make_response("Success! <a href='/home'>Go to home page</a>", 200)
+                resp = make_response(f'<meta http-equiv="refresh" content="0; url=https://www.{settings["URL"]}/home">') # redirect doesnt work, so yeah
                 domain = f".{settings['URL']}"
                 expiration = int(time.time() + (365 * 24 * 60 * 60))
 
