@@ -101,6 +101,8 @@ def purchaseShit():
     getShitFromAPIURL = f"https://economy.roblox.com/v2/assets/{gamepass_id}/details"
     getShit = requests.get(getShitFromAPIURL)
 
+    print(getShit.text)
+
     price = int(getShit.json()["PriceInRobux"])
 
     if price > currentBalance:
