@@ -63,7 +63,7 @@ def refresh():
     playersInt = int(players)
     timeFloat = float(gameTime)
 
-    if playersInt < 1 and timeFloat >= 15.0: # making that so rcc doesnt shutdown just after it launched
+    if playersInt < 1 and timeFloat >= 45.5: # making that so rcc doesnt shutdown just after it launched
         if access == "ddec2ab4ae78dda0bb3497b134ae5c61":
             return ArbiterClass.shutdownJobId(jobId)
         else:
