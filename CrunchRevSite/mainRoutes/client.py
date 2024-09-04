@@ -20,4 +20,4 @@ def updatecounters(jobId, players):
 @app.route("/ownership/hasAsset", methods=settings["HTTPMethods"])
 @app.route("/ownership/hasAsset/", methods=settings["HTTPMethods"])
 def hasasset():
-    return "true", 200, {'Content-Type': 'text/plain'}
+    return "false", 200, {'Content-Type': 'text/plain'}
