@@ -148,5 +148,6 @@ def purchaseShit():
         return jsonify({"status": "error", "error": "Too poor!"})
 
     UserDB.removeSomeCurrency(price, cookie)
+    Assets.buyShit(info[0], gamepass_id)
     
     return jsonify({"success": True, "status": "Bought"})

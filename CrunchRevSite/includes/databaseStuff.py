@@ -235,6 +235,20 @@ class Assets:
         execution1 = self.dbClass.execute_securely(queryAssetId, (assetId,))
 
         return execution1
+    
+    def buyShit(self, userId: int, assetId: int):
+        queryInsert = "INSERT INTO user_bought_items (user_id, asset_id) VALUES (%s, %s)"
+
+        self.dbClass.execute_securely(queryInsert, (userId, assetId))
+
+        return True
+    
+    def owns(self, userId: int, assetId: int):
+        query = "SELECT 1 FROM user_bought_items WHERE user_id = %s AND asset_id = %s LIMIT 1"
+
+        CheckResult = self.dbClass.execute_securely(query, (userId, assetId))
+        
+        return len(CheckResult) > 0 if CheckResult else False
 
 class DataStore:
     def __init__(self, dbClass: Database):

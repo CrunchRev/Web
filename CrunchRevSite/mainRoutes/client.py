@@ -20,7 +20,16 @@ def updatecounters(jobId, players):
 @app.route("/ownership/hasAsset", methods=settings["HTTPMethods"])
 @app.route("/ownership/hasAsset/", methods=settings["HTTPMethods"])
 def hasasset():
-    return "false", 200, {'Content-Type': 'text/plain'}
+    trueOrFalse = "false"
+    userId = int(request.args.get("userId"))
+    assetId = int(request.args.get("assetId"))
+
+    asyncFetch = Assets.owns(userId, assetId)
+
+    if asyncFetch == True:
+        trueOrFalse = "true"
+
+    return trueOrFalse, 200, {'Content-Type': 'text/plain'}
 
 @app.route("/currency/balance", methods=settings["HTTPMethods"])
 def balance():
