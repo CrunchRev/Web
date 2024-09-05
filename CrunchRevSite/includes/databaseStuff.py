@@ -228,6 +228,13 @@ class Assets:
         execution1 = self.dbClass.execute_securely(query1, (playerId,), True) # I think it would be like [(2383822), (328734818)], etc.
 
         return execution1
+    
+    def fetchGamepassAsset(self, assetId: int):
+        queryAssetId = "SELECT price, is_for_sale, name, description, creator_id, created_at, updated_at FROM assets WHERE id = %s AND asset_type = 0"
+
+        execution1 = self.dbClass.execute_securely(queryAssetId, (assetId,))
+
+        return execution1
 
 class DataStore:
     def __init__(self, dbClass: Database):

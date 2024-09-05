@@ -27,24 +27,54 @@ def prodInfo():
         pass
 
     if not assetsData or not gameData:
-        # we just request shit from roblox API then
-        # https://economy.roblox.com/v2/assets/{assetId}/details
+        gamepazzData = Assets.fetchGamepassAsset(assetId)
 
-        requestURL = f"https://economy.roblox.com/v2/assets/{assetId}/details"
+        if not gamepazzData:
+            return jsonify({"data": {["error": 0, "message": "Asset not found"]}})
 
-        requestResource = None
-        requestJSON = {}
-        try:
-            # fuck roblox for ratelimiting guest requests, using an empty account
+        name = assetsData[2]
+        description = assetsData[3]
+        creatorId = int(assetsData[4])
 
-            cookiesForRequest = {".ROBLOSECURITY": settings["ROBLOSECURITY_cookie"]}
+        creatorName = UserDB.fetchUser(method=2, userId=creatorId)[1]
 
-            requestResource = requests.get(requestURL, cookies=cookiesForRequest)
-            requestJSON = requestResource.json()
-        except:
-            return jsonify({"error": "Error while getting JSON response from Roblox API."})
-        
-        return jsonify(requestJSON), 200
+        createdAt = assetsData[5]
+        updatedAt = assetsData[6]
+        is_for_sale = assetsData[1]
+        price = assetsData[0]
+
+        if is_for_sale == 1:
+            is_for_sale = True
+        else:
+            is_for_sale = False
+
+        return jsonify({
+            "AssetId": assetId,
+            "ProductId": assetId,
+            "Name": str(name),
+            "Description": str(description),
+            "AssetTypeId": 9,
+            "Creator": {
+                "Id": creatorId,
+                "Name": str(creatorName),
+                "CreatorType": "User",
+                "CreatorTargetId": creatorId
+            },
+            "IconImageAssetId": assetId,
+            "Created": str(createdAt),
+            "Updated": str(updatedAt),
+            "PriceInRobux": price,
+            "PriceInTickets": price, # We do that for it not complaining about "Cannot get the price at this moment"
+            "Sales": 0, # TODO
+            "IsNew": False,
+            "IsForSale": is_for_sale,
+            "IsPublicDomain": False,
+            "IsLimited": False,
+            "IsLimitedUnique": False,
+            "Remaining": None,
+            "MinimumMembershipLevel": 0,
+            "ContentRatingTypeId": 0
+        }), 200
 
     name = assetsData[1]
     description = assetsData[2]
@@ -103,14 +133,18 @@ def purchaseShit():
         cookie = cookiez.get(".ROBLOSECURITY") or cookiez.get("_ROBLOSECURITY")
         info = UserDB.fetchUser(method=1, cookie=cookie)
 
+    gamepazzInfo = Assets.fetchGamepassAsset(gamepass_id) # fuck productId fr
+
+    if not gamepazzInfo:
+        return jsonify({"status": "error", "error": "Can not get the product information."})
+
     currentBalance = int(info[9])
-    price = 50 # TODO: retrieve price from the database
+
+    price = gamepazzInfo[0]
 
     if price > currentBalance:
         return jsonify({"status": "error", "error": "Too poor!"})
 
     UserDB.removeSomeCurrency(price, cookie)
-
-    time.sleep(1)
     
     return jsonify({"success": True, "status": "Bought"})
