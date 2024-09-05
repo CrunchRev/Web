@@ -34,16 +34,16 @@ def prodInfo():
         
         logging.info(f"Gamepass data:\n{gamepazzData}")
 
-        name = assetsData[2]
-        description = assetsData[3]
-        creatorId = int(assetsData[4])
+        name = gamepazzData[2]
+        description = gamepazzData[3]
+        creatorId = int(gamepazzData[4])
 
         creatorName = UserDB.fetchUser(method=2, userId=creatorId)[1]
 
-        createdAt = assetsData[5]
-        updatedAt = assetsData[6]
-        is_for_sale = assetsData[1]
-        price = assetsData[0]
+        createdAt = gamepazzData[5]
+        updatedAt = gamepazzData[6]
+        is_for_sale = gamepazzData[1]
+        price = gamepazzData[0]
 
         if is_for_sale == 1:
             is_for_sale = True
