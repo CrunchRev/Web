@@ -94,6 +94,8 @@ def purchaseShit():
     form_data = request.form
     gamepass_id = int(form_data.get('productId'))
 
+    logging.info(f"Current transaction product ID: {str(gamepass_id)}")
+
     cookiez = request.cookies
     cookie = None
     info = None
@@ -109,6 +111,6 @@ def purchaseShit():
 
     UserDB.removeSomeCurrency(price, cookie)
 
-    time.sleep(0.5)
+    time.sleep(1)
     
     return jsonify({"success": True, "status": "Bought"})
