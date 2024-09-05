@@ -31,6 +31,8 @@ def prodInfo():
 
         if not gamepazzData:
             return jsonify({"data": [{"error": 0, "message": "Asset not found"}]})
+        
+        logging.info(f"Gamepass data:\n{gamepazzData}")
 
         name = assetsData[2]
         description = assetsData[3]
