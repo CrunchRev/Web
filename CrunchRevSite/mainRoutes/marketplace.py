@@ -30,7 +30,7 @@ def prodInfo():
         gamepazzData = Assets.fetchGamepassAsset(assetId)
 
         if not gamepazzData:
-            return jsonify({"data": {["error": 0, "message": "Asset not found"]}})
+            return jsonify({"data": [{"error": 0, "message": "Asset not found"}]})
 
         name = assetsData[2]
         description = assetsData[3]
