@@ -31,10 +31,15 @@ def prodInfo():
         # https://economy.roblox.com/v2/assets/{assetId}/details
 
         requestURL = f"https://economy.roblox.com/v2/assets/{assetId}/details"
+
         requestResource = None
         requestJSON = {}
         try:
-            requestResource = requests.get(requestURL)
+            # fuck roblox for ratelimiting guest requests, using an empty account
+
+            cookiesForRequest = {".ROBLOSECURITY": settings["ROBLOSECURITY_cookie"]}
+
+            requestResource = requests.get(requestURL, cookies=cookiesForRequest)
             requestJSON = requestResource.json()
         except:
             return jsonify({"error": "Error while getting JSON response from Roblox API."})
