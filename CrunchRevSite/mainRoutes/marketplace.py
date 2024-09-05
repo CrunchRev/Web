@@ -96,14 +96,14 @@ def purchaseShit():
         cookie = cookiez.get(".ROBLOSECURITY") or cookiez.get("_ROBLOSECURITY")
         info = UserDB.fetchUser(method=1, cookie=cookie)
 
-    # I hope that shit sends the roblosecurity cookie ^^^^^
-
     currentBalance = int(info[9])
-    price = 50 # placeholder
+    price = 50 # TODO: retrieve price from the database
 
     if price > currentBalance:
         return jsonify({"status": "error", "error": "Too poor!"})
 
     UserDB.removeSomeCurrency(price, cookie)
+
+    time.sleep(0.5)
     
-    return jsonify({"success": True, "status": "Bought"}) # just a placeholder for now
+    return jsonify({"success": True, "status": "Bought"})
