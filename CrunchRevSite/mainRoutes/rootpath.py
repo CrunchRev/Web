@@ -290,8 +290,8 @@ def assetdelivery():
     assetRemoteURL = f"https://assetdelivery.roblox.com/v1/asset?id={idarg}"
     
     try:
-        # cookieRequest = {".ROBLOSECURITY": settings["ROBLOSECURITY_cookie"]}
-        response = requests.get(assetRemoteURL) #, cookies=cookieRequest)
+        cookieRequest = {".ROBLOSECURITY": settings["ROBLOSECURITY_cookie"]}
+        response = requests.get(assetRemoteURL, cookies=cookieRequest)
         response.raise_for_status()
     except requests.RequestException:
         return redirect(assetRemoteURL)
