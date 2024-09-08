@@ -72,7 +72,9 @@
                 </a></p>
               <hr class="hr-above-btn dark-hr">
               <div class="d-grid gap-2">
+                {% if not gameclient == "2016E" %}
                 <button type="button" id="gamelaunchbtn" class="btn btn-primary" data-bs-toggle="modal" data-placeid={{ placeid|e }} data-bs-target="#exampleModal">Play</button>
+                {% endif %}
                 {% if isAllowed %}
 		            <button data-bs-toggle="modal" data-bs-target="#ShutdownModal" class="btn btn-danger">Shutdown All Servers</button>
                 {% endif %}
@@ -241,10 +243,12 @@ function StartClient() {
 
     ProgressBarReset();
 
-    {% if not isRobloxApp %}
-      window.location.href = `crurev-player://${needsExtraFowardSlash ? '/' : ''}1+launchmode:play+gameinfo:${cookie}+placelauncherurl:http://www.unirev.xyz/game/PlaceLauncher.ashx?placeId=${placeid}+client:${clientversion}`;
-    {% else %}
-      window.location.href = `/games/start?placeid=${placeid}&userID={{ usrid|e }}`;
+    {% if not gameclient == "2016E" %}
+      {% if not isRobloxApp %}
+        window.location.href = `crurev-player://${needsExtraFowardSlash ? '/' : ''}1+launchmode:play+gameinfo:${cookie}+placelauncherurl:http://www.unirev.xyz/game/PlaceLauncher.ashx?placeId=${placeid}+client:${clientversion}`;
+      {% else %}
+        window.location.href = `/games/start?placeid=${placeid}&userID={{ usrid|e }}`;
+      {% endif %}
     {% endif %}
     setTimeout(function() {
         loadingbar.style.display = "none";
