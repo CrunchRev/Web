@@ -72,7 +72,7 @@
                 </a></p>
               <hr class="hr-above-btn dark-hr">
               <div class="d-grid gap-2">
-                <button type="button" id="gamelaunchbtn" class="btn btn-primary" data-bs-toggle="modal" data-placeid={{ placeid|e }} data-bs-target="#exampleModal" {% if gameclient == "2016E" %} disabled="" {% endif %}>Play</button>
+                <button type="button" id="gamelaunchbtn" class="btn btn-primary" data-bs-toggle="modal" data-placeid={{ placeid|e }} data-bs-target="#exampleModal" {% if gameclient == "2016E" and not isAllowed %} disabled="" {% endif %}>Play</button>
                 {% if isAllowed %}
 		            <button data-bs-toggle="modal" data-bs-target="#ShutdownModal" class="btn btn-danger">Shutdown All Servers</button>
                 {% endif %}
@@ -197,7 +197,7 @@
 
 <script>
 
-{% if not gameclient == "2016E" %}
+{% if not gameclient == "2016E" or isAllowed %}
 
 function getCookieValue(cookieName) {
   const cookieString = document.cookie;
