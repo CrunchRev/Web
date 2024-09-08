@@ -72,6 +72,9 @@
                 </a></p>
               <hr class="hr-above-btn dark-hr">
               <div class="d-grid gap-2">
+                {% if gameclient == "2016E" and not isAllowed %}
+                <p class="card-text">2016E is currently disabled, stay tuned!</p>
+                {% endif %}
                 <button type="button" id="gamelaunchbtn" class="btn btn-primary" data-bs-toggle="modal" data-placeid={{ placeid|e }} data-bs-target="#exampleModal" {% if gameclient == "2016E" and not isAllowed %} disabled="" {% endif %}>Play</button>
                 {% if isAllowed %}
 		            <button data-bs-toggle="modal" data-bs-target="#ShutdownModal" class="btn btn-danger">Shutdown All Servers</button>
