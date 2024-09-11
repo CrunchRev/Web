@@ -123,6 +123,10 @@ def launchtheplace():
         info = UserDB.fetchUser(method=1, cookie=cookie)
         if info:
             cookiers = cookie
+        else:
+            return jsonify({"error": "Authorization failed, please check that you are logged in"}), 401
+    else:
+        return jsonify({"error": "Authorization failed, please check that you are logged in"}), 401
 
     placeIDarg = request.args.get("placeId")
 
