@@ -163,7 +163,7 @@ class GamesDB:
                 u.username AS creator_name, 
                 gi.client_version, 
                 gi.icon_URI, 
-                COALESCE(COUNT(j.players), 0) AS current_players
+                COALESCE(SUM(j.players), 0) AS current_players
             FROM assets a
             LEFT JOIN users u ON a.creator_id = u.userid
             LEFT JOIN games_info gi ON a.id = gi.asset_id
