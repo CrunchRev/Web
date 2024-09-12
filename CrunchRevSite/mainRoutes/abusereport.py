@@ -8,7 +8,7 @@ from __main__ import *
 
 @app.route("/AbuseReport/InGameChatHandler.ashx", methods=["POST"])
 def abuseReporter():
-    reportXML = request.data.encode("utf-8") # I think it wouldn't be empty as it's not a JSON object, it's an XML
+    reportXML = request.data.decode("utf-8") # I think it wouldn't be empty as it's not a JSON object, it's an XML
 
     # TODO: do db shit for that, now we just use webhook
 
