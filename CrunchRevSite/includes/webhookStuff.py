@@ -93,3 +93,23 @@ def send_arbiter_startup_webhook(placeId, client, servah):
         webhook_logger.info("Message sent successfully")
     else:
         webhook_logger.error(f"Failed to send message: {response.status_code}")
+
+def sendReportAbuse(data):
+    webhook_url = "https://discord.com/api/webhooks/1278739622406389812/_Q7spNKO3-kTn8YUXmBezItV_QgwGdQfQDL-4R-dw2dV35pF-yr8WNAgUwsVlgBY_QKB"
+
+    content = f"""Abuse report submitted! Raw data:
+
+```xml
+{data}
+```"""
+    
+    data = {
+        "content": content
+    }
+
+    response = requests.post(webhook_url, json=data)
+
+    if response.status_code == 204:
+        webhook_logger.info("Message sent successfully")
+    else:
+        webhook_logger.error(f"Failed to send message: {response.status_code}")

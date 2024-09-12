@@ -26,8 +26,7 @@ from includes.clientStuff import *
 from includes.chatStuff import *
 from includes.databaseStuff import *
 from includes.safeTokensStuff import *
-
-# from includes.webhookStuff import *
+from includes.webhookStuff import *
 
 print(r"""
    ____                       _     ____             __        __   _         _ _       
@@ -99,6 +98,7 @@ def includeRoutes():
     import mainRoutes.persistence
     import mainRoutes.client
     import mainRoutes.uac
+    import mainRoutes.abusereport
 
 internal_logger.info("Running logic...")
 
