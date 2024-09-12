@@ -11,6 +11,7 @@ import uuid
 import time
 import os
 from flask import *
+import ssl
 import requests
 from waitress import serve
 from paste.translogger import TransLogger
@@ -106,8 +107,21 @@ if __name__ == "__main__":
     internal_logger.info("Including routes...")
     includeRoutes()
     internal_logger.info("Running the application with waitress...")
+
+    context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    context.load_cert_chain(certfile="C:/Certbot/live/unirev.xyz/fullchain.pem", keyfile="C:/Certbot/live/unirev.xyz/privkey.pem")
+
     try:
-        serve(TransLogger(app, setup_console_handler=False, logger=waitress_logger), listen='*:4582', ident=None, threads=24, channel_timeout=60, connection_limit=10000, expose_tracebacks=True)
+        serve(
+            TransLogger(app, setup_console_handler=False, logger=waitress_logger),
+            listen='*:80 *:443',
+            threads=24,
+            channel_timeout=60,
+            connection_limit=10000,
+            expose_tracebacks=True,
+            ssl_context=context
+        )
     except Exception as e:
-        internal_logger.critical(f"CRITICAL ERROR! waitress has crashed. Details: {e}")
+        internal_logger.critical(f"CRITICAL ERROR! Waitress has crashed. Details: {e}")
+    
     internal_logger.info("Service shutting down...")
