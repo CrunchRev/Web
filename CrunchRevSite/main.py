@@ -47,8 +47,8 @@ internal_logger.setLevel(logging.INFO)
 
 internal_logger.info("Setting up logging...")
 
-waitress_logger = logging.getLogger('waitress')
-waitress_logger.setLevel(logging.INFO)
+# waitress_logger = logging.getLogger('waitress')
+# waitress_logger.setLevel(logging.INFO)
 
 internal_logger.info("Connecting to remote MySQL server...")
 try:
