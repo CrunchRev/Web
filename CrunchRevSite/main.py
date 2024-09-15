@@ -12,7 +12,7 @@ import time
 import os
 from flask import *
 import requests
-from waitress import serve
+# from waitress import serve
 from paste.translogger import TransLogger
 from flask_bcrypt import Bcrypt
 from functools import lru_cache
@@ -107,7 +107,10 @@ if __name__ == "__main__":
     includeRoutes()
     internal_logger.info("Running the application with waitress...")
     try:
-        serve(TransLogger(app, setup_console_handler=False, logger=waitress_logger), listen='*:4582', ident=None, threads=24, channel_timeout=60, connection_limit=10000, expose_tracebacks=True)
+        app.run(host='0.0.0.0', ssl_context=("C:/Certbot/live/unirev.xyz/fullchain.pem", "C:/Certbot/live/unirev.xyz/privkey.pem"))
+        # fuck waitress for not supporting SSL, and fuck other hosting frameworks for not supporting Windows (I have no ability to WSL on my VPS D:)
+        # also fuck nginx for Windows (it breaks 2016E)
+        # serve(TransLogger(app, setup_console_handler=False, logger=waitress_logger), listen='*:4582', ident=None, threads=24, channel_timeout=60, connection_limit=10000, expose_tracebacks=True)
     except Exception as e:
-        internal_logger.critical(f"CRITICAL ERROR! waitress has crashed. Details: {e}")
+        internal_logger.critical(f"CRITICAL ERROR! Hosting framework has crashed. Details: {e}")
     internal_logger.info("Service shutting down...")
