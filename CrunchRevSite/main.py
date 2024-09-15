@@ -20,6 +20,8 @@ import xml.etree.ElementTree as ET
 from io import BytesIO
 import itertools
 import gzip
+import ssl
+import threading
 
 from settings import settings
 from includes.clientStuff import *
@@ -100,14 +102,33 @@ def includeRoutes():
     import mainRoutes.uac
     import mainRoutes.abusereport
 
+# -- UTILITY FUNCTIONS -- #
+
+def run_http():
+    app.run(host='0.0.0.0', port=80)
+
+def run_https():
+    context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+    context.load_cert_chain("C:/Certbot/live/unirev.xyz/fullchain.pem", "C:/Certbot/live/unirev.xyz/privkey.pem")
+    app.run(host='0.0.0.0', port=443, ssl_context=context)
+
+# -- END UTILITY FUNCTIONS -- #
+
 internal_logger.info("Running logic...")
 
 if __name__ == "__main__":
     internal_logger.info("Including routes...")
     includeRoutes()
-    internal_logger.info("Running the application with waitress...")
+    internal_logger.info("Running the application with hosting framework...")
     try:
-        app.run(host='0.0.0.0', ssl_context=("C:/Certbot/live/unirev.xyz/fullchain.pem", "C:/Certbot/live/unirev.xyz/privkey.pem"))
+        http_thread = threading.Thread(target=run_http)
+        https_thread = threading.Thread(target=run_https)
+
+        http_thread.start()
+        https_thread.start()
+
+        http_thread.join()
+        https_thread.join()
         # fuck waitress for not supporting SSL, and fuck other hosting frameworks for not supporting Windows (I have no ability to WSL on my VPS D:)
         # also fuck nginx for Windows (it breaks 2016E)
         # serve(TransLogger(app, setup_console_handler=False, logger=waitress_logger), listen='*:4582', ident=None, threads=24, channel_timeout=60, connection_limit=10000, expose_tracebacks=True)
