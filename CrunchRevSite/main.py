@@ -12,7 +12,7 @@ import time
 import os
 from flask import *
 import requests
-# from waitress import serve
+from waitress import serve
 from paste.translogger import TransLogger
 from flask_bcrypt import Bcrypt
 from functools import lru_cache
@@ -49,8 +49,8 @@ internal_logger.setLevel(logging.INFO)
 
 internal_logger.info("Setting up logging...")
 
-# waitress_logger = logging.getLogger('waitress')
-# waitress_logger.setLevel(logging.INFO)
+waitress_logger = logging.getLogger('waitress')
+waitress_logger.setLevel(logging.INFO)
 
 internal_logger.info("Connecting to remote MySQL server...")
 try:
@@ -102,18 +102,6 @@ def includeRoutes():
     import mainRoutes.uac
     import mainRoutes.abusereport
 
-# -- UTILITY FUNCTIONS -- #
-
-def run_http():
-    app.run(host='0.0.0.0', port=80, debug=False, threaded=True, processes=4)
-
-def run_https():
-    context = ssl.SSLContext(ssl.PROTOCOL_TLS)
-    context.load_cert_chain("C:/Certbot/live/unirev.xyz/fullchain.pem", "C:/Certbot/live/unirev.xyz/privkey.pem")
-    app.run(host='0.0.0.0', port=443, ssl_context=context, debug=False, threaded=True, processes=4)
-
-# -- END UTILITY FUNCTIONS -- #
-
 internal_logger.info("Running logic...")
 
 if __name__ == "__main__":
@@ -121,17 +109,7 @@ if __name__ == "__main__":
     includeRoutes()
     internal_logger.info("Running the application with hosting framework...")
     try:
-        http_thread = threading.Thread(target=run_http)
-        https_thread = threading.Thread(target=run_https)
-
-        http_thread.start()
-        https_thread.start()
-
-        http_thread.join()
-        https_thread.join()
-        # fuck waitress for not supporting SSL, and fuck other hosting frameworks for not supporting Windows (I have no ability to WSL on my VPS D:)
-        # also fuck nginx for Windows (it breaks 2016E)
-        # serve(TransLogger(app, setup_console_handler=False, logger=waitress_logger), listen='*:4582', ident=None, threads=24, channel_timeout=60, connection_limit=10000, expose_tracebacks=True)
+        serve(TransLogger(app, setup_console_handler=False, logger=waitress_logger), listen='*:80', ident=None, threads=24, channel_timeout=60, connection_limit=10000, expose_tracebacks=True)
     except Exception as e:
         internal_logger.critical(f"CRITICAL ERROR! Hosting framework has crashed. Details: {e}")
     internal_logger.info("Service shutting down...")

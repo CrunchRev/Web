@@ -1,5 +1,6 @@
 Flask
 requests
+waitress
 Paste
 Werkzeug
 Flask-Bcrypt
