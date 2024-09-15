@@ -105,12 +105,12 @@ def includeRoutes():
 # -- UTILITY FUNCTIONS -- #
 
 def run_http():
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=80, debug=False, threaded=True, processes=4)
 
 def run_https():
     context = ssl.SSLContext(ssl.PROTOCOL_TLS)
     context.load_cert_chain("C:/Certbot/live/unirev.xyz/fullchain.pem", "C:/Certbot/live/unirev.xyz/privkey.pem")
-    app.run(host='0.0.0.0', port=443, ssl_context=context)
+    app.run(host='0.0.0.0', port=443, ssl_context=context, debug=False, threaded=True, processes=4)
 
 # -- END UTILITY FUNCTIONS -- #
 
