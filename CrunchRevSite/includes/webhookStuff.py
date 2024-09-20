@@ -7,6 +7,7 @@ Module description: controls webhooks
 import requests
 import logging
 import json
+import xml.etree.ElementTree as ET # we will parse that shit!
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -94,22 +95,42 @@ def send_arbiter_startup_webhook(placeId, client, servah):
     else:
         webhook_logger.error(f"Failed to send message: {response.status_code}")
 
-def sendReportAbuse(data):
+def sendReportAbuse(xml_data):
     webhook_url = "https://discord.com/api/webhooks/1278739622406389812/_Q7spNKO3-kTn8YUXmBezItV_QgwGdQfQDL-4R-dw2dV35pF-yr8WNAgUwsVlgBY_QKB"
-
-    content = f"""Abuse report submitted! Raw data:
-
-```xml
-{data}
-```"""
+    
+    root = ET.fromstring(xml_data)
+    userID = root.attrib.get("userID")
+    placeID = root.attrib.get("placeID")
+    gameJobID = root.attrib.get("gameJobID")
+    userSystemAddress = root.attrib.get("userSystemAddress", "N/A")
+    userAgent = root.findtext("userAgent", "N/A")
+    comment = root.findtext("comment", "No comment provided")
+    
+    messages = root.find("messages")
+    message_details = "\n".join([f"User {msg.attrib['userID']} (GUID: {msg.attrib['guid']}): {msg.text}" for msg in messages])
+    
+    embed = {
+        "title": "Abuse Report Submitted",
+        "description": "Details from the abuse report",
+        "fields": [
+            {"name": "User ID", "value": userID, "inline": True},
+            {"name": "Place ID", "value": placeID, "inline": True},
+            {"name": "Game Job ID", "value": gameJobID, "inline": False},
+            {"name": "User System Address", "value": userSystemAddress, "inline": False},
+            {"name": "User Agent", "value": userAgent, "inline": False},
+            {"name": "Comment", "value": comment, "inline": False},
+            {"name": "Messages", "value": message_details, "inline": False}
+        ],
+        "color": 15158332
+    }
     
     data = {
-        "content": content
+        "embeds": [embed]
     }
 
     response = requests.post(webhook_url, json=data)
 
     if response.status_code == 204:
-        webhook_logger.info("Message sent successfully")
+        print("Message sent successfully")
     else:
-        webhook_logger.error(f"Failed to send message: {response.status_code}")
+        print(f"Failed to send message: {response.status_code}")

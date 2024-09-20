@@ -20,8 +20,8 @@ import xml.etree.ElementTree as ET
 from io import BytesIO
 import itertools
 import gzip
-import ssl
-import threading
+# import ssl
+# import threading
 
 from settings import settings
 from includes.clientStuff import *
