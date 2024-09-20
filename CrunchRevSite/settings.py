@@ -13,7 +13,7 @@ settings = {
         "DatabaseName": "crunchrev_database"
     },
     "whitelistedPlaceIPs": {
-        "86.209.13.245",
+        "162.158.79.167",
         "52.5.217.76",
         "46.174.51.158"
     },
