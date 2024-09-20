@@ -13,10 +13,8 @@ settings = {
         "DatabaseName": "crunchrev_database"
     },
     "whitelistedPlaceIPs": {
-        "162.158.79.167",
         "52.5.217.76",
-        "46.174.51.158",
-        "172.70.39.52"
+        "46.174.51.158"
     },
     "PK1024Path": "../CrunchRevKeys/PrivateKey1024.pem",
     "PK2048Path": "../CrunchRevKeys/PrivateKey2048.pem",
