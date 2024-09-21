@@ -1,8 +1,6 @@
 {
     "applicationSettings": {
         "AllowVideoPreRoll": true,
-        "FFlagEnableAuthV2Login": true,
-        "FFlagIsBEDEV2CaptchaEnabledForMobileSignupForAll": true,
         "Bedev2CaptchaEnabledForNativeLogin": true,
         "AndroidSwipeGestureUseStartingPosition": true,
         "AxisAdornmentGrabSize": 12,
@@ -571,7 +569,6 @@
         "DFFlagTerrainReplicationSendMasks": true,
         "DFFlagTerrainReplicationUseLargerChunks": true,
         "DFFlagTextScraperEnableCaptureDateTime": true,
-        "DFFlagTheseAreSomeOfMyBestAttributes": true,
         "DFFlagThrottleDebuggerMetrics": true,
         "DFFlagThrottleGetUserThumbnailAsync": true,
         "DFFlagThrottlingBadgesRollOut": true,
