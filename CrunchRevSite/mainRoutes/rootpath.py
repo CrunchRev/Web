@@ -27,7 +27,8 @@ def setup():
             is_banned = info[5] == 1
 
             if is_banned:
-                return redirect("/not-approved")
+                if not request.path.lstrip('/') == "not-approved":
+                    return redirect("/not-approved")
     
 @app.errorhandler(404)
 def notfound(e):
