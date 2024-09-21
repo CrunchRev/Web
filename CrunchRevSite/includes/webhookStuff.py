@@ -109,18 +109,18 @@ def sendReportAbuse(xml_data):
     messages = root.find("messages")
     message_details = "\n".join([f"User {msg.attrib['userID']} (GUID: {msg.attrib['guid']}): {msg.text}" for msg in messages])
 
-    report_content = f"""
-    Abuse Report:
-    User ID: {userID}
-    Place ID: {placeID}
-    Game Job ID: {gameJobID}
-    User System Address: {userSystemAddress}
-    User Agent: {userAgent}
-    Comment: {comment}
+    report_content = f"""Abuse Report:
+User ID: {userID}
+Place ID: {placeID}
+Game Job ID: {gameJobID}
+User System Address: {userSystemAddress}
+User Agent: {userAgent}
+Comment: 
+
+{comment}
     
-    Messages:
-    {message_details}
-    """
+Messages:
+{message_details}"""
 
     files = {
         'file': ('abuse_report.txt', report_content)
