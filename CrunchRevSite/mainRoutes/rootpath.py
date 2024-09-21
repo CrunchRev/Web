@@ -347,3 +347,7 @@ def downloadakaredirect():
 @app.route("/games/", methods=settings["HTTPMethods"])
 def redirecttogames():
     return redirect("/games")
+
+@app.route("/settings", methods=settings["HTTPMethods"])
+def settings():
+    return jsonify({"ok": 1}), 200 # I don't know what it returns
