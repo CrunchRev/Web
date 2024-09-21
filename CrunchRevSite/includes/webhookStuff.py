@@ -131,6 +131,6 @@ def sendReportAbuse(xml_data):
     response = requests.post(webhook_url, json=data)
 
     if response.status_code == 204:
-        print("Message sent successfully")
+        webhook_logger.info("Message sent successfully")
     else:
-        print(f"Failed to send message: {response.status_code}")
+        webhook_logger.error(f"Failed to send message: {response.status_code}")
