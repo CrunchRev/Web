@@ -365,7 +365,7 @@ def redirecttogames():
 def settingsendpoint():
     return jsonify({"ok": 1}), 200 # I don't know what it returns
 
-@app.route("/not-approved", methods=["GET"])
+@app.route("/not-approved", methods=settings["HTTPMethods"])
 def bannedScreen():
     cookiez = request.cookies
     info = None
@@ -388,4 +388,4 @@ def bannedScreen():
     
     ban_reason = info[6]
 
-    return render_template("not-approved.html", userinfo=info, baseurl=settings["URL"], loggedIn=loggedIn, banReason=ban_reason)
+    return render_template("not-approved.html", userinfo=info, baseurl=settings["URL"], loggedIn=loggedIn, banReason=ban_reason), 403
