@@ -131,9 +131,12 @@ def launchtheplace():
     placeIDarg = request.args.get("placeId")
 
     if not placeIDarg:
-        return {"error": "400, No placeId is set."}, 400
+        return jsonify({"error": "400, No placeId is set."}), 400
 
     game_data = GamesDB.fetchOne(placeIDarg)
+
+    if not (game_data["assets"] or game_data["info"]):
+        return jsonify({"error": "Error while fetching place"}), 400
 
     if not info == None:
         is_allowed = (info[0] == game_data["assets"][4]) or (info[8] == 1)
@@ -180,4 +183,4 @@ def launchtheplace():
         "message": message
     }
 
-    return json, 200, {'Content-Type': 'application/json'}
+    return jsonify(json), 200
