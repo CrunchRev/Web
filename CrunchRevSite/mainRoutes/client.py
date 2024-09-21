@@ -57,4 +57,4 @@ def init_the_device():
 
 @app.route("/mobileapi/check-app-version", methods=["GET"])
 def check_app_ver():
-    return jsonify({"data": ["UpgradeAction": "None"]}), 200
+    return jsonify({"data": [{"UpgradeAction": "None"}]}), 200
