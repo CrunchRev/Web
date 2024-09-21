@@ -107,7 +107,7 @@ def sendReportAbuse(xml_data):
     comment = root.findtext("comment", "No comment provided")
     
     messages = root.find("messages")
-    message_details = "\n".join([f"User {msg.attrib['userID']} (GUID: {msg.attrib['guid']}): {msg.text}" for msg in messages])
+    message_details = "\n".join([f"User {msg.attrib['userID']} (GUID: {msg.attrib['guid']}): {msg.text}" for msg in messages][-5:])
     
     embed = {
         "title": "Abuse Report Submitted",
