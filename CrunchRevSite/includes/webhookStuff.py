@@ -107,30 +107,28 @@ def sendReportAbuse(xml_data):
     comment = root.findtext("comment", "No comment provided")
     
     messages = root.find("messages")
-    message_details = "\n".join([f"User {msg.attrib['userID']} (GUID: {msg.attrib['guid']}): {msg.text}" for msg in messages[-5:]])
+    message_details = "\n".join([f"User {msg.attrib['userID']} (GUID: {msg.attrib['guid']}): {msg.text}" for msg in messages])
 
-    embed = {
-        "title": "Abuse Report Submitted",
-        "description": "Details from the abuse report",
-        "fields": [
-            {"name": "User ID", "value": userID, "inline": True},
-            {"name": "Place ID", "value": placeID, "inline": True},
-            {"name": "Game Job ID", "value": gameJobID, "inline": False},
-            {"name": "User System Address", "value": userSystemAddress, "inline": False},
-            {"name": "User Agent", "value": userAgent, "inline": False},
-            {"name": "Comment", "value": comment, "inline": False},
-            {"name": "Messages", "value": message_details, "inline": False}
-        ],
-        "color": 15158332
-    }
+    report_content = f"""
+    Abuse Report:
+    User ID: {userID}
+    Place ID: {placeID}
+    Game Job ID: {gameJobID}
+    User System Address: {userSystemAddress}
+    User Agent: {userAgent}
+    Comment: {comment}
     
-    data = {
-        "embeds": [embed]
+    Messages:
+    {message_details}
+    """
+
+    files = {
+        'file': ('abuse_report.txt', report_content)
     }
 
-    response = requests.post(webhook_url, json=data)
+    response = requests.post(webhook_url, files=files)
 
     if response.status_code == 204:
-        webhook_logger.info("Message sent successfully")
+        webhook_logger.info("Report sent successfully")
     else:
-        webhook_logger.error(f"Failed to send message: {response.status_code}")
+        webhook_logger.error(f"Failed to send report: {response.status_code}")
