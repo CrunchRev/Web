@@ -54,3 +54,7 @@ def balance():
 @app.route("/device/initialize", methods=["POST"])
 def init_the_device():
     return jsonify({"browserTrackerId":random.randint(1000, 1000000),"appDeviceIdentifier":None}), 200
+
+@app.route("/mobileapi/check-app-version", methods=["GET"])
+def check_app_ver():
+    return jsonify({"data": ["UpgradeAction": "None"]}), 200
