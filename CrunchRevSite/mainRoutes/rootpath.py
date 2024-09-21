@@ -17,6 +17,18 @@ def setup():
         local_path = os.path.join(app.root_path, "staticContentThumbs")
         return send_from_directory(local_path, file_path, as_attachment=True)
     
+    cookiez = request.cookies
+    info = None
+    if ".ROBLOSECURITY" in cookiez:
+        cookie = cookiez.get(".ROBLOSECURITY")
+        info = UserDB.fetchUser(method=1, cookie=cookie)
+        
+        if info:
+            is_banned = info[5] == 1
+
+            if is_banned:
+                return redirect("/not-approved")
+    
 @app.errorhandler(404)
 def notfound(e):
     loggedIn = False
@@ -351,3 +363,28 @@ def redirecttogames():
 @app.route("/settings", methods=settings["HTTPMethods"])
 def settingsendpoint():
     return jsonify({"ok": 1}), 200 # I don't know what it returns
+
+@app.route("/not-approved", methods=["GET"])
+def bannedScreen():
+    cookiez = request.cookies
+    info = None
+    loggedIn = False
+    if ".ROBLOSECURITY" in cookiez:
+        cookie = cookiez.get(".ROBLOSECURITY")
+        info = UserDB.fetchUser(method=1, cookie=cookie)
+        
+        if not info:
+            return redirect("/login")
+        else:
+            loggedIn = True
+    else:
+        return redirect("/login")
+    
+    is_banned = info[5] == 1
+
+    if not is_banned:
+        return redirect("/home")
+    
+    ban_reason = info[6]
+
+    return render_template("not-approved.html", userinfo=info, baseurl=settings["URL"], loggedIn=loggedIn, banReason=ban_reason)

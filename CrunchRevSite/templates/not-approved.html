@@ -1,0 +1,36 @@
+{% extends "layoutv2.html" %}
+
+{% block content %}
+    <div class="container vh-100 d-flex justify-content-center align-items-center">
+        <div class="card text-center shadow-lg p-4" style="max-width: 500px;">
+            <div class="card-body">
+                <h1 class="card-title text-danger mb-3">Account Banned</h1>
+                <p class="card-text fs-5">
+                    Unfortunately, your account has been banned for violating our terms of service.
+                </p>
+                <div class="alert alert-warning">
+                    <strong>Reason:</strong> {{ banReason|e }}
+                </div>
+                <p class="card-text">
+                    If you believe this was a mistake or you want to appeal this ban, please contact our support team.
+                </p>
+                <hr>
+                <h5 class="card-subtitle mb-3">What Can You Do?</h5>
+                <ul class="list-group list-group-flush text-start">
+                    <li class="list-group-item">
+                        <strong>Review the Rules:</strong> Check our <a href="/tos" class="text-decoration-none">terms and conditions</a> for more information.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Contact Support:</strong> If you think this was an error, reach out to us at <a href="mailto:info@unirev.xyz" class="text-decoration-none">info@unirev.xyz</a>.
+                    </li>
+                </ul>
+                <div class="mt-4">
+                    <p class="text-muted small">We take violations seriously to maintain a safe and respectful community.</p>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <a href="/logout" class="btn btn-primary">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
