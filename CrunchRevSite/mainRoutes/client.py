@@ -50,3 +50,7 @@ def balance():
         }
 
     return jsonify(json), 200
+
+@app.route("/device/initialize", methods=["POST"])
+def init_the_device():
+    return jsonify({"browserTrackerId":random.randint(1000, 1000000),"appDeviceIdentifier":None}), 200
