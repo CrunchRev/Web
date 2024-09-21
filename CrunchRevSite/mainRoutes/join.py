@@ -14,6 +14,7 @@ def joinashx():
     userid = 0
     placeIDarg = request.args.get("placeId")
     jobIDarg = request.args.get("jobId")
+    isTeleport = request.args.get("isTeleport", "false")
 
     ticket = None
     signed = None
@@ -89,7 +90,7 @@ def joinashx():
         "IsRobloxPlace": is_roblox_place,
         "RobloxLocale": "en_us",
         "GameLocale": "en_us",
-        "GenerateTeleportJoin": False,
+        "GenerateTeleportJoin": True if isTeleport == "true" else False,
         "IsUnknownOrUnder13": False,
         "SessionId": f"SessionId-{uuid.uuid4()}",
         "GameChatType": "AllUsers",
@@ -129,6 +130,7 @@ def launchtheplace():
         return jsonify({"error": "Authorization failed, please check that you are logged in"}), 401
 
     placeIDarg = request.args.get("placeId")
+    isTeleport = request.args.get("isTeleport", "false")
 
     if not placeIDarg:
         return jsonify({"error": "400, No placeId is set."}), 400
@@ -172,7 +174,7 @@ def launchtheplace():
 
         if not status in [0, 1, 4, 3]:
             jobID = PlaceLauncherRequest['jobId']
-            joinScriptURL = f"http://www.{settings["URL"]}/game/join.ashx?placeId={placeIDarg}&jobId={jobID}"
+            joinScriptURL = f"http://www.{settings["URL"]}/game/join.ashx?placeId={placeIDarg}&jobId={jobID}&isTeleport={isTeleport}"
 
     json = {
         "jobId": jobID,
