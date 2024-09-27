@@ -5,7 +5,6 @@ Module description: controls tokens which are similar to CSRF ones.
 """
 
 import threading
-import time
 import secrets
 
 class Token:
