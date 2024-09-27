@@ -10,6 +10,8 @@ from mysql.connector import Error, pooling
 import mysql.connector
 import secrets
 import json
+from functools import lru_cache
+import hashlib
 
 from includes.webhookStuff import *
 
@@ -53,7 +55,16 @@ class Database:
             logging.error(f"Error getting connection from pool: {e}")
             raise
 
-    def execute_securely(self, query: str, params: Optional[Union[tuple, List[Any]]] = None, fetch_all: bool = False) -> Optional[Union[List[Tuple], Tuple]]:
+    def _generate_cache_key(self, query: str, params: Optional[Union[tuple, List[Any]]]):
+        params_str = str(params) if params else ''
+        key = f"{query}-{params_str}"
+        return hashlib.md5(key.encode()).hexdigest()
+
+    @lru_cache(maxsize=128)
+    def _cached_execute(self, cache_key: str, fetch_all: bool):
+        return self._execute_without_cache(cache_key, fetch_all)
+
+    def _execute_without_cache(self, query: str, params: Optional[Union[tuple, List[Any]]], fetch_all: bool):
         connection = None
         cursor = None
         try:
@@ -77,6 +88,14 @@ class Database:
                 cursor.close()
             if connection:
                 connection.close()
+
+    def execute_securely(self, query: str, params: Optional[Union[tuple, List[Any]]] = None, fetch_all: bool = False, use_cache: bool = False):
+        cache_key = self._generate_cache_key(query, params)
+        
+        if use_cache:
+            return self._cached_execute(cache_key, fetch_all)
+        else:
+            return self._execute_without_cache(query, params, fetch_all)
 
 class UserDB:
     def __init__(self, dbClass: Database, bcrypt):

@@ -18,7 +18,6 @@ from flask_bcrypt import Bcrypt
 from functools import lru_cache
 import xml.etree.ElementTree as ET
 from io import BytesIO
-import itertools
 import gzip
 import random
 # import ssl
