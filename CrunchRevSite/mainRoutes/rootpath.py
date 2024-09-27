@@ -7,7 +7,7 @@ Route module description: controls everything under "/" path
 from __main__ import *
 
 @app.before_request
-def setup():
+def bef_req():
     if f"setup.{settings["URL"]}" in request.host:
         file_path = request.path.lstrip('/')
         local_path = os.path.join(app.root_path, "staticContentSetup")
