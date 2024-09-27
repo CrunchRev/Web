@@ -138,7 +138,7 @@ class UserDB:
         userid = useridResult[0] if useridResult else None
 
         if userid is not None:
-            send_webhook_signup(username, invite_key, str(userid))
+            Webhooks.send_webhook_signup(username, invite_key, str(userid))
             return True, prepared_cookie
 
         return False, None

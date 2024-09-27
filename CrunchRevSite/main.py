@@ -48,10 +48,12 @@ logging.basicConfig(level=logging.INFO,
 internal_logger = logging.getLogger('CrunchRev Internal Logs')
 internal_logger.setLevel(logging.INFO)
 
-internal_logger.info("Setting up logging...")
+internal_logger.info("Setting up logging (1 / 2)...")
 
 waitress_logger = logging.getLogger('waitress')
 waitress_logger.setLevel(logging.INFO)
+
+internal_logger.info("Setting up logging (2 / 2)...")
 
 internal_logger.info("Connecting to remote MySQL server...")
 try:
@@ -71,15 +73,28 @@ internal_logger.info("Initializing classes...")
 
 bcrypt = Bcrypt(app)
 
+internal_logger.info("Initialized bcrypt (1 / 11).")
+
 Signer = Signer(settings["PK1024Path"], settings["PK2048Path"])
+internal_logger.info("Initialized script signer (2 / 11).")
 Filter = TextFilter()
+internal_logger.info("Initialized text filter (3 / 11).")
 Tickets = Tickets(settings["PK1024Path"], settings["PK2048Path"])
+internal_logger.info("Initialized tickets generator (4 / 11).")
 UserDB = UserDB(Database, bcrypt)
+internal_logger.info("Initialized users database (5 / 11).")
 GamesDB = GamesDB(Database, settings["URL"])
+internal_logger.info("Initialized games database (6 / 11).")
 ArbiterClass = Arbiter(settings["arbiterURLs"], Database, GamesDB)
+internal_logger.info("Initialized arbiter (class) (7 / 11).")
 Assets = Assets(Database)
+internal_logger.info("Initialized assets (class) (8 / 11).")
 Token = Token()
+internal_logger.info("Initialized safety token system (9 / 11).")
 DataStore = DataStore(Database)
+internal_logger.info("Initialized datastore (class) (10 / 11).")
+Webhooks = Webhooks()
+internal_logger.info("Initialized webhooks (class) (11 / 11).")
 
 def includeRoutes():
     import mainRoutes.join
@@ -102,6 +117,8 @@ def includeRoutes():
     import mainRoutes.client
     import mainRoutes.uac
     import mainRoutes.abusereport
+    
+    internal_logger.info("Included 9 routes.")
 
 internal_logger.info("Running logic...")
 
@@ -110,7 +127,7 @@ if __name__ == "__main__":
     includeRoutes()
     internal_logger.info("Running the application with hosting framework...")
     try:
-        serve(TransLogger(app, setup_console_handler=False, logger=waitress_logger), listen='*:80', ident=None, threads=24, channel_timeout=60, connection_limit=10000, expose_tracebacks=True)
+        serve(TransLogger(app, setup_console_handler=False, logger=waitress_logger), listen='*:80', threads=24, channel_timeout=60, connection_limit=10000, expose_tracebacks=True)
     except Exception as e:
         internal_logger.critical(f"CRITICAL ERROR! Hosting framework has crashed. Details: {e}")
     internal_logger.info("Service shutting down...")

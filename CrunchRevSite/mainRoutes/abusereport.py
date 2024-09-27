@@ -12,6 +12,6 @@ def abuseReporter():
 
     # TODO: do db shit for that, now we just use webhook
 
-    sendReportAbuse(reportXML)
+    Webhooks.sendReportAbuse(reportXML)
 
     return "true", 200, {'Content-Type': 'text/plain'}

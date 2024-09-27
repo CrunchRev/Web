@@ -175,7 +175,7 @@ class Arbiter:
             if json["success"] == True:
                 # success case, open job and return 1
                 self.addJobDB(json["serverAddress"], json["networkPort"], json["jobId"], placeID, year)
-                send_arbiter_startup_webhook(placeID, year, json["serverAddress"])
+                Webhooks.send_arbiter_startup_webhook(placeID, year, json["serverAddress"])
                 return {
                     "success": True,
                     "status": 1,
