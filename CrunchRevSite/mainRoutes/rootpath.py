@@ -18,7 +18,6 @@ def bef_req():
         return send_from_directory(local_path, file_path, as_attachment=True)
     
     cookiez = request.cookies
-    info = None
     if ".ROBLOSECURITY" in cookiez:
         cookie = cookiez.get(".ROBLOSECURITY")
         info = UserDB.fetchUser(method=1, cookie=cookie)
@@ -27,7 +26,7 @@ def bef_req():
             is_banned = info[5] == 1
 
             if is_banned:
-                if not request.path.lstrip('/') in ["not-approved", "tos", "logout"] and not "staticContent" in request.path.lstrip('/'):
+                if not request.path.lstrip('/') in ["not-approved", "tos", "logout"] and not "staticContent" in request.path.lstrip('/') and not "validate-machine" in request.path.lstrip('/'):
                     return redirect("/not-approved")
     
 @app.errorhandler(404)

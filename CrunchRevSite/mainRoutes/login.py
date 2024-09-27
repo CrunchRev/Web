@@ -30,4 +30,13 @@ def NegotiateClient():
 @app.route("/game/validate-machine", methods=settings["HTTPMethods"])
 @app.route("/game/validate-machine/", methods=settings["HTTPMethods"])
 def validate():
-    return jsonify({"success": False}), 200
+    cookiez = request.cookies
+    is_banned = False
+    if ".ROBLOSECURITY" in cookiez:
+        cookie = cookiez.get(".ROBLOSECURITY")
+        info = UserDB.fetchUser(method=1, cookie=cookie)
+        
+        if info:
+            is_banned = info[5] == 1
+
+    return jsonify({"success": is_banned == False}), 200
