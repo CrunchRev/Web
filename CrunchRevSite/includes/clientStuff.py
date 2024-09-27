@@ -12,6 +12,8 @@ import logging
 
 from includes.webhookStuff import *
 
+Webhooks = Webhooks()
+
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
