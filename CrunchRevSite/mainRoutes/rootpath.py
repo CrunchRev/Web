@@ -27,7 +27,7 @@ def setup():
             is_banned = info[5] == 1
 
             if is_banned:
-                if (not request.path.lstrip('/') == "not-approved") and (not "staticContent" in request.path.lstrip('/')) and (not request.path.lstrip('/') == "tos") and (not request.path.lstrip('/') == "logout"):
+                if not request.path.lstrip('/') in ["not-approved", "tos", "logout"] and not "staticContent" in request.path.lstrip('/'):
                     return redirect("/not-approved")
     
 @app.errorhandler(404)
