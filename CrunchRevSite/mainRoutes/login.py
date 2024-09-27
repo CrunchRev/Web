@@ -30,4 +30,4 @@ def NegotiateClient():
 @app.route("/game/validate-machine", methods=settings["HTTPMethods"])
 @app.route("/game/validate-machine/", methods=settings["HTTPMethods"])
 def validate():
-    return {"success": True}, 200, {'Content-Type': 'application/json'}
+    return jsonify({"success": False}), 200
