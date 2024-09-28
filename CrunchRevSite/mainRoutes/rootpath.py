@@ -399,6 +399,6 @@ def pe_endpoint():
     response = requests.get(new_url)
     
     if 200 <= response.status_code < 300:
-        return response.text
+        return response.text, response.status_code
     else:
         return f'Request error: {response.status_code}', response.status_code
