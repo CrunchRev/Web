@@ -58,3 +58,39 @@ def init_the_device():
 @app.route("/mobileapi/check-app-version", methods=["GET"])
 def check_app_ver():
     return jsonify({"data": {"UpgradeAction": "None"}}), 200
+
+@app.route("/mobileapi/login/", methods=["POST"]) # we expect POST data here with username and password
+def loginMobile():
+    form_data = request.form
+
+    username = form_data.get("username", "")
+    password = form_data.get("password", "")
+
+    loggedInResult, cookie = UserDB.login(username, password)
+
+    if loggedInResult is True:
+            fetchedInfo = UserDB.fetchUser(method=1, cookie=cookie)
+
+            userId = fetchedInfo[0]
+            crunchesBalance = fetchedInfo[9]
+
+            json = {
+                "Status": "OK",
+                "UserInfo": {
+                    "UserID": userId,
+                    "UserName": username,
+                    "RobuxBalance": crunchesBalance,
+                    "TicketsBalance": crunchesBalance,
+                    "IsAnyBuildersClubMember": False,
+                    "ThumbnailUrl": ""
+                }
+            }
+
+            resp = make_response(json)
+            domain = f".{settings['URL']}"
+            expiration = int(time.time() + (365 * 24 * 60 * 60))
+
+            resp.set_cookie(key=".ROBLOSECURITY", value=cookie, expires=expiration, domain=domain, samesite='Lax')
+            resp.headers['Content-Type'] = 'application/json'
+
+            return resp
