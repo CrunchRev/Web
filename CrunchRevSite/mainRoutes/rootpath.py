@@ -388,3 +388,17 @@ def bannedScreen():
     ban_reason = info[6]
 
     return render_template("not-approved.html", userinfo=info, baseurl=settings["URL"], loggedIn=loggedIn, banReason=ban_reason), 403
+
+@app.route("/pe.png", methods=settings["HTTPMethods"])
+@app.route("/pe", methods=settings["HTTPMethods"])
+@app.route("/pe/", methods=settings["HTTPMethods"])
+def pe_endpoint():
+    query = request.query_string.decode("utf-8")
+    
+    new_url = f'https://ecsv2.roblox.com/pe?{query}'
+    response = requests.get(new_url)
+    
+    if 200 <= response.status_code < 300:
+        return response.text
+    else:
+        return f'Request error: {response.status_code}', response.status_code
