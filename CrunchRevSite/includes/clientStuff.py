@@ -180,9 +180,9 @@ class Arbiter:
                 Webhooks.send_arbiter_startup_webhook(placeID, year, json["serverAddress"])
                 return {
                     "success": True,
-                    "status": 1,
+                    "status": 2,
                     "message": "",
-                    "jobId": ""
+                    "jobId": json["jobId"]
                 }
             else:
                 # unsuccess D:
