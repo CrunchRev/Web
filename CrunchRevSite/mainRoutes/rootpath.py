@@ -31,17 +31,20 @@ def bef_req():
     
 @app.errorhandler(404)
 def notfound(e):
-    loggedIn = False
-    info = None
-    cookiez = request.cookies
-    if ".ROBLOSECURITY" in cookiez:
-        cookie = cookiez.get(".ROBLOSECURITY")
-        info = UserDB.fetchUser(method=1, cookie=cookie)
-        
-        if info:
-            loggedIn = True
+    if not "setup.unirev.xyz" in request.host or not "thumbscdn.unirev.xyz" in request.host:
+        loggedIn = False
+        info = None
+        cookiez = request.cookies
+        if ".ROBLOSECURITY" in cookiez:
+            cookie = cookiez.get(".ROBLOSECURITY")
+            info = UserDB.fetchUser(method=1, cookie=cookie)
+            
+            if info:
+                loggedIn = True
 
-    return render_template("notfound.html", userinfo=info, baseurl=settings["URL"], loggedIn=loggedIn), 404
+        return render_template("notfound.html", userinfo=info, baseurl=settings["URL"], loggedIn=loggedIn), 404
+    else:
+        return "<p>404, Not found.</p>", 404
 
 @app.route("/", methods=settings["HTTPMethods"])
 def root():

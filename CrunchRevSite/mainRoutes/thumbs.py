@@ -39,6 +39,10 @@ def imagethumb():
     width = request.args.get('width', default='420')
     url = f"https://thumbnails.roblox.com/v1/users/avatar?userIds={user_id}&returnPolicy=PlaceHolder&format=PNG&size={width}x{width}&isCircular=false"
     response = requests.get(url)
+
+    if not response.status_code == 200:
+        return jsonify({"success": False}), response.status_code
+
     image_url = response.json()['data'][0]['imageUrl']
     return redirect(image_url)
 
@@ -49,6 +53,10 @@ def image2thumb():
     width = request.args.get('width', default='420')
     url = f"https://thumbnails.roblox.com/v1/assets?assetIds={asset_id}&returnPolicy=PlaceHolder&format=PNG&size={width}x{width}&isCircular=false"
     response = requests.get(url)
+
+    if not response.status_code == 200:
+        return jsonify({"success": False}), response.status_code
+
     image_url = response.json()['data'][0]['imageUrl']
     return redirect(image_url)
 
@@ -59,6 +67,10 @@ def image3thumb():
     width = request.args.get('width', default='420')
     url = f"https://thumbnails.roblox.com/v1/users/avatar?userIds={user_id}&returnPolicy=PlaceHolder&size={width}x{width}&format=Png&isCircular=false"
     response = requests.get(url)
+
+    if not response.status_code == 200:
+        return jsonify({"success": False}), response.status_code
+
     image_url = response.json()['data'][0]['imageUrl']
     return redirect(image_url)
 
@@ -69,5 +81,9 @@ def json2thumb():
     width = request.args.get('width', default='420')
     url = f"https://thumbnails.roblox.com/v1/users/avatar?userIds={user_id}&returnPolicy=PlaceHolder&size={width}x{width}&format=Png&isCircular=false"
     response = requests.get(url)
+
+    if not response.status_code == 200:
+        return jsonify({"success": False}), response.status_code
+
     image_url = response.json()['data'][0]['imageUrl']
     return redirect(image_url)
