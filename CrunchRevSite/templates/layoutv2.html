@@ -116,9 +116,13 @@
         </div>
         {% endif %}
 
+        {% if not "ROBLOX Android App" in request.headers.get('User-Agent') %}
         <div class="mt-5 pt-4 crunch-content-body">
+        {% endif %}
             {% block content %}{% endblock content %}
+        {% if not "ROBLOX Android App" in request.headers.get('User-Agent') %}
         </div>
+        {% endif %}
 
         <div class="footer mt-auto pt-3 pb-4 text-center shadow-lg crunch-footer">
             <div class="container">
