@@ -91,6 +91,7 @@ def loginMobile():
             expiration = int(time.time() + (365 * 24 * 60 * 60))
 
             resp.set_cookie(key=".ROBLOSECURITY", value=cookie, expires=expiration, domain=domain, samesite='Lax')
+            
             resp.headers['Content-Type'] = 'application/json'
 
             return resp
@@ -107,3 +108,15 @@ def loginMobile():
                 "Status": "InvalidPassword",
                 "Message": "Invalid password"
             })
+        
+@app.route("/mobileapi/logout", methods=["POST"])
+def logoutMobile():
+    resp = make_response({"success": True})
+    domain = f".{settings['URL']}"
+    expiration = int(0)
+
+    resp.set_cookie(key=".ROBLOSECURITY", value="", expires=expiration, domain=domain)
+
+    resp.headers['Content-Type'] = 'application/json'
+
+    return resp
