@@ -401,4 +401,4 @@ def pe_endpoint():
     if 200 <= response.status_code < 300:
         return response.text, response.status_code, {'Content-Type': 'text/plain'}
     else:
-        return f'Request error: {response.status_code}', response.status_code
+        return f'Request error: {response.status_code}', response.status_code, {'Content-Type': 'text/plain'}
