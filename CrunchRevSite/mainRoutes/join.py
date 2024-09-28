@@ -148,6 +148,14 @@ def launchtheplace():
     if not is_for_sale:
         if not is_allowed:
             return jsonify({"error": "403, You are not allowed to view this game."}), 403
+        
+    is_roblox_app = False
+
+    user_agent = request.headers.get('User-Agent')
+    if user_agent:
+        is_roblox_app = "ROBLOX Android App" in user_agent or "ROBLOX iOS App" in user_agent
+    else:
+        is_roblox_app = False
 
     year = game_data["info"][1]
     maxPlayers = game_data["info"][2]
@@ -159,7 +167,7 @@ def launchtheplace():
     # print(year)
     # print(placeIDarg)
 
-    PlaceLauncherRequest = ArbiterClass.requestServer(year, placeIDarg, maxPlayers, creatorId)
+    PlaceLauncherRequest = ArbiterClass.requestServer(year, placeIDarg, maxPlayers, creatorId, is_roblox_app)
 
     status = 0
     jobID = None

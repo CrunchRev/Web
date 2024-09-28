@@ -122,7 +122,7 @@ class Arbiter:
         sqlQuery = "INSERT INTO `jobs_in_use`(`RCC_Version`, `place_id`, `jobId`, `network_port`, `server_address`) VALUES ( %s, %s, %s, %s, %s )"
         self.db.execute_securely(sqlQuery, params=(year, placeID, jobID, networkPort, serverIP))
 
-    def requestServer(self, year, placeID, maxPlayers, creatorId):
+    def requestServer(self, year, placeID, maxPlayers, creatorId, isMobile):
         arbiterURL = random.choice(list(self.arbiterURLs))
         place = self.games.fetchOne(placeID)
 
@@ -178,11 +178,19 @@ class Arbiter:
                 # success case, open job and return 1
                 self.addJobDB(json["serverAddress"], json["networkPort"], json["jobId"], placeID, year)
                 Webhooks.send_arbiter_startup_webhook(placeID, year, json["serverAddress"])
+                if isMobile is True:
+                    return {
+                        "success": True,
+                        "status": 2,
+                        "message": "",
+                        "jobId": json["jobId"]
+                    }
+                
                 return {
                     "success": True,
-                    "status": 2,
+                    "status": 1,
                     "message": "",
-                    "jobId": json["jobId"]
+                    "jobId": ""
                 }
             else:
                 # unsuccess D:
