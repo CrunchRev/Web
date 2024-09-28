@@ -14,7 +14,7 @@
 
 <body>
     <div id="crunch-root">
-        {% if not "ROBLOX Android App" in request.headers.get('User-Agent') or not "ROBLOX iOS App" in request.headers.get('User-Agent') %}
+        {% if (not "ROBLOX Android App" in request.headers.get('User-Agent')) and (not "ROBLOX iOS App" in request.headers.get('User-Agent')) %}
 
         <div class="fixed-top">
             <nav class="navbar crunch-navbar navbar-expand-sm navbar-light shadow-sm">
@@ -114,13 +114,13 @@
         </div>
         {% endif %}
 
-        {% if not "ROBLOX Android App" in request.headers.get('User-Agent') or not "ROBLOX iOS App" in request.headers.get('User-Agent') %}
+        {% if (not "ROBLOX Android App" in request.headers.get('User-Agent')) and (not "ROBLOX iOS App" in request.headers.get('User-Agent')) %}
         <div class="mt-5 pt-4 crunch-content-body">
         {% endif %}
 
         {% block content %}{% endblock content %}
 
-        {% if not "ROBLOX Android App" in request.headers.get('User-Agent') or not "ROBLOX iOS App" in request.headers.get('User-Agent') %}
+        {% if (not "ROBLOX Android App" in request.headers.get('User-Agent')) and (not "ROBLOX iOS App" in request.headers.get('User-Agent')) %}
         </div>
         {% endif %}
 
