@@ -324,7 +324,7 @@ def assetdelivery():
 
 @app.route("/GetAllowedSecurityVersions/", methods=settings["HTTPMethods"])
 def secfunc1():
-    return {"data":["0.235.0pcplayer", "0.360.0pcplayer"]}, 200, {'Content-Type': 'application/json'}
+    return '{"data":[""INTENRALandroidapp"","0.235.0pcplayer", "0.360.0pcplayer"]}', 200, {'Content-Type': 'text/plain'}
 
 @app.route("/GetAllowedMD5Hashes/", methods=settings["HTTPMethods"])
 def secfunc2():
