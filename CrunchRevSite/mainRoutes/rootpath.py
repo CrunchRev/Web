@@ -402,6 +402,6 @@ def pe_endpoint():
     response = requests.get(new_url)
     
     if 200 <= response.status_code < 300:
-        return response.text, 200, {'Content-Type': 'text/plain'}
+        return response.text, response.status_code, {'Content-Type': 'text/plain'}
     else:
         return f'Request error: {response.status_code}', response.status_code, {'Content-Type': 'text/plain'}
