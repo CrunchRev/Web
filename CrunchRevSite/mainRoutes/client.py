@@ -94,3 +94,16 @@ def loginMobile():
             resp.headers['Content-Type'] = 'application/json'
 
             return resp
+    else:
+        fetchedInfo = UserDB.fetchUser(method=3, username=username)
+
+        if not fetchedInfo:
+            return jsonify({
+                "Status": "InvalidUsername",
+                "Message": "Invalid username"
+            })
+        else:
+            return jsonify({
+                "Status": "InvalidPassword",
+                "Message": "Invalid password"
+            })
