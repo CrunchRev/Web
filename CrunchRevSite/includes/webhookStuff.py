@@ -89,7 +89,7 @@ class Webhooks:
 
         response = requests.post(webhook_url, json=data)
 
-        if response.status_code == 204:
+        if response.status_code in (200, 204):
             webhook_logger.info("Message sent successfully")
         else:
             webhook_logger.error(f"Failed to send message: {response.status_code}")
@@ -128,7 +128,7 @@ Messages:
 
         response = requests.post(webhook_url, files=files)
 
-        if response.status_code == 204:
+        if response.status_code in (200, 204):
             webhook_logger.info("Report sent successfully")
         else:
             webhook_logger.error(f"Failed to send report: {response.status_code}")
