@@ -215,7 +215,7 @@ class GamesDB:
             AND a.is_for_sale = 1
             GROUP BY a.id, a.name, a.creator_id, u.username, gi.client_version, gi.icon_URI;
         """
-        games = self.dbClass.execute_securely(games_query, fetch_all=True, use_cache=True)
+        games = self.dbClass.execute_securely(games_query, fetch_all=True, use_cache=False)
 
         if not games:
             return {
@@ -247,7 +247,7 @@ class GamesDB:
 
         execution1 = self.dbClass.execute_securely(query1, (placeId,), use_cache=True)
         execution2 = self.dbClass.execute_securely(query2, (placeId,), use_cache=True)
-        execution3 = self.dbClass.execute_securely(query3, (placeId,), use_cache=True)
+        execution3 = self.dbClass.execute_securely(query3, (placeId,), use_cache=False)
 
         return {"assets": execution1, "info": execution2, "countersPlayers": str(execution3[0])}
     
