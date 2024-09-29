@@ -61,7 +61,7 @@ class Database:
         key = f"{query}-{params_str}"
         return hashlib.md5(key.encode()).hexdigest()
 
-    @lru_cache(maxsize=10000)
+    @lru_cache(maxsize=500)
     def _cached_execute(self, cache_key: str, query: str, params: Optional[Union[tuple, List[Any]]], fetch_all: bool):
         return self._execute_without_cache(query, params, fetch_all)
 
