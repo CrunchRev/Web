@@ -118,9 +118,8 @@ class Arbiter:
         return None
 
     def addJobDB(self, serverIP, networkPort, jobID, placeID, year):
-        # pizdec
         sqlQuery = "INSERT INTO `jobs_in_use`(`RCC_Version`, `place_id`, `jobId`, `network_port`, `server_address`) VALUES ( %s, %s, %s, %s, %s )"
-        self.db.execute_securely(sqlQuery, params=(year, placeID, jobID, networkPort, serverIP))
+        self.db.bulk_insert(sqlQuery, param_list=(year, placeID, jobID, networkPort, serverIP))
 
     def requestServer(self, year, placeID, maxPlayers, creatorId, isMobile):
         arbiterURL = random.choice(list(self.arbiterURLs))

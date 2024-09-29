@@ -319,7 +319,7 @@ class DataStore:
         INSERT INTO `data_persistence` (`scope`, `target`, `key`, `value`, `dataPlaceID`) 
         VALUES (%s, %s, %s, %s, %s)
         """
-        self.dbClass.execute_securely(executionQuery, (scope, target, key, serialized_value, placeId))
+        self.dbClass.bulk_insert(executionQuery, (scope, target, key, serialized_value, placeId))
 
         return True
     
