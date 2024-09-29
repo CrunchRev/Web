@@ -180,7 +180,7 @@ class Arbiter:
                 }
 
             if json["success"] == True:
-                # success case, open job and return 1
+                # success case, open job and return 1 or 2 (depends on if mobile or not, because on mobile when 1 occurs, it kicks me out of the player)
                 self.addJobDB(json["serverAddress"], json["networkPort"], json["jobId"], placeID, year)
                 Webhooks.send_arbiter_startup_webhook(placeID, year, json["serverAddress"], json["jobId"], json["networkPort"])
                 if isMobile is True:
