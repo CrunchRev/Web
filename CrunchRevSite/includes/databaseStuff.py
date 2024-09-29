@@ -60,7 +60,7 @@ class Database:
         key = f"{query}-{params_str}"
         return hashlib.md5(key.encode()).hexdigest()
 
-    @lru_cache(maxsize=5000)
+    @lru_cache(maxsize=128)
     def _cached_execute(self, cache_key: str, fetch_all: bool):
         return self._execute_without_cache(cache_key, fetch_all)
 
