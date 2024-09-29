@@ -119,14 +119,6 @@ class Database:
             if connection:
                 connection.close()
 
-    def close_pool(self):
-        try:
-            if self.connection_pool:
-                self.connection_pool.close()
-                logging.info("Connection pool closed successfully.")
-        except Error as e:
-            logging.error(f"Error closing connection pool: {e}")
-
 class UserDB:
     def __init__(self, dbClass: Database, bcrypt):
         self.dbClass = dbClass
