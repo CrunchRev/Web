@@ -61,8 +61,8 @@ class Database:
         return hashlib.md5(key.encode()).hexdigest()
 
     @lru_cache(maxsize=5000)
-    def _cached_execute(self, cache_key: str, fetch_all: bool):
-        return self._execute_without_cache(cache_key, fetch_all)
+    def _cached_execute(self, cache_key: str, query: str, params: Optional[Union[tuple, List[Any]]], fetch_all: bool):
+        return self._execute_without_cache(query, params, fetch_all)
 
     def _execute_without_cache(self, query: str, params: Optional[Union[tuple, List[Any]]], fetch_all: bool):
         connection = None
@@ -93,9 +93,29 @@ class Database:
         cache_key = self._generate_cache_key(query, params)
         
         if use_cache:
-            return self._cached_execute(cache_key, fetch_all)
+            return self._cached_execute(cache_key, query, params, fetch_all=fetch_all)
         else:
-            return self._execute_without_cache(query, params, fetch_all)
+            return self._execute_without_cache(query=query, params=params, fetch_all=fetch_all)
+
+    def insert(self, query: str, params: Optional[Union[tuple, List[Any]]] = None):
+        return self.execute_securely(query, params, fetch_all=False)
+
+    def update(self, query: str, params: Optional[Union[tuple, List[Any]]] = None):
+        return self.execute_securely(query, params, fetch_all=False)
+
+    def delete(self, query: str, params: Optional[Union[tuple, List[Any]]] = None):
+        return self.execute_securely(query, params, fetch_all=False)
+
+    def select(self, query: str, params: Optional[Union[tuple, List[Any]]] = None, fetch_all: bool = True, use_cache: bool = False):
+        return self.execute_securely(query, params, fetch_all=fetch_all, use_cache=use_cache)
+
+    def close_pool(self):
+        try:
+            if self.connection_pool:
+                self.connection_pool.close()
+                logging.info("Connection pool closed successfully.")
+        except Error as e:
+            logging.error(f"Error closing connection pool: {e}")
 
 class UserDB:
     def __init__(self, dbClass: Database, bcrypt):
