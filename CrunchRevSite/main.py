@@ -129,4 +129,5 @@ if __name__ == "__main__":
         serve(TransLogger(app, setup_console_handler=False, logger=waitress_logger), listen='*:80', threads=24, channel_timeout=60, connection_limit=10000, expose_tracebacks=True)
     except Exception as e:
         internal_logger.critical(f"CRITICAL ERROR! Hosting framework has crashed. Details: {e}")
+    Database.close_pool()
     internal_logger.info("Service shutting down...")
