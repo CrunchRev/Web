@@ -36,7 +36,7 @@ class Database:
         try:
             self.connection_pool = pooling.MySQLConnectionPool(
                 pool_name="crunchrev_DBpool",
-                pool_size=64,
+                pool_size=32,
                 pool_reset_session=True,
                 host=self.host,
                 user=self.user,
