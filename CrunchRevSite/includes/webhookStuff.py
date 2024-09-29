@@ -52,12 +52,12 @@ class Webhooks:
         except requests.exceptions.RequestException as e:
             webhook_logger.error(f"Error sending webhook: {e}")
 
-    def send_arbiter_startup_webhook(self, placeId, client, servah):
+    def send_arbiter_startup_webhook(self, placeId, client, servah, jobId, port):
         webhook_url = "https://discord.com/api/webhooks/1271089751297884271/WwAXdJVNPAd7XVpRKYgphQSUr7rxbQ3v9ScQjQwedrVFRwZ-zF7OLEtuEnqy-32cKoOC"
 
         embed = {
             "title": "RCCService Startup Notification",
-            "description": f"The RCCService has started successfully for placeId: {placeId} and client: {client} on the server IP: {servah}.",
+            "description": f"The RCCService has started successfully for placeId: {placeId} and client: {client} with the job ID of {jobId} on the server IP: {servah}, and port: {port}.",
             "color": 0x00ff00,
             "fields": [
                 {
@@ -73,6 +73,16 @@ class Webhooks:
                 {
                     "name": "Server IP",
                     "value": servah,
+                    "inline": True
+                },
+                {
+                    "name": "Network Port",
+                    "value": port,
+                    "inline": True
+                },
+                {
+                    "name": "Job ID",
+                    "value": jobId,
                     "inline": True
                 }
             ],
