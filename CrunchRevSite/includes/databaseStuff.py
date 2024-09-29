@@ -97,6 +97,10 @@ class Database:
             return self._execute_without_cache(query=query, params=params, fetch_all=fetch_all)
 
     def bulk_insert(self, query: str, param_list: List[tuple]):
+        if not isinstance(param_list, list) or not all(isinstance(item, tuple) for item in param_list):
+            logging.error("Error: bulk_insert requires a list of tuples.")
+            return
+        
         connection = None
         cursor = None
         try:
@@ -319,7 +323,7 @@ class DataStore:
         INSERT INTO `data_persistence` (`scope`, `target`, `key`, `value`, `dataPlaceID`) 
         VALUES (%s, %s, %s, %s, %s)
         """
-        self.dbClass.bulk_insert(executionQuery, (scope, target, key, serialized_value, placeId))
+        self.dbClass.bulk_insert(query=executionQuery, param_list=[(scope, target, key, serialized_value, placeId)])
 
         return True
     
