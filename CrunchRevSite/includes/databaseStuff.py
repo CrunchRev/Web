@@ -60,7 +60,7 @@ class Database:
         key = f"{query}-{params_str}"
         return hashlib.md5(key.encode()).hexdigest()
 
-    @lru_cache(maxsize=128)
+    @lru_cache(maxsize=5000)
     def _cached_execute(self, cache_key: str, fetch_all: bool):
         return self._execute_without_cache(cache_key, fetch_all)
 
@@ -118,7 +118,7 @@ class UserDB:
         else:
             return False
 
-        return self.dbClass.execute_securely(query, params) or False
+        return self.dbClass.execute_securely(query, params, use_cache=True) or False
 
     def login(self, username: str, password: str) -> Tuple[bool, Optional[str]]:
         query = "SELECT userid, password, cookie FROM users WHERE username = %s"
@@ -242,18 +242,18 @@ class Assets:
 
     def fetchAssetforAsset(self, assetId: int):
         query1 = "SELECT file_guid, asset_type, creator_id FROM assets WHERE id = %s"
-        return self.dbClass.execute_securely(query1, (assetId,))
+        return self.dbClass.execute_securely(query1, (assetId,), use_cache=True)
 
     def fetchCharacterApperanceList(self, playerId: int):
         query1 = "SELECT asset_id FROM users_avatar_items WHERE user_id = %s"
-        execution1 = self.dbClass.execute_securely(query1, (playerId,), True) # I think it would be like [(2383822), (328734818)], etc.
+        execution1 = self.dbClass.execute_securely(query1, (playerId,), True, True) # I think it would be like [(2383822), (328734818)], etc.
 
         return execution1
     
     def fetchGamepassAsset(self, assetId: int):
         queryAssetId = "SELECT price, is_for_sale, name, description, creator_id, created_at, updated_at FROM assets WHERE id = %s AND asset_type = 0"
 
-        execution1 = self.dbClass.execute_securely(queryAssetId, (assetId,))
+        execution1 = self.dbClass.execute_securely(queryAssetId, (assetId,), use_cache=True)
 
         return execution1
     
