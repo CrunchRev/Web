@@ -72,7 +72,11 @@
                 </a></p>
               <hr class="hr-above-btn dark-hr">
               <div class="d-grid gap-2">
-                <button type="button" id="gamelaunchbtn" class="btn btn-primary" data-bs-toggle="modal" data-placeid={{ placeid|e }} data-bs-target="#exampleModal">Play</button>
+                {% if not isRobloxApp %}
+                <button type="button" id="gamelaunchbtn" class="btn btn-primary" data-bs-toggle="modal" data-placeid={{ placeid|e }} data-bs-target="#gameLaunchModal">Play</button>
+                {% else %}
+                <button type="button" id="gamelaunchbtn" class="btn btn-primary" data-placeid={{ placeid|e }}>Play</button>
+                {% endif %}
                 {% if isAllowed %}
 		            <button data-bs-toggle="modal" data-bs-target="#ShutdownModal" class="btn btn-danger">Shutdown All Servers</button>
                 {% endif %}
@@ -164,7 +168,7 @@
     </div>
   </div>
 </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="gameLaunchModal" tabindex="-1" aria-labelledby="gameLaunchModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="min-height: 130px; max-width: 460px;">
           <div class="modal-body text-center">
