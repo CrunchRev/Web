@@ -54,17 +54,19 @@ class Tickets:
         with open(self.PK1024Path, "r") as key_file:
             private_key = crypto.load_privatekey(crypto.FILETYPE_PEM, key_file.read())
 
-        ticket = f"{user_id}\n{job_id}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
+        curr_date = datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')
+
+        ticket = f"{user_id}\n{job_id}\n{curr_date}"
 
         sig = crypto.sign(private_key, ticket.encode(), "sha1")
         sig = base64.b64encode(sig).decode()
 
-        ticket2 = f"{user_id}\n{username}\n{character_app}\n{job_id}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
+        ticket2 = f"{user_id}\n{username}\n{character_app}\n{job_id}\n{curr_date}"
 
         sig2 = crypto.sign(private_key, ticket2.encode(), "sha1")
         sig2 = base64.b64encode(sig2).decode()
 
-        final = f"{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')};{sig2};{sig}"
+        final = f"{curr_date};{sig2};{sig}"
 
         return final
 
@@ -72,17 +74,19 @@ class Tickets:
         with open(self.PK2048Path, "r") as key_file:
             private_key = crypto.load_privatekey(crypto.FILETYPE_PEM, key_file.read())
 
-        ticket = f"{user_id}\n{job_id}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
+        curr_date = datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')
+
+        ticket = f"{user_id}\n{job_id}\n{curr_date}"
 
         sig = crypto.sign(private_key, ticket.encode(), "sha1")
         sig = base64.b64encode(sig).decode()
 
-        ticket2 = f"{user_id}\n{username}\n{user_id}\n{job_id}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
+        ticket2 = f"{user_id}\n{username}\n{user_id}\n{job_id}\n{curr_date}"
 
         sig2 = crypto.sign(private_key, ticket2.encode(), "sha1")
         sig2 = base64.b64encode(sig2).decode()
 
-        final = f"{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')};{sig2};{sig};2"
+        final = f"{curr_date};{sig2};{sig};2"
 
         return final
 
@@ -90,21 +94,23 @@ class Tickets:
         with open(self.PK2048Path, "r") as key_file:
             private_key = crypto.load_privatekey(crypto.FILETYPE_PEM, key_file.read())
 
-        ticket = f"{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}\n{job_id}\n{user_id}\n{user_id}\n0\n1000\nf\n{len(username)}\n{username}\n4\nNone\n0\n\n0\n\n{len(username)}\n{username}"
+        curr_date = datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')
+
+        ticket = f"{curr_date}\n{job_id}\n{user_id}\n{user_id}\n0\n1000\nf\n{len(username)}\n{username}\n4\nNone\n0\n\n0\n\n{len(username)}\n{username}"
 
         logging.info(f"Ticket 1: {ticket}")
 
         sig = crypto.sign(private_key, ticket.encode(), "sha1")
         sig = base64.b64encode(sig).decode()
 
-        ticket2 = f"{user_id}\n{username}\n{charapp}\n{job_id}\n{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')}"
+        ticket2 = f"{user_id}\n{username}\n{charapp}\n{job_id}\n{curr_date}"
 
         logging.info(f"Ticket 2: {ticket2}")
 
         sig2 = crypto.sign(private_key, ticket2.encode(), "sha1")
         sig2 = base64.b64encode(sig2).decode()
 
-        final = f"{datetime.now().strftime('%m/%d/%Y %I:%M:%S %p')};{sig2};{sig};4"
+        final = f"{curr_date};{sig2};{sig};4"
 
         logging.info(f"Final Ticket: {final}")
 
