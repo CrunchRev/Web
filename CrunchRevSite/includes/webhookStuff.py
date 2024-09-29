@@ -57,7 +57,7 @@ class Webhooks:
 
         embed = {
             "title": "RCCService Startup Notification",
-            "description": f"The RCCService has started successfully for placeId: {placeId} and client: {client} with the job ID of {jobId} on the server IP: {servah}, and port: {port}.",
+            "description": f"The RCCService has started successfully for placeId: `{placeId}` and client: `{client}` with the job ID of `{jobId}` on the server IP: `{servah}`, and port: `{port}`.",
             "color": 0x00ff00,
             "fields": [
                 {
