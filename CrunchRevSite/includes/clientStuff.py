@@ -236,7 +236,7 @@ class Arbiter:
         
         for url in arbiterURLsList:
             try:
-                getRequest = requests.get(f"http://{url}/internal/gameserver/shutdownallservers?placeId={str(placeId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
+                getRequest = requests.get(f"http://{url}/internal/gameserver/shutdownallservers?placeId={str(placeId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61", timeout=3.5)
                 self.boomboomjobIds(placeId)
                 results.append(getRequest.json())
             except:
