@@ -17,6 +17,10 @@ def bef_req():
         file_path = request.path.lstrip('/')
         local_path = os.path.join(app.root_path, "staticContentThumbs")
         return send_from_directory(local_path, file_path, as_attachment=True)
+
+    if request.host == settings["URL"]:
+        path = request.path.lstrip('/')
+        return redirect(f"www.{settings["URL"]}/{path}")
     
     cookiez = request.cookies
     if ".ROBLOSECURITY" in cookiez:
