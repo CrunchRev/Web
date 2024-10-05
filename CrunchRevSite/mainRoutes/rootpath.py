@@ -20,7 +20,7 @@ def bef_req():
 
     if request.host == settings["URL"]:
         path = request.path.lstrip('/')
-        return redirect(f"www.{settings["URL"]}/{path}")
+        return redirect(f"https://www.{settings["URL"]}/{path}")
     
     cookiez = request.cookies
     if ".ROBLOSECURITY" in cookiez:
