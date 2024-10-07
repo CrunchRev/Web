@@ -157,6 +157,9 @@ def launchtheplace():
     else:
         is_roblox_app = False
 
+    if not user_agent in ["Roblox/WinHttp", "Roblox/WinInet"] and not is_roblox_app:
+        return jsonify({"error": "Authorization failed. Non-client request received."}), 401
+
     year = game_data["info"][1]
     maxPlayers = game_data["info"][2]
     creatorId = game_data["assets"][4]
