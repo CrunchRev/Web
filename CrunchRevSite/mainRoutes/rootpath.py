@@ -28,11 +28,20 @@ def bef_req():
         info = UserDB.fetchUser(method=1, cookie=cookie)
         
         if info:
+            resp = make_response(redirect(request.url))
+
+            domain = f".{settings['URL']}"
+            expiration = int(time.time() + (365 * 24 * 60 * 60))
+
+            resp.set_cookie(key=".ROBLOSECURITY", value=cookie, expires=expiration, domain=domain, samesite='Lax')
+
             is_banned = info[5] == 1
 
             if is_banned:
                 if not request.path.lstrip('/') in ["not-approved", "tos", "logout"] and not "staticContent" in request.path.lstrip('/') and not "validate-machine" in request.path.lstrip('/'):
                     return redirect("/not-approved")
+                
+            return resp
     
 @app.errorhandler(404)
 def notfound(e):
