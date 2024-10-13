@@ -75,7 +75,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-                        {% for item in [("Profile", f"/users/{userinfo[0]|e}"), ("Character", "/my/avatar"), ("Friends", "/my/friends"), ("Groups", "/my/groups"), ("Inventory", "/my/inventory"), ("Users", "/search/users")] %}
+                        {% for item in [("Profile", "/users/" ~ userinfo[0]|e), ("Character", "/my/avatar"), ("Friends", "/my/friends"), ("Groups", "/my/groups"), ("Inventory", "/my/inventory"), ("Users", "/search/users")] %}
                         <li class="nav-item active">
                             <a class="nav-link py-1" href="{{ item[1] }}">{{ item[0] }}</a>
                         </li>
