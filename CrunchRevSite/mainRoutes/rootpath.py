@@ -49,7 +49,7 @@ def notfound(e):
 
         return render_template("notfound.html", userinfo=info, baseurl=settings["URL"], loggedIn=loggedIn), 404
     else:
-        return "<p>404, Not found.</p>", 404
+        return "<h1>404, Not found.</h1>", 404
 
 @app.route("/", methods=settings["HTTPMethods"])
 def root():
