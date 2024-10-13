@@ -350,7 +350,7 @@ def favicon():
 
 @app.route("/download", methods=settings["HTTPMethods"])
 def downloadakaredirect():
-    return redirect("https://discord.gg/6ruRdK9zkv")
+    return redirect("https://discord.gg/CbuZ9hTG8a")
 
 @app.route("/Games.aspx", methods=settings["HTTPMethods"])
 @app.route("/Games", methods=settings["HTTPMethods"])
