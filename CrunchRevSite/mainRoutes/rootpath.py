@@ -9,6 +9,10 @@ from __main__ import *
 @app.before_request
 def bef_req():
     logging.info(f"Request host: {request.host}")
+
+    if request.host == f"setup.{settings["URL"]}" and request.scheme != "https":
+        return redirect(request.url.replace("http://", "https://"))
+
     if f"setup.{settings["URL"]}" in request.host:
         file_path = request.path.lstrip('/')
         local_path = os.path.join(app.root_path, "staticContentSetup")
