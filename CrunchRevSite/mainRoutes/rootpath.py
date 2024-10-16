@@ -8,6 +8,7 @@ from __main__ import *
 
 @app.before_request
 def bef_req():
+    logging.info(f"Request URL: {request.url}")
     logging.info(f"Request host: {request.host}")
 
     if request.host == f"setup.{settings['URL']}" and request.url.startswith("http://"):
