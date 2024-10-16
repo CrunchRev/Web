@@ -10,7 +10,7 @@ from __main__ import *
 def bef_req():
     logging.info(f"Request host: {request.host}")
 
-    if request.host == f"setup.{settings["URL"]}" and request.scheme != "https":
+    if request.host == f"setup.{settings["URL"]}" and "http://" in request.url:
         return redirect(request.url.replace("http://", "https://"))
 
     if f"setup.{settings["URL"]}" in request.host:
