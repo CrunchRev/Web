@@ -1,7 +1,7 @@
 """
 2024, Written by the CrunchRev Authors
 
-Route module description: controls placelauncher, joinscript stuff
+Route module description: controls placelauncher, joinscript stuff and visit stuff
 """
 
 from __main__ import *
@@ -197,3 +197,25 @@ def launchtheplace():
     }
 
     return jsonify(json), 200
+
+@app.route("/game/visit.ashx", methods=settings["HTTPMethods"])
+@app.route("/Game/visit.ashx", methods=settings["HTTPMethods"])
+def visit():
+    cookiez = request.cookies
+    cookie = None
+    info = None
+    readFile = ""
+    if (".ROBLOSECURITY" or "_ROBLOSECURITY") in cookiez:
+        cookie = cookiez.get(".ROBLOSECURITY") or cookiez.get("_ROBLOSECURITY")
+        info = UserDB.fetchUser(method=1, cookie=cookie)
+
+    userId = info[0] if info else 0
+    path = f"{settings["WebsiteStuffPath"]}visit.lua"
+
+    with open(path, "f") as file:
+        readFile = file.read()
+
+    preparedFile = readFile.replace("%playerId%", userId).replace("%%baseUrl%")
+    signed = Signer.sign_v1("\r\n" + preparedFile)
+
+    return signed, 200, {'Content-Type': 'text/plain'}
