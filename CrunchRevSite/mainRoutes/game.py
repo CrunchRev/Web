@@ -45,3 +45,16 @@ def processsocialrequest():
 
     xml_response = ET.tostring(root, encoding='utf-8', method='xml')
     return Response(xml_response, mimetype='text/xml')
+
+@app.route("/game/GetCurrentUser.ashx", methods=settings["HTTPMethods"])
+def getcurruser():
+    cookiez = request.cookies
+    cookie = None
+    info = None
+    if (".ROBLOSECURITY" or "_ROBLOSECURITY") in cookiez:
+        cookie = cookiez.get(".ROBLOSECURITY") or cookiez.get("_ROBLOSECURITY")
+        info = UserDB.fetchUser(method=1, cookie=cookie)
+
+    userid = info[0] if info else 0
+
+    return str(userid), 200, {'Content-Type': 'text/plain'}
