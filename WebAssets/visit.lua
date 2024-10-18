@@ -72,6 +72,8 @@ workspace:SetPhysicsThrottleEnabled(true)
 local addedBuildTools = false
 local screenGui = game:GetService("CoreGui"):FindFirstChild("RobloxGui")
 
+scriptContext:AddCoreScriptLocal("LoadingScript", screenGui)
+
 local inStudio = false or false
 
 function doVisit()
