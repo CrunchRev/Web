@@ -60,3 +60,13 @@ def getcurruser():
     logging.info(str(userid))
 
     return str(userid), 200, {'Content-Type': 'text/plain'}
+
+@app.route("/game/logout.aspx", methods=settings["HTTPMethods"])
+def log_theoutwithaspx():
+    resp = make_response(f'<meta http-equiv="refresh" content="0; url=https://www.{settings["URL"]}/login">') # redirect doesnt work, so yeah
+    domain = f".{settings['URL']}"
+    expiration = int(0)
+
+    resp.set_cookie(key=".ROBLOSECURITY", value="", expires=expiration, domain=domain)
+
+    return resp
