@@ -201,14 +201,7 @@ def launchtheplace():
 @app.route("/game/visit.ashx", methods=settings["HTTPMethods"])
 @app.route("/Game/visit.ashx", methods=settings["HTTPMethods"])
 def visit():
-    cookiez = request.cookies
-    cookie = None
-    info = None
-    if (".ROBLOSECURITY" or "_ROBLOSECURITY") in cookiez:
-        cookie = cookiez.get(".ROBLOSECURITY") or cookiez.get("_ROBLOSECURITY")
-        info = UserDB.fetchUser(method=1, cookie=cookie)
-
-    userId = info[0] if info else 0
+    userId = request.args.get("UserID", "0")
     path = f"{settings["WebsiteStuffPath"]}visit.lua"
 
     with open(path, "r") as file:
