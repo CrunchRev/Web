@@ -57,4 +57,6 @@ def getcurruser():
 
     userid = info[0] if info else 0
 
+    logging.info(str(userid))
+
     return str(userid), 200, {'Content-Type': 'text/plain'}
