@@ -212,7 +212,7 @@ def visit():
     userId = info[0] if info else 0
     path = f"{settings["WebsiteStuffPath"]}visit.lua"
 
-    with open(path, "f") as file:
+    with open(path, "r") as file:
         readFile = file.read()
 
     preparedFile = readFile.replace("%playerId%", userId).replace("%%baseUrl%")
