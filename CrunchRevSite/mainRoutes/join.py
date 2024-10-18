@@ -215,7 +215,7 @@ def visit():
     with open(path, "r") as file:
         readFile = file.read()
 
-    preparedFile = readFile.replace("%playerId%", userId).replace("%%baseUrl%")
+    preparedFile = readFile.replace("%playerId%", str(userId)).replace("%%baseUrl%", settings["URL"])
     signed = Signer.sign_v1("\r\n" + preparedFile)
 
     return signed, 200, {'Content-Type': 'text/plain'}
