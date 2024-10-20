@@ -200,14 +200,15 @@ def launchtheplace():
 
 @app.route("/game/visit.ashx", methods=settings["HTTPMethods"])
 @app.route("/Game/visit.ashx", methods=settings["HTTPMethods"])
-def visit():
-    userId = request.args.get("UserID", "0")
-    path = f"{settings["WebsiteStuffPath"]}visit.lua"
+def visit_script():
+    user_id = request.args.get("UserID", "0")
+    script_path = os.path.join(settings["WebsiteStuffPath"], "visit.lua")
 
-    with open(path, "r") as file:
-        readFile = file.read()
+    with open(script_path, "r") as file:
+        script = file.read()
 
-    preparedFile = readFile.replace("%playerId%", str(userId)).replace("%baseUrl%", settings["URL"])
-    signed = Signer.sign_v1("\r\n" + preparedFile)
+    signed_script = Signer.sign_v1(
+        "\r\n" + script.replace("%playerId%", str(user_id)).replace("%baseUrl%", settings["URL"])
+    )
 
-    return signed, 200, {'Content-Type': 'text/plain'}
+    return signed_script, 200, {"Content-Type": "text/plain"}
