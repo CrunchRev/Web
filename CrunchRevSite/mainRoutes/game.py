@@ -59,7 +59,14 @@ def getcurruser():
 
     logging.info(str(userid))
 
-    return str(userid), 200, {'Content-Type': 'text/plain'}
+    response = Response(str(userid), status=200, mimetype="text/plain")
+
+    response.headers['Cache-Control'] = 'no-cache, no-store'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '-1'
+    response.headers['Last-Modified'] = datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
+
+    return response
 
 @app.route("/game/logout.aspx", methods=settings["HTTPMethods"])
 def log_theoutwithaspx():
