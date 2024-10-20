@@ -55,7 +55,7 @@ def getcurruser():
         cookie = cookiez.get(".ROBLOSECURITY") or cookiez.get("_ROBLOSECURITY")
         info = UserDB.fetchUser(method=1, cookie=cookie)
 
-    userid = info[0] if info else 0
+    userid = info[0] if info else 2
 
     logging.info(str(userid))
 

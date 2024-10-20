@@ -201,7 +201,7 @@ def launchtheplace():
 @app.route("/game/visit.ashx", methods=settings["HTTPMethods"])
 @app.route("/Game/visit.ashx", methods=settings["HTTPMethods"])
 def visit_script():
-    user_id = request.args.get("UserID", "0")
+    user_id = request.args.get("UserID", "2")
     script_path = os.path.join(settings["WebsiteStuffPath"], "visit.lua")
 
     with open(script_path, "r") as file:
