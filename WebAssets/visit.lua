@@ -98,8 +98,6 @@ function doVisit()
 	message.Text = "Running"
 	game:GetService("RunService"):Run()
 
-    wait(math.random())
-
 	message.Text = "Creating Player"
 	if false or false then
 		player = game:GetService("Players"):CreateLocalPlayer(%playerId%)
