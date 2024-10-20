@@ -40,3 +40,7 @@ def validate():
             is_banned = info[5] == 1
 
     return jsonify({"success": is_banned == False}), 200
+
+@app.route("/login/RequestAuth.ashx", methods=settings["HTTPMethods"])
+def RequestAuth():
+    return "true", 200, {'Content-Type': 'text/plain'}
