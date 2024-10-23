@@ -77,3 +77,16 @@ def log_theoutwithaspx():
     resp.set_cookie(key=".ROBLOSECURITY", value="", expires=expiration, domain=domain)
 
     return resp
+
+@app.route("/Game/GamePass/GamePassHandler.ashx", methods=["GET"])
+def gamepasshandler():
+    trueOrFalse = "false"
+    userId = int(request.args.get("UserID", "1"))
+    assetId = int(request.args.get("PassID", "1337"))
+
+    asyncFetch = Assets.owns(userId, assetId)
+
+    if asyncFetch == True:
+        trueOrFalse = "true"
+
+    return trueOrFalse, 200, {'Content-Type': 'text/plain'}

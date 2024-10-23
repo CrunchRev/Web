@@ -21,8 +21,8 @@ def updatecounters(jobId, players):
 @app.route("/ownership/hasAsset/", methods=settings["HTTPMethods"])
 def hasasset():
     trueOrFalse = "false"
-    userId = int(request.args.get("userId"))
-    assetId = int(request.args.get("assetId"))
+    userId = int(request.args.get("userId", "1"))
+    assetId = int(request.args.get("assetId", "1337"))
 
     asyncFetch = Assets.owns(userId, assetId)
 
