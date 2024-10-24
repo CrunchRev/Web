@@ -87,10 +87,10 @@
                                 'https://www.unirev.xyz/game/edit.ashx?placeId=' + placeId
                             );
                         } catch (error) {
-                            console.error('Failed to start game:', error);
+                            alert('Failed to start game:', error);
                         }
                     } else {
-                        console.error('Cookie or dataPlaceID is missing!');
+                        alert('Cookie or dataPlaceID is missing!');
                     }
                 });
             }
