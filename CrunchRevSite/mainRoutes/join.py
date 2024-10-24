@@ -215,7 +215,7 @@ def visit_script():
 
 @app.route("/game/edit.ashx", methods=settings["HTTPMethods"])
 @app.route("/Game/edit.ashx", methods=settings["HTTPMethods"])
-def visit_script():
+def edit_script():
     place_id = request.args.get("placeId", "1")
     script_path = os.path.join(settings["WebsiteStuffPath"], "edit.lua")
 
