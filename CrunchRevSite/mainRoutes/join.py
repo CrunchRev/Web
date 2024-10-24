@@ -223,7 +223,7 @@ def edit_script():
         script = file.read()
 
     signed_script = Signer.sign_v1(
-        "\r\n" + script.replace("%url%", f"https://www.{settings['URL']}/Asset/?id={place_id}").replace("%baseUrl%", settings["URL"])
+        "\r\n" + script.replace("%url%", f"https://www.{settings['URL']}/Asset/?id={place_id}").replace("%baseUrl%", settings["URL"]).replace("%placeId%", place_id)
     )
 
     return signed_script, 200, {"Content-Type": "text/plain"}

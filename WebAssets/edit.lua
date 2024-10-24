@@ -2,6 +2,9 @@ local message = Instance.new("Message")
 message.Parent = workspace
 message.archivable = false
 
+pcall(function() game:SetPlaceID(%placeId%) end)
+pcall(function() game:SetUniverseId(%placeId%) end)
+
 game:GetService("ScriptInformationProvider"):SetAssetUrl("http://assetgame.%baseUrl%/Asset/")
 game:GetService("ContentProvider"):SetThreadPool(16)
 pcall(function() game:GetService("InsertService"):SetFreeModelUrl("http://assetgame.%baseUrl%/Game/Tools/InsertAsset.ashx?type=fm&q=%s&pg=%d&rs=%d") end) -- Used for free model search (insert tool)
