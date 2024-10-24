@@ -140,7 +140,7 @@ class UserDB:
         else:
             return False
 
-        return self.dbClass.execute_securely(query, params, use_cache=True) or False
+        return self.dbClass.execute_securely(query, params) or False
 
     def login(self, username: str, password: str) -> Tuple[bool, Optional[str]]:
         query = "SELECT userid, password, cookie FROM users WHERE username = %s"
