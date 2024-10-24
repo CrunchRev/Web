@@ -20,5 +20,5 @@ def ownership(playerId, placeId):
     return jsonify({"Success": True, "CanManage": ownership}), 200
 
 @app.route("/users/<playerId>/friends", methods=settings["HTTPMethods"])
-def friends(playerId):
+def friendsList(playerId):
     return jsonify({"data": []}), 200
