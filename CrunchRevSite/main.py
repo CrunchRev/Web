@@ -117,8 +117,9 @@ def includeRoutes():
     import mainRoutes.client
     import mainRoutes.uac
     import mainRoutes.abusereport
+    import mainRoutes.ide
     
-    internal_logger.info("Included 9 routes.")
+    internal_logger.info("Included 10 routes.")
 
 internal_logger.info("Running logic...")
 
