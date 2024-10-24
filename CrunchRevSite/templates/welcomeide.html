@@ -52,7 +52,7 @@
 <body>
     <h1 class="title">Welcome to the CrunchRev Studio!</h1>
     <div class="card-container">
-        <button class="card">
+        <button class="card" dataPlaceID="1">
             <img src="/staticContent/baseplate.png" width="150" height="90" alt="Baseplate Thumbnail">
             <h2>Baseplate</h2>
             <p>By Templates</p>
@@ -69,15 +69,15 @@
 
         document.querySelectorAll('.card').forEach(function (card) {
             card.addEventListener('click', function () {
-                const cookieHere = getCookie('.ROBLOSECURITY');
-                const placeIdHere = this.getAttribute('dataPlaceID');
+                const cookie = getCookie('.ROBLOSECURITY');
+                const placeId = this.getAttribute('dataPlaceID');
 
-                if (cookieHere && placeIdHere) {
+                if (cookie && placeId) {
                     try {
                         window.external.StartGame(
-                            cookieHere,
+                            cookie,
                             'https://www.unirev.xyz/Login/Negotiate.ashx',
-                            `https://www.unirev.xyz/game/edit.ashx?placeId=${placeIdHere}`
+                            `https://www.unirev.xyz/game/edit.ashx?placeId=${placeId}`
                         );
                     } catch (error) {
                         console.error('Failed to start game:', error);
