@@ -1,8 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CrunchRev Studio IDE</title>
     <style>
@@ -11,15 +11,18 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .card-container {
+            display: -ms-flexbox;
             display: flex;
+            -ms-flex-wrap: wrap;
             flex-wrap: wrap;
+            -ms-flex-pack: center;
             justify-content: center;
             margin: 20px;
         }
         .card {
             background-color: #f9f9f9;
             border: 1px solid #ddd;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 2px 2px 5px #ccc;
             width: 200px;
             margin: 10px;
             padding: 15px;
@@ -48,6 +51,10 @@
             text-align: inherit;
         }
     </style>
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
     <h1 class="title">Welcome to the CrunchRev Studio!</h1>
@@ -61,33 +68,34 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-        }
+            function getCookie(name) {
+                var value = "; " + document.cookie;
+                var parts = value.split("; " + name + "=");
+                if (parts.length === 2) return parts.pop().split(";").shift();
+            }
 
-        document.querySelectorAll('.card').forEach(function (card) {
-            card.addEventListener('click', function () {
-                const cookie = getCookie('.ROBLOSECURITY');
-                const placeId = this.getAttribute('dataPlaceID');
+            var cards = document.querySelectorAll('.card');
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].addEventListener('click', function () {
+                    var cookie = getCookie('.ROBLOSECURITY');
+                    var placeId = this.getAttribute('dataPlaceID');
 
-                if (cookie && placeId) {
-                    try {
-                        window.external.StartGame(
-                            cookie,
-                            'https://www.unirev.xyz/Login/Negotiate.ashx',
-                            `https://www.unirev.xyz/game/edit.ashx?placeId=${placeId}`
-                        );
-                    } catch (error) {
-                        console.error('Failed to start game:', error);
+                    if (cookie && placeId) {
+                        try {
+                            window.external.StartGame(
+                                cookie,
+                                'https://www.unirev.xyz/Login/Negotiate.ashx',
+                                'https://www.unirev.xyz/game/edit.ashx?placeId=' + placeId
+                            );
+                        } catch (error) {
+                            console.error('Failed to start game:', error);
+                        }
+                    } else {
+                        console.error('Cookie or dataPlaceID is missing!');
                     }
-                } else {
-                    console.error('Cookie or dataPlaceID is missing!');
-                }
-            });
+                });
+            }
         });
-    });
     </script>
 </body>
 </html>
