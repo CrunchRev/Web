@@ -18,3 +18,7 @@ def ownership(playerId, placeId):
     ownership = (user_info[0] == game_data["assets"][4]) or (user_info[8] == 1)
 
     return jsonify({"Success": True, "CanManage": ownership}), 200
+
+@app.route("/users/<playerId>/friends", methods=settings["HTTPMethods"])
+def friends(playerId):
+    return jsonify({"data": []}), 200
