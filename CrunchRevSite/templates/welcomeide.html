@@ -52,11 +52,42 @@
 <body>
     <h1 class="title">Welcome to the CrunchRev Studio!</h1>
     <div class="card-container">
-        <button class="cardBaseplate">
+        <button class="card">
             <img src="/staticContent/baseplate.png" width="150" height="90" alt="Baseplate Thumbnail">
             <h2>Baseplate</h2>
             <p>By Templates</p>
         </button>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        document.querySelectorAll('.card').forEach(function (card) {
+            card.addEventListener('click', function () {
+                const cookieHere = getCookie('.ROBLOSECURITY');
+                const placeIdHere = this.getAttribute('dataPlaceID');
+
+                if (cookieHere && placeIdHere) {
+                    try {
+                        window.external.StartGame(
+                            cookieHere,
+                            'https://www.unirev.xyz/Login/Negotiate.ashx',
+                            `https://www.unirev.xyz/game/edit.ashx?placeId=${placeIdHere}`
+                        );
+                    } catch (error) {
+                        console.error('Failed to start game:', error);
+                    }
+                } else {
+                    console.error('Cookie or dataPlaceID is missing!');
+                }
+            });
+        });
+    });
+    </script>
 </body>
 </html>
