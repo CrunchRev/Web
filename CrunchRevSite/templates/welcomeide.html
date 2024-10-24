@@ -11,28 +11,24 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .card-container {
-            display: -ms-flexbox;
-            display: flex;
-            -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
-            -ms-flex-pack: center;
-            justify-content: center;
+            text-align: center;
             margin: 20px;
         }
         .card {
+            display: inline-block;
             background-color: #f9f9f9;
             border: 1px solid #ddd;
-            box-shadow: 2px 2px 5px #ccc;
             width: 200px;
             margin: 10px;
             padding: 15px;
-            box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
             cursor: pointer;
+            zoom: 1;
         }
         .card img {
-            margin-bottom: 10px;
+            display: block;
+            margin: 0 auto 10px auto;
         }
         .card h2 {
             font-size: 18px;
@@ -41,14 +37,6 @@
         .card p {
             font-size: 14px;
             margin: 0;
-        }
-        button.card {
-            background: none;
-            border: none;
-            padding: 0;
-            font: inherit;
-            color: inherit;
-            text-align: inherit;
         }
     </style>
     <!--[if lt IE 9]>
@@ -59,11 +47,11 @@
 <body>
     <h1 class="title">Welcome to the CrunchRev Studio!</h1>
     <div class="card-container">
-        <button class="card" dataPlaceID="1">
+        <div class="card" dataPlaceID="1">
             <img src="/staticContent/baseplate.png" width="150" height="90" alt="Baseplate Thumbnail">
             <h2>Baseplate</h2>
             <p>By Templates</p>
-        </button>
+        </div>
     </div>
 
     <script>
