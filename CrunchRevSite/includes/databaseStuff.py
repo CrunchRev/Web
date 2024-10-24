@@ -170,7 +170,7 @@ class UserDB:
             return False, None
 
         insertQuery = "INSERT INTO users (username, password, cookie) VALUES (%s, %s, %s)"
-        self.dbClass.execute_securely(insertQuery, (username, self.bcrypt.generate_password_hash(password), prepared_cookie))
+        self.dbClass.bulk_insert(insertQuery, param_list=[(username, self.bcrypt.generate_password_hash(password), prepared_cookie)])
 
         deleteQuery = "DELETE FROM `keys` WHERE inviteKey = %s"
         self.dbClass.execute_securely(deleteQuery, (invite_key,))
@@ -282,7 +282,7 @@ class Assets:
     def buyShit(self, userId: int, assetId: int):
         queryInsert = "INSERT INTO user_bought_items (user_id, asset_id) VALUES (%s, %s)"
 
-        self.dbClass.execute_securely(queryInsert, (userId, assetId))
+        self.dbClass.bulk_insert(queryInsert, param_list=[(userId, assetId)])
 
         return True
     
