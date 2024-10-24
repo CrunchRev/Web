@@ -25,3 +25,7 @@ def universial_func():
 @app.route("/universes/get-info/", methods=settings["HTTPMethods"])
 def get_info():
     return jsonify({"Name":"Classic: Crossroads","Description":"The classic ROBLOX level is back!","RootPlace":1818,"StudioAccessToApisAllowed":True,"CurrentUserHasEditPermissions":False,"UniverseAvatarType":"PlayerChoice"}), 200
+
+@app.route("/universes/<placeId:placeId>/cloudeditenabled", methods=settings["HTTPMethods"])
+def cloudedit(placeId):
+    return jsonify({"enabled": False}), 200
