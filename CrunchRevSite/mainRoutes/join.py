@@ -212,3 +212,18 @@ def visit_script():
     )
 
     return signed_script, 200, {"Content-Type": "text/plain"}
+
+@app.route("/game/edit.ashx", methods=settings["HTTPMethods"])
+@app.route("/Game/edit.ashx", methods=settings["HTTPMethods"])
+def visit_script():
+    place_id = request.args.get("placeId", "1")
+    script_path = os.path.join(settings["WebsiteStuffPath"], "edit.lua")
+
+    with open(script_path, "r") as file:
+        script = file.read()
+
+    signed_script = Signer.sign_v1(
+        "\r\n" + script.replace("%url%", f"https://www.{settings['URL']}/Asset/?id={place_id}").replace("%baseUrl%", settings["URL"])
+    )
+
+    return signed_script, 200, {"Content-Type": "text/plain"}
