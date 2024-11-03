@@ -272,12 +272,12 @@ def assetdelivery():
     local_path = os.path.join(app.root_path, "LocalAssets")
     local_file_path = os.path.join(local_path, str(idarg))
         
-    ip_address = request.remote_addr
-
-    print(request.headers)
+    ip_address = request.remote_addrr
 
     if 'X-Real-IP' in request.headers:
         ip_address = request.headers.get("X-Real-IP")
+    elif 'X-Real-Ip' in request.headers:
+        ip_address = request.headers.get("X-Real-Ip")
 
     if os.path.isfile(local_file_path):
         return send_from_directory(local_path, str(idarg))
