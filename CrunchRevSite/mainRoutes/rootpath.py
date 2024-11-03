@@ -275,9 +275,9 @@ def assetdelivery():
     ip_address = request.remote_addr
 
     if 'X-Real-IP' in request.headers:
-        ip_address = request.headers.get("X-Real-IP")
+        ip_address = request.headers["X-Real-IP"]
     elif 'X-Real-Ip' in request.headers:
-        ip_address = request.headers.get("X-Real-Ip")
+        ip_address = request.headers["X-Real-Ip"]
 
     if os.path.isfile(local_file_path):
         return send_from_directory(local_path, str(idarg))
