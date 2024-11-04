@@ -8,19 +8,14 @@ from __main__ import *
 
 @app.before_request
 def bef_req():
-    logging.info(f"Request URL: {request.url}")
+    # logging.info(f"Request URL: {request.url}")
     logging.info(f"Request host: {request.host}")
 
-    if f"setup.{settings["URL"]}" in request.host:
-        file_path = request.path.lstrip('/')
-        local_path = os.path.join(app.root_path, "staticContentSetup")
-        return send_from_directory(local_path, file_path, as_attachment=True)
-    elif f"thumbscdn.{settings["URL"]}" in request.host:
+    if f"thumbscdn.{settings["URL"]}" in request.host:
         file_path = request.path.lstrip('/')
         local_path = os.path.join(app.root_path, "staticContentThumbs")
         return send_from_directory(local_path, file_path, as_attachment=True)
-
-    if request.host == settings["URL"]:
+    elif request.host == settings["URL"]:
         path = request.path.lstrip('/')
         return redirect(f"https://www.{settings["URL"]}/{path}")
     
