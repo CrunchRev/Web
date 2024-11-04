@@ -268,7 +268,6 @@ def assetdelivery():
     local_file_path = os.path.join(local_path, str(idarg))
         
     ip_address = request.headers.getlist("X-Real-IP")[0]
-    print(ip_address)
 
     if os.path.isfile(local_file_path):
         return send_from_directory(local_path, str(idarg))
