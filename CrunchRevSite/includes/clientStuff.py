@@ -149,8 +149,10 @@ class Arbiter:
         if execution1 is None:
             # no servers avaliable, request a new one.
 
+            sm_logger.info("Requesting...")
+
             sql2 = "SELECT jobId FROM `jobs_in_use` WHERE `place_id` = %s AND `status` = 0 OR `status` = 1" # idfk how to do that
-            execution2 = self.db.execute_securely(sql2, (placeID))
+            execution2 = self.db.execute_securely(sql2, (int(placeID)))
 
             if execution2 is not None:
                 try:
