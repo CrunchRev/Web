@@ -9,6 +9,7 @@ from datetime import datetime
 import base64
 import random
 import logging
+from time import sleep
 
 from includes.webhookStuff import *
 
@@ -210,6 +211,8 @@ class Arbiter:
 
                 Webhooks.send_arbiter_startup_webhook(placeID, year, json2["ip"], json2["jobId"], json2["port"], json2["status"])
             
+                sleep(1)
+
                 return {
                     "success": True,
                     "status": json2["status"],
@@ -250,6 +253,8 @@ class Arbiter:
 
             Webhooks.send_arbiter_startup_webhook(placeID, year, json["ip"], json["jobId"], json["port"], json["status"])
         
+            sleep(1)
+
             return {
                 "success": True,
                 "status": json["status"],
@@ -303,7 +308,7 @@ class Arbiter:
 
     def shutdownJobId(self, jobId):
         geti = self.getInformationViaJobID(jobId)
-        url = geti[0] if geti > 0 else None
+        url = geti[0] if geti else None
 
         if url is None:
             return {"success": False, "message": "Failed to shutdown job id"}
