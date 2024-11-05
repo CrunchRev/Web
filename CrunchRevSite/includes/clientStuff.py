@@ -303,7 +303,7 @@ class Arbiter:
 
     def shutdownJobId(self, jobId):
         geti = self.getInformationViaJobID(jobId)
-        url = geti[0] if len(geti) > 0 else None
+        url = geti[0] if geti > 0 else None
 
         if url is None:
             return {"success": False, "message": "Failed to shutdown job id"}
