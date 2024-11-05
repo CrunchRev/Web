@@ -123,9 +123,14 @@ class Arbiter:
         self.games = GamesClass
         return None
 
-    def addJobDB(self, serverIP, networkPort, jobID, placeID, year):
-        sqlQuery = "INSERT INTO `jobs_in_use` (`RCC_Version`, `place_id`, `jobId`, `network_port`, `server_address`) VALUES ( %s, %s, %s, %s, %s )"
-        self.db.bulk_insert(sqlQuery, param_list=[(year, placeID, jobID, networkPort, serverIP)])
+    def addJobDB(self, serverIP, networkPort, jobID, placeID, year, status):
+        sqlQuery = """
+        INSERT INTO `jobs_in_use` (`RCC_Version`, `place_id`, `jobId`, `network_port`, `server_address`, `status`) 
+        VALUES (%s, %s, %s, %s, %s, %s)
+        ON DUPLICATE KEY UPDATE 
+        `status` = VALUES(`status`)
+        """
+        self.db.bulk_insert(sqlQuery, param_list=[(year, placeID, jobID, networkPort, serverIP, status)])
 
     def requestServer(self, year, placeID, maxPlayers, creatorId, isMobile):
         arbiterURL = random.choice(list(self.arbiterURLs))
@@ -138,18 +143,18 @@ class Arbiter:
                 "message": "Game failed to start"
             }
 
-        sql = "SELECT * FROM `jobs_in_use` WHERE `place_id` = %s AND `players` < %s ORDER BY RAND() LIMIT 1;"
+        sql = "SELECT * FROM `jobs_in_use` WHERE `place_id` = %s AND `players` < %s AND `status` = 2 ORDER BY RAND() LIMIT 1;"
         execution1 = self.db.execute_securely(sql, params=(placeID, place["info"][2]))
 
         if execution1 is None:
             # no servers avaliable, request a new one.
             try:
-                requestArbiter = requests.get(f"http://{arbiterURL}/internal/arbiter/startgameserver?year={year}&placeId={placeID}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61&maxPlayers={maxPlayers}&creatorId={creatorId}")
+                requestArbiter = requests.post(f"http://{arbiterURL}/arbiter/gameserver", json={"clientYear": year, "placeId": placeID, "maxPlayers": maxPlayers, "creatorId": creatorId, "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"})
             except:
                 sm_logger.error(f"Failed to request server from {arbiterURL}")
                 return {
                     "success": True,
-                    "status": 1,
+                    "status": 0,
                     "message": "",
                     "jobId": ""
                 }
@@ -157,7 +162,7 @@ class Arbiter:
             if not requestArbiter.status_code == requests.codes.ok:
                 return {
                     "success": True,
-                    "status": 1,
+                    "status": 0,
                     "message": "",
                     "jobId": ""
                 }
@@ -167,43 +172,21 @@ class Arbiter:
             except:
                 return {
                     "success": True,
-                    "status": 1,
+                    "status": 0,
                     "message": "",
                     "jobId": ""
                 }
+            
+            self.addJobDB(json["ip"], json["port"], json["jobId"], placeID, year, json["status"])
 
-            if not "success" in json:
-                return {
-                    "success": False,
-                    "status": 4,
-                    "message": "Game failed to start"
-                }
-
-            if json["success"] == True:
-                # success case, open job and return 1 or 2 (depends on if mobile or not, because on mobile when 1 occurs, it kicks me out of the player)
-                self.addJobDB(json["serverAddress"], json["networkPort"], json["jobId"], placeID, year)
-                Webhooks.send_arbiter_startup_webhook(placeID, year, json["serverAddress"], json["jobId"], json["networkPort"])
-                if isMobile is True:
-                    return {
-                        "success": True,
-                        "status": 2,
-                        "message": "",
-                        "jobId": json["jobId"]
-                    }
-                
-                return {
-                    "success": True,
-                    "status": 1,
-                    "message": "",
-                    "jobId": ""
-                }
-            else:
-                # unsuccess D:
-                return {
-                    "success": False,
-                    "status": 4,
-                    "message": "Game failed to start"
-                }
+            Webhooks.send_arbiter_startup_webhook(placeID, year, json["ip"], json["jobId"], json["port"], json["status"])
+        
+            return {
+                "success": True,
+                "status": json["status"],
+                "message": "",
+                "jobId": json["jobId"]
+            }
         else:
             # server is avaliable, return it.
             return {
@@ -236,22 +219,29 @@ class Arbiter:
         
         for url in arbiterURLsList:
             try:
-                getRequest = requests.get(f"http://{url}/internal/gameserver/shutdownallservers?placeId={str(placeId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61", timeout=3.5)
-                self.boomboomjobIds(placeId)
+                getRequest = requests.post(f"http://{url}/arbiter/gameserver/stop/placeAll", json={"placeId": placeId, "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"}, timeout=3.5)
                 results.append(getRequest.json())
             except:
                 sm_logger.error(f"Failed to shutdown servers on {url}, skipping...")
                 continue
         
         if results:
+            self.boomboomjobIds(placeId)
+
             return {"success": True, "results": results}
         else:
             return {"success": False, "message": "Failed to shutdown servers"}
 
     def shutdownJobId(self, jobId):
-        arbiterURL = f"{self.getServerAddressUsingJobId(jobId)[0]}:7209"
+        geti = self.getInformationViaJobID(jobId)
+        url = geti[0] if len(geti) > 0 else None
+
+        if url is None:
+            return {"success": False, "message": "Failed to shutdown job id"}
+
+        arbiterURL = f"{url}:7209"
         try:
-            getRequest = requests.get(f"http://{arbiterURL}/internal/gameserver/shutdownjobid?jobId={str(jobId)}&accessKey=ddec2ab4ae78dda0bb3497b134ae5c61")
+            getRequest = requests.post(f"http://{arbiterURL}/arbiter/gameserver/stop", json={"jobId": jobId, "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"}, timeout=3.5)
             self.boomboomjobId(jobId)
             return getRequest.json()
         except:

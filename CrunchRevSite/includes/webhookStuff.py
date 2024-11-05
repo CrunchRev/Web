@@ -52,7 +52,7 @@ class Webhooks:
         except requests.exceptions.RequestException as e:
             webhook_logger.error(f"Error sending webhook: {e}")
 
-    def send_arbiter_startup_webhook(self, placeId, client, servah, jobId, port):
+    def send_arbiter_startup_webhook(self, placeId, client, servah, jobId, port, status):
         webhook_url = "https://discord.com/api/webhooks/1271089751297884271/WwAXdJVNPAd7XVpRKYgphQSUr7rxbQ3v9ScQjQwedrVFRwZ-zF7OLEtuEnqy-32cKoOC"
 
         embed = {
@@ -83,6 +83,11 @@ class Webhooks:
                 {
                     "name": "Job ID",
                     "value": jobId,
+                    "inline": True
+                },
+                {
+                    "name": "Status",
+                    "value": status,
                     "inline": True
                 }
             ],
