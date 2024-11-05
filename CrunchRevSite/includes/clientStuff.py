@@ -151,11 +151,11 @@ class Arbiter:
 
             sm_logger.info("Requesting...")
 
-            sql2 = "SELECT jobId FROM `jobs_in_use` WHERE `place_id` = %s AND `status` = 0 OR `status` = 1" # idfk how to do that
+            sql2 = "SELECT jobId FROM `jobs_in_use` WHERE `place_id` = %s AND `status` = 0 OR `status` = 1 LIMIT 1;S" # idfk how to do that
             execution2 = None
 
             try:
-                execution2 = self.db.execute_securely(sql2, (placeID,))
+                execution2 = self.db.execute_securely(sql2, (placeID,), False)
             except Exception as e:
                 sm_logger.error(f"OOPS! An exception occured: {e}")
 
