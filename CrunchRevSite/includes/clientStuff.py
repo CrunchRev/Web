@@ -132,7 +132,7 @@ class Arbiter:
         """
         self.db.bulk_insert(sqlQuery, param_list=[(year, placeID, jobID, networkPort, serverIP, status)])
 
-    def requestServer(self, year, placeID, maxPlayers, creatorId, isMobile):
+    def requestServer(self, year, placeID, maxPlayers, creatorId):
         arbiterURL = random.choice(list(self.arbiterURLs))
         place = self.games.fetchOne(placeID)
 
