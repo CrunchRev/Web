@@ -152,7 +152,7 @@ class Arbiter:
             sql2 = "SELECT jobId FROM `jobs_in_use` WHERE `place_id` = %s AND `status` = 0 OR `status` = 1" # idfk how to do that
             execution2 = self.db.execute_securely(sql2, params=(placeID))
 
-            if len(execution2) > 0:
+            if execution2 is not None:
                 try:
                     requestArbiter2 = requests.post(f"http://{arbiterURL}/arbiter/gameserver", json={"jobId": execution2[0], "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"})
                 except:
