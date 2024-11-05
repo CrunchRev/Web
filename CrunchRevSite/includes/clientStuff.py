@@ -308,10 +308,13 @@ class Arbiter:
 
     def shutdownJobId(self, jobId):
         geti = self.getInformationViaJobID(jobId)
+
+        sm_logger.info(f"GETI: {geti}")
+
         url = geti[6] if geti else None
 
         if url is None:
-            return {"success": False, "message": "Failed to shutdown job id"}
+            return {"success": False, "message": "Failed to shutdown job id because internal URL not found."}
 
         arbiterURL = f"{url}:7209"
         try:
