@@ -311,7 +311,7 @@ class Arbiter:
 
         sm_logger.info(f"GETI: {geti}")
 
-        url = geti[6] if geti else None
+        url = geti[5] if geti else None
 
         if url is None:
             return {"success": False, "message": "Failed to shutdown job id because internal URL not found."}
