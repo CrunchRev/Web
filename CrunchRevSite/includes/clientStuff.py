@@ -144,19 +144,19 @@ class Arbiter:
             }
 
         sql = "SELECT * FROM `jobs_in_use` WHERE `place_id` = %s AND `players` < %s AND `status` = 2 ORDER BY RAND() LIMIT 1;"
-        execution1 = self.db.execute_securely(sql, params=(placeID, place["info"][2]))
+        execution1 = self.db.execute_securely(sql, (placeID, place["info"][2]))
 
         if execution1 is None:
             # no servers avaliable, request a new one.
 
             sql2 = "SELECT jobId FROM `jobs_in_use` WHERE `place_id` = %s AND `status` = 0 OR `status` = 1" # idfk how to do that
-            execution2 = self.db.execute_securely(sql2, params=(placeID))
+            execution2 = self.db.execute_securely(sql2, (placeID))
 
             if execution2 is not None:
                 try:
                     requestArbiter2 = requests.post(f"http://{arbiterURL}/arbiter/gameserver", json={"jobId": execution2[0], "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"})
                 except:
-                    sm_logger.error(f"Failed to request server from {arbiterURL}")
+                    sm_logger.error(f"Failed to track server details from {arbiterURL}")
                     return {
                         "success": True,
                         "status": 0,
