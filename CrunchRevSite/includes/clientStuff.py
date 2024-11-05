@@ -128,11 +128,9 @@ class Arbiter:
         INSERT INTO `jobs_in_use` (`RCC_Version`, `place_id`, `jobId`, `network_port`, `server_address`, `status`) 
         VALUES (%s, %s, %s, %s, %s, %s)
         ON DUPLICATE KEY UPDATE 
-        `status` = IF(`RCC_Version` = VALUES(`RCC_Version`) AND `place_id` = VALUES(`place_id`) AND `jobId` = VALUES(`jobId`) AND 
-                    `network_port` = VALUES(`network_port`) AND `server_address` = VALUES(`server_address`), 
-                    VALUES(`status`), `status`)
+        `status` = VALUES(`status`)
         """
-        self.db.bulk_insert(sqlQuery, param_list=[(year, placeID, jobID, networkPort, serverIP, status)])
+        self.db.execute_securely(sqlQuery, params=(year, placeID, jobID, networkPort, serverIP, status))
 
     def requestServer(self, year, placeID, maxPlayers, creatorId):
         arbiterURL = random.choice(list(self.arbiterURLs))
