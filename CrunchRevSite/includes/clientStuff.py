@@ -148,6 +148,51 @@ class Arbiter:
 
         if execution1 is None:
             # no servers avaliable, request a new one.
+
+            sql2 = "SELECT jobId FROM `jobs_in_use` WHERE `place_id` = %s AND `status` = 0 OR `status` = 1" # idfk how to do that
+            execution2 = self.db.execute_securely(sql2, params=(placeID))
+
+            if len(execution2) > 0:
+                try:
+                    requestArbiter2 = requests.post(f"http://{arbiterURL}/arbiter/gameserver", json={"jobId": execution2[0], "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"})
+                except:
+                    sm_logger.error(f"Failed to request server from {arbiterURL}")
+                    return {
+                        "success": True,
+                        "status": 0,
+                        "message": "",
+                        "jobId": ""
+                    }
+                
+                if not requestArbiter2.status_code == requests.codes.ok:
+                    return {
+                        "success": True,
+                        "status": 1,
+                        "message": "",
+                        "jobId": ""
+                    }
+                
+                try:
+                    json2 = requestArbiter2.json()
+                except:
+                    return {
+                        "success": True,
+                        "status": 1,
+                        "message": "",
+                        "jobId": ""
+                    }
+                
+                self.addJobDB(json2["ip"], json2["port"], json2["jobId"], placeID, year, json2["status"])
+
+                Webhooks.send_arbiter_startup_webhook(placeID, year, json2["ip"], json2["jobId"], json2["port"], json2["status"])
+            
+                return {
+                    "success": True,
+                    "status": json2["status"],
+                    "message": "",
+                    "jobId": json2["jobId"]
+                }
+
             try:
                 requestArbiter = requests.post(f"http://{arbiterURL}/arbiter/gameserver", json={"clientYear": year, "placeId": placeID, "maxPlayers": maxPlayers, "creatorId": creatorId, "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"})
             except:
