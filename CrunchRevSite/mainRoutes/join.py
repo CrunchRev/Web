@@ -149,6 +149,8 @@ def launchtheplace():
         if not is_allowed:
             return jsonify({"error": "403, You are not allowed to view this game."}), 403
 
+    user_agent = request.headers.get('User-Agent', None)
+
     if not user_agent in ["Roblox/WinHttp", "Roblox/WinInet"]:
         return jsonify({"error": "Authorization failed. Non-client request received."}), 401
 
