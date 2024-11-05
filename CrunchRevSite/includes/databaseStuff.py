@@ -70,7 +70,7 @@ class Database:
         cursor = None
         try:
             connection = self._get_connection()
-            cursor = connection.cursor(prepared=True, buffered=True)
+            cursor = connection.cursor(prepared=True)
             cursor.execute(query, params)
 
             result = cursor.fetchall() if fetch_all else cursor.fetchone()
