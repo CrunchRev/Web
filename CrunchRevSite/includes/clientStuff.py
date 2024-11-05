@@ -124,13 +124,27 @@ class Arbiter:
         return None
 
     def addJobDB(self, serverIP, networkPort, jobID, placeID, year, status):
-        sqlQuery = """
-        INSERT INTO `jobs_in_use` (`RCC_Version`, `place_id`, `jobId`, `network_port`, `server_address`, `status`) 
-        VALUES (%s, %s, %s, %s, %s, %s)
-        ON DUPLICATE KEY UPDATE 
-        `status` = VALUES(`status`)
+        checkQuery = """
+        SELECT COUNT(*) FROM `jobs_in_use`
+        WHERE `RCC_Version` = %s AND `place_id` = %s AND `jobId` = %s 
+        AND `network_port` = %s AND `server_address` = %s
         """
-        self.db.execute_securely(sqlQuery, params=(year, placeID, jobID, networkPort, serverIP, status))
+        existing_records = self.db.execute_securely(checkQuery, params=(year, placeID, jobID, networkPort, serverIP))
+        
+        if existing_records[0] > 0:
+            updateQuery = """
+            UPDATE `jobs_in_use`
+            SET `status` = %s
+            WHERE `RCC_Version` = %s AND `place_id` = %s AND `jobId` = %s 
+            AND `network_port` = %s AND `server_address` = %s
+            """
+            self.db.execute_securely(updateQuery, params=(status, year, placeID, jobID, networkPort, serverIP))
+        else:
+            insertQuery = """
+            INSERT INTO `jobs_in_use` (`RCC_Version`, `place_id`, `jobId`, `network_port`, `server_address`, `status`) 
+            VALUES (%s, %s, %s, %s, %s, %s)
+            """
+            self.db.execute_securely(insertQuery, params=(year, placeID, jobID, networkPort, serverIP, status))
 
     def requestServer(self, year, placeID, maxPlayers, creatorId):
         arbiterURL = random.choice(list(self.arbiterURLs))
