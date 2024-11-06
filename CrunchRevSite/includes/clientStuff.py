@@ -173,7 +173,7 @@ class Arbiter:
             execution2 = None
 
             try:
-                execution2 = self.db.execute_securely(sql2, (placeID,), False)
+                execution2 = self.db.execute_securely(sql2, (placeID, year), False)
             except Exception as e:
                 sm_logger.error(f"OOPS! An exception occured: {e}")
 
