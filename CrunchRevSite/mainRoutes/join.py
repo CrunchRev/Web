@@ -132,6 +132,8 @@ def launchtheplace():
     placeIDarg = request.args.get("placeId")
     isTeleport = request.args.get("isTeleport", "false")
 
+    is_roblox_app = False
+
     if not placeIDarg:
         return jsonify({"error": "400, No placeId is set."}), 400
 
@@ -151,7 +153,12 @@ def launchtheplace():
 
     user_agent = request.headers.get('User-Agent', None)
 
-    if not user_agent in ["Roblox/WinHttp", "Roblox/WinInet"]:
+    if user_agent:
+        is_roblox_app = "ROBLOX Android App" in user_agent or "ROBLOX iOS App" in user_agent
+    else:
+        is_roblox_app = False
+
+    if not user_agent in ["Roblox/WinHttp", "Roblox/WinInet"] and not is_roblox_app:
         return jsonify({"error": "Authorization failed. Non-client request received."}), 401
 
     year = game_data["info"][1]
