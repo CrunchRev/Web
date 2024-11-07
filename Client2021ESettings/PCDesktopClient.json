@@ -1180,7 +1180,7 @@
         "FFlagCommonPackageStringUtilities": "True",
         "FFlagConnectErrorHandlerInLoadingScript": "True",
         "FFlagConnectErrorHandlerInLoadingScript_PlaceFilter": "False;731863175;731680819",
-        "FFlagConnectionScriptEnabled": "True",
+        "FFlagConnectionScriptEnabled": "False",
         "FFlagConnectionScriptEnabled_PlaceFilter": "False;1608755154",
         "FFlagConsistentCofmForAnimatedAssemblies": "True",
         "FFlagConstraintWidgetRenderOutsideOfStudio": "True",
