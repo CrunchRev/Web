@@ -246,7 +246,7 @@ class GamesDB:
         """
 
         execution1 = self.dbClass.execute_securely(query1, (placeId,), use_cache=True)
-        execution2 = self.dbClass.execute_securely(query2, (placeId,), use_cache=True)
+        execution2 = self.dbClass.execute_securely(query2, (placeId,), use_cache=False)
         execution3 = self.dbClass.execute_securely(query3, (placeId,), use_cache=False)
 
         return {"assets": execution1, "info": execution2, "countersPlayers": str(execution3[0])}
