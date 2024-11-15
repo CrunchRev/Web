@@ -234,14 +234,7 @@ function ProgressBarReset() {
 }
 
 function StartClient() {
-    var needsExtraFowardSlash = false;
-    var isFirefoxBrowser = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-    if (isFirefoxBrowser) {
-        var FirefoxVersion = parseInt(navigator.userAgent.toLowerCase().split('firefox/')[1]);
-        if ( FirefoxVersion > 121 ) {
-            needsExtraFowardSlash = true;
-        }
-    }
+    var needsExtraFowardSlash = true;
 
     ProgressBarReset();
 
