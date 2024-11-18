@@ -256,6 +256,9 @@ function fetchLeaderboard() {
       if (data.success && data.leaderboard && data.leaderboard.length > 0) {
         data.leaderboard.forEach(user => {
           const userElement = placeholderElement.cloneNode(true);
+
+          userElement.classList.remove("placeholder");
+
           const imgElement = userElement.querySelector("img");
           const cardTitle = userElement.querySelector(".card-title");
           const cardText = userElement.querySelector(".card-text");
