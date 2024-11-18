@@ -353,3 +353,27 @@ class DataStore:
         
         value = fetchedResult[0]
         return self.deserialize_value(value)
+
+class PointsService:
+    def __init__(self, dbClass: Database):
+        self.dbClass = dbClass
+
+    def getPoints(self, userId: int, placeId: int):
+        query = "SELECT `pointsAmount` FROM `playerpoints` WHERE `userId` = %s AND `placeId` = %s"
+        execution = self.dbClass.execute_securely(query, (userId, placeId))
+
+        return execution if execution else 0
+    
+    def awardPoints(self, userId: int, placeId: int, amount: int):
+        check1 = "SELECT `pointsAmount` FROM `playerpoints` WHERE `userId` = %s AND `placeId` = %s"
+
+        executeCheck1 = self.dbClass.execute_securely(check1, (userId, placeId))
+
+        if not executeCheck1:
+            insertQuery = "INSERT INTO `playerpoints` (`userId`, `placeId`, `pointsAmount`) VALUES (%s, %s, %s)"
+            self.dbClass.bulk_insert(insertQuery, param_list=[(userId, placeId, amount)])
+        else:
+            updateQuery = "UPDATE `playerpoints` SET `pointsAmount` = `pointsAmount` + %s WHERE `userId` = %s AND `placeId` = %s"
+            self.dbClass.execute_securely(updateQuery, (amount, userId, placeId))
+
+        return True

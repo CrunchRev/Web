@@ -73,28 +73,30 @@ internal_logger.info("Initializing classes...")
 
 bcrypt = Bcrypt(app)
 
-internal_logger.info("Initialized bcrypt (1 / 11).")
+internal_logger.info("Initialized bcrypt (1 / 12).")
 
 Signer = Signer(settings["PK1024Path"], settings["PK2048Path"])
-internal_logger.info("Initialized script signer (2 / 11).")
+internal_logger.info("Initialized script signer (2 / 12).")
 Filter = TextFilter()
-internal_logger.info("Initialized text filter (3 / 11).")
+internal_logger.info("Initialized text filter (3 / 12).")
 Tickets = Tickets(settings["PK1024Path"], settings["PK2048Path"])
-internal_logger.info("Initialized tickets generator (4 / 11).")
+internal_logger.info("Initialized tickets generator (4 / 12).")
 UserDB = UserDB(Database, bcrypt)
-internal_logger.info("Initialized users database (5 / 11).")
+internal_logger.info("Initialized users database (5 / 12).")
 GamesDB = GamesDB(Database, settings["URL"])
-internal_logger.info("Initialized games database (6 / 11).")
+internal_logger.info("Initialized games database (6 / 12).")
 ArbiterClass = Arbiter(settings["arbiterURLs"], Database, GamesDB)
-internal_logger.info("Initialized arbiter (class) (7 / 11).")
+internal_logger.info("Initialized arbiter (class) (7 / 12).")
 Assets = Assets(Database)
-internal_logger.info("Initialized assets (class) (8 / 11).")
+internal_logger.info("Initialized assets (class) (8 / 12).")
 Token = Token()
-internal_logger.info("Initialized safety token system (9 / 11).")
+internal_logger.info("Initialized safety token system (9 / 12).")
 DataStore = DataStore(Database)
-internal_logger.info("Initialized datastore (class) (10 / 11).")
+internal_logger.info("Initialized datastore (class) (10 / 12).")
 Webhooks = Webhooks()
-internal_logger.info("Initialized webhooks (class) (11 / 11).")
+internal_logger.info("Initialized webhooks (class) (11 / 12).")
+PointsService = PointsService(Database)
+internal_logger.info("Initialized points service (class) (12 / 12).")
 
 def includeRoutes():
     import mainRoutes.join
@@ -118,8 +120,9 @@ def includeRoutes():
     import mainRoutes.uac
     import mainRoutes.abusereport
     import mainRoutes.ide
+    import mainRoutes.points
     
-    internal_logger.info("Included 10 routes.")
+    internal_logger.info("Included 22 routes.")
 
 internal_logger.info("Running logic...")
 
