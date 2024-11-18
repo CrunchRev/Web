@@ -364,6 +364,12 @@ class PointsService:
 
         return execution[0] if execution else 0
     
+    def getPointsLeaderboard(self, placeId: int):
+        query = "SELECT * FROM `playerpoints` WHERE `placeId` = %s ORDER BY `pointsAmount` DESC LIMIT 10"
+        execution = self.dbClass.execute_securely(query, (placeId), fetch_all=True)
+
+        return execution
+    
     def awardPoints(self, userId: int, placeId: int, amount: int):
         check1 = "SELECT `pointsAmount` FROM `playerpoints` WHERE `userId` = %s AND `placeId` = %s"
 

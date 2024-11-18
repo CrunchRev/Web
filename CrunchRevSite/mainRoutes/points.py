@@ -25,6 +25,39 @@ def get_point_balance():
 
     return jsonify({"success": True, "pointBalance": fetchedPoints}), 200
 
+@app.route("/points/get-points-leaderboard", methods=["GET"])
+def get_points_leaderboard():
+    placeId = request.args.get(key="placeId", default=0, type=int)
+
+    data = []
+
+    place = GamesDB.fetchOne(placeId)
+
+    if not place["assets"] or not place["info"]:
+        return jsonify({"success": False, "message": "Place not found"}), 404
+    
+    fetchedLeaderboard = PointsService.getPointsLeaderboard(placeId)
+
+    for stats in fetchedLeaderboard:
+        userId = stats[0]
+        points = stats[2]
+        
+        user = UserDB.fetchUser(method=2, userId=userId)
+
+        if not user:
+            continue
+
+        username = user[1]
+
+        data.append({
+            "userId": userId,
+            "username": username,
+            "avatarImage": "https://www.unirev.xyz/staticContent/Placeholder.png",
+            "points": points
+        })
+
+    return jsonify({"success": True, "leaderboard": data}), 200
+
 @app.route("/points/award-points", methods=["POST"])
 def award_points():
     userId = request.args.get(key="userId", default=0, type=int)
