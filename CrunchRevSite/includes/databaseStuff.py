@@ -366,7 +366,7 @@ class PointsService:
     
     def getPointsLeaderboard(self, placeId: int):
         query = "SELECT * FROM `playerpoints` WHERE `placeId` = %s ORDER BY `pointsAmount` DESC LIMIT 10"
-        execution = self.dbClass.execute_securely(query, (placeId), fetch_all=True)
+        execution = self.dbClass.execute_securely(query, (placeId,), fetch_all=True)
 
         return execution
     

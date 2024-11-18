@@ -38,23 +38,24 @@ def get_points_leaderboard():
     
     fetchedLeaderboard = PointsService.getPointsLeaderboard(placeId)
 
-    for stats in fetchedLeaderboard:
-        userId = stats[0]
-        points = stats[2]
-        
-        user = UserDB.fetchUser(method=2, userId=userId)
+    if fetchedLeaderboard:
+        for stats in fetchedLeaderboard:
+            userId = stats[0]
+            points = stats[2]
+            
+            user = UserDB.fetchUser(method=2, userId=userId)
 
-        if not user:
-            continue
+            if not user:
+                continue
 
-        username = user[1]
+            username = user[1]
 
-        data.append({
-            "userId": userId,
-            "username": username,
-            "avatarImage": "https://www.unirev.xyz/staticContent/Placeholder.png",
-            "points": points
-        })
+            data.append({
+                "userId": userId,
+                "username": username,
+                "avatarImage": "https://www.unirev.xyz/staticContent/Placeholder.png",
+                "points": points
+            })
 
     return jsonify({"success": True, "leaderboard": data}), 200
 
