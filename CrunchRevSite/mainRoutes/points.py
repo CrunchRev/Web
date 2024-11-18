@@ -53,7 +53,7 @@ def get_points_leaderboard():
             data.append({
                 "userId": userId,
                 "username": username,
-                "avatarImage": "https://www.unirev.xyz/staticContent/Placeholder.png",
+                "avatarImage": f"https://www.{settings["URL"]}/staticContent/Placeholder.png",
                 "points": points
             })
 
