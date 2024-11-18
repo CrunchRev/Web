@@ -362,7 +362,7 @@ class PointsService:
         query = "SELECT `pointsAmount` FROM `playerpoints` WHERE `userId` = %s AND `placeId` = %s"
         execution = self.dbClass.execute_securely(query, (userId, placeId))
 
-        return execution if execution else 0
+        return execution[0] if not len(execution) == 0 else 0
     
     def awardPoints(self, userId: int, placeId: int, amount: int):
         check1 = "SELECT `pointsAmount` FROM `playerpoints` WHERE `userId` = %s AND `placeId` = %s"
