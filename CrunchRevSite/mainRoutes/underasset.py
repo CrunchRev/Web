@@ -35,7 +35,7 @@ def old_characterappearance():
 
     if assetsCharAppFetch:
         for assetIdTuple in assetsCharAppFetch:
-            assetId = assetIdTuple
+            assetId = assetIdTuple[0]
             charapp = charapp + f"http://www.{settings["URL"]}/Asset/?id={assetId};"
 
     return charapp, 200, {'Content-Type': 'text/plain'}

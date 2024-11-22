@@ -19,7 +19,7 @@ def avatar_fetch():
 
     if assetsCharAppFetch:
         for assetIdTuple in assetsCharAppFetch:
-            assetId = assetIdTuple
+            assetId = assetIdTuple[0]
             charappItemzzz.append(assetId)
 
     if not userInfo:
