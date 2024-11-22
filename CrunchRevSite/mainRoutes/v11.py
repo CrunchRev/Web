@@ -19,7 +19,7 @@ def avatar_fetch():
 
     if assetsCharAppFetch:
         for assetIdTuple in assetsCharAppFetch:
-            assetId = assetIdTuple[0]
+            assetId = assetIdTuple[1]
             charappItemzzz.append(assetId)
 
     if not userInfo:
@@ -52,7 +52,7 @@ def avatar_fetch():
             }
         }
 
-    return json, 200, {'Content-Type': 'application/json'}
+    return jsonify(json), 200
 
 @app.route("/v1.1/game-start-info", methods=settings["HTTPMethods"])
 @app.route("/v1.1/game-start-info/", methods=settings["HTTPMethods"])

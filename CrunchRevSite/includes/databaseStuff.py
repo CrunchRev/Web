@@ -267,8 +267,8 @@ class Assets:
         return self.dbClass.execute_securely(query1, (assetId,), use_cache=False)
 
     def fetchCharacterApperanceList(self, playerId: int):
-        query1 = "SELECT asset_id FROM users_avatar_items WHERE user_id = %s"
-        execution1 = self.dbClass.execute_securely(query1, (playerId,), True, True) # I think it would be like [(2383822), (328734818)], etc.
+        query1 = "SELECT * FROM users_avatar_items WHERE user_id = %s"
+        execution1 = self.dbClass.execute_securely(query1, (playerId,), fetch_all=True)
 
         return execution1
     
