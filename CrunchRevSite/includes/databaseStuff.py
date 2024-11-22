@@ -270,6 +270,8 @@ class Assets:
         query1 = "SELECT asset_id FROM users_avatar_items WHERE user_id = %s"
         execution1 = self.dbClass.execute_securely(query1, (playerId,), fetch_all=True, use_cache=False)
 
+        logging.info(execution1)
+
         return execution1
     
     def fetchGamepassAsset(self, assetId: int):
