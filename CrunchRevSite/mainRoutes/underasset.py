@@ -28,7 +28,7 @@ def bodycolors():
 @app.route("/Asset/CharacterFetch.ashx", methods=settings["HTTPMethods"])
 @app.route("/asset/CharacterFetch.ashx", methods=settings["HTTPMethods"])
 def old_characterappearance():
-    userId = request.args.get("userId", 0)
+    userId = request.args.get("userId", 0, type=int)
     charapp = f"http://www.{settings["URL"]}/Asset/BodyColors.ashx?userId={str(userId)};"
 
     assetsCharAppFetch = Assets.fetchCharacterApperanceList(userId)

@@ -9,7 +9,7 @@ from __main__ import *
 @app.route("/v1.1/avatar-fetch", methods=settings["HTTPMethods"])
 @app.route("/v1.1/avatar-fetch/", methods=settings["HTTPMethods"])
 def avatar_fetch():
-    userId = request.args.get("userId", 0)
+    userId = request.args.get("userId", 0, type=int)
     userInfo = UserDB.fetchUser(method=2, userId=userId)
 
     json = {}
