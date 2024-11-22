@@ -284,10 +284,10 @@ def assetdelivery():
             user_info = UserDB.fetchUser(method=1, cookie=cookie)
 
         if asset_info[1] == 9:
-            is_allowed = (asset_info[3] == 1)
-
             if user_info:
                 is_allowed = ((user_info[0] == asset_info[2]) or (user_info[8] == 1)) or (asset_info[3] == 1)
+            else:
+                is_allowed = (asset_info[3] == 1)
 
             if is_allowed or (ip_address in settings["whitelistedPlaceIPs"]):
                 return send_from_directory("C:/assets_cdn_crunchrev/", asset_info[0])
