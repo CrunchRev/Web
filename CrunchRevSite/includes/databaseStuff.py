@@ -295,6 +295,7 @@ class Assets:
 
 class DataStore:
     def __init__(self, dbClass: Database):
+        
         self.dbClass = dbClass
 
     def serialize_value(self, value: Any) -> str:
