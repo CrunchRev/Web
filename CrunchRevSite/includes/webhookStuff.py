@@ -45,7 +45,7 @@ class Webhooks:
         try:
             response = requests.post(webhook_url, headers=headers, data=json.dumps(data))
 
-            if response.status_code == 200:
+            if response.status_code in (200, 204):
                 webhook_logger.info("Webhook sent successfully!")
             else:
                 webhook_logger.error(f"Failed to send webhook. Status code: {response.status_code}")
