@@ -263,8 +263,8 @@ class Assets:
         self.dbClass = dbClass
 
     def fetchAssetforAsset(self, assetId: int):
-        query1 = "SELECT file_guid, asset_type, creator_id FROM assets WHERE id = %s"
-        return self.dbClass.execute_securely(query1, (assetId,), use_cache=True)
+        query1 = "SELECT a.file_guid, a.asset_type, a.creator_id, g.copylocked FROM assets a JOIN games_info g ON a.id = g.asset_id WHERE a.id = %s"
+        return self.dbClass.execute_securely(query1, (assetId,), use_cache=False)
 
     def fetchCharacterApperanceList(self, playerId: int):
         query1 = "SELECT asset_id FROM users_avatar_items WHERE user_id = %s"
