@@ -22,3 +22,21 @@ def ownership(playerId, placeId):
 @app.route("/users/<playerId>/friends", methods=settings["HTTPMethods"])
 def friendsList(playerId):
     return jsonify({"data": []}), 200
+
+@app.route("/userblock/getblockedusers", methods=["GET"])
+def getBlockedUsers():
+    return jsonify({
+        "success": True,
+        "userList": [],
+        "total": 0
+    }), 200
+
+@app.route("/user/multi-following-exists", methods=['POST'])
+def multiFollowingExists():
+    return jsonify({
+        "followings": [],
+    }), 200
+
+@app.route("/user/following-exists", methods=["GET"])
+def followingExists():
+    return jsonify({"success": True, "isFollowing": False}), 200
