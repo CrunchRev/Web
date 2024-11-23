@@ -58,11 +58,18 @@
             <p>By Templates</p>
         </div>
         <p>Or go with your own places:</p>
-        <div class="card" dataPlaceID="19">
-            <img src="/staticContent/baseplate.png" width="150" height="90" alt="Baseplate Thumbnail">
-            <h2>Placeholder</h2>
-            <p>By CrunchRev</p>
-        </div>
+        
+        {% if ownGamesBasedOnCookie %}
+            {% for game in ownGamesBasedOnCookie %}
+                <div class="card" dataPlaceID="{{ game.id|e }}">
+                    <img src="{{ game.thumbnail|e }}" width="150" height="90" alt="{{ game.name|e }} Thumbnail">
+                    <h2>{{ game.name|e }}</h2>
+                    <p>By {{ game.creator_name|e }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <center><p>You currently have no places available. Create one using a template!</p></center>
+        {% endif %}
     </div>
 
     <script>

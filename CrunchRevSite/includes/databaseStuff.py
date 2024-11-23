@@ -268,6 +268,40 @@ class GamesDB:
 
         return True
 
+    def fetchAllPlacesWhereCreatorIdIs(self, creatorId: int) -> Union[List[dict], dict]:
+            places_query = """
+                SELECT a.id, 
+                    a.name, 
+                    a.creator_id, 
+                    u.username AS creator_name, 
+                    gi.icon_URI
+                FROM assets a
+                LEFT JOIN users u ON a.creator_id = u.userid
+                LEFT JOIN games_info gi ON a.id = gi.asset_id
+                WHERE a.asset_type = 9 
+                AND a.creator_id = %s
+                GROUP BY a.id, a.name, a.creator_id, u.username, gi.icon_URI;
+            """
+            places = self.dbClass.execute_securely(places_query, params=(creatorId,), fetch_all=True, use_cache=False)
+
+            if not places:
+                return {
+                    "success": False,
+                    "message": "No places found for the given creator ID. Please try again later."
+                }
+
+            return [
+                {
+                    "id": place[0],
+                    "name": place[1],
+                    "creator_id": place[2],
+                    "creator_name": place[3] or "Unknown",
+                    "thumbnail": f"https://thumbscdn.{self.url}/{place[4]}"
+                }
+                for place in places
+            ]
+
+
 class Assets:
     def __init__(self, dbClass: Database):
         self.dbClass = dbClass
