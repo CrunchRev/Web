@@ -278,8 +278,9 @@ class GamesDB:
                 FROM assets a
                 LEFT JOIN users u ON a.creator_id = u.userid
                 LEFT JOIN games_info gi ON a.id = gi.asset_id
-                WHERE a.asset_type = 9 
+                WHERE a.asset_type = 9
                 AND a.creator_id = %s
+                AND gi.client_version = '2016E'
                 GROUP BY a.id, a.name, a.creator_id, u.username, gi.thumb_URI;
             """
             places = self.dbClass.execute_securely(places_query, params=(creatorId,), fetch_all=True, use_cache=False)
