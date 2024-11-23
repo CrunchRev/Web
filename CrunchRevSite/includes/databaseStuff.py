@@ -193,6 +193,16 @@ class UserDB:
 
         return True
 
+    def areFriendsWith(self, playerId: int, friendPlayerId: int):
+        query = "SELECT * FROM friendstable WHERE userId = %s AND friendId = %s AND inProgress = 0"
+
+        execute1 = self.dbClass.execute_securely(query, (playerId, friendPlayerId))
+
+        if not execute1:
+            return False
+
+        return True if len(execute1) > 0 else False
+
 class GamesDB:
     def __init__(self, dbClass: Database, url: str):
         self.dbClass = dbClass
