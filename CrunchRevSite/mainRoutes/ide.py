@@ -17,6 +17,6 @@ def welcomeide():
         
         if info:
             userId = int(info[0])
-            ownGamesBasedOnCookie = GamesDB.fetchAllPlacesWhereCreatorIdIs(userId)
+            ownGamesBasedOnCookie = GamesDB.fetchAllPlacesWhereCreatorIdIs(userId, '2016E')
 
     return render_template("welcomeide.html", ownGamesBasedOnCookie=ownGamesBasedOnCookie)

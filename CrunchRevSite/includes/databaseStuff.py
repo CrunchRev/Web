@@ -268,7 +268,7 @@ class GamesDB:
 
         return True
 
-    def fetchAllPlacesWhereCreatorIdIs(self, creatorId: int) -> Union[List[dict], dict]:
+    def fetchAllPlacesWhereCreatorIdIs(self, creatorId: int, clientLimit: str) -> Union[List[dict], dict]:
             places_query = """
                 SELECT a.id, 
                     a.name, 
@@ -280,10 +280,10 @@ class GamesDB:
                 LEFT JOIN games_info gi ON a.id = gi.asset_id
                 WHERE a.asset_type = 9
                 AND a.creator_id = %s
-                AND gi.client_version = '2016E'
+                AND gi.client_version = %s
                 GROUP BY a.id, a.name, a.creator_id, u.username, gi.thumb_URI;
             """
-            places = self.dbClass.execute_securely(places_query, params=(creatorId,), fetch_all=True, use_cache=False)
+            places = self.dbClass.execute_securely(places_query, params=(creatorId, clientLimit), fetch_all=True, use_cache=False)
 
             if not places:
                 return {
