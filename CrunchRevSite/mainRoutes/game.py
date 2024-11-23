@@ -9,10 +9,10 @@ from __main__ import *
 @app.route('/game/LuaWebService/HandleSocialRequest.ashx', methods=settings["HTTPMethods"])
 @app.route('/Game/LuaWebService/HandleSocialRequest.ashx', methods=settings["HTTPMethods"])
 def processsocialrequest():
-    method = request.args.get('method', 'IsFriendsWith', type=str)
-    groupid = request.args.get('groupid', 1200769, type=int)
-    playerid = request.args.get('playerid', 1337, type=int)
-    userid = request.args.get('userid', 1337, type=int)
+    method = request.args.get('method', 'IsFriendsWith')
+    groupid = request.args.get('groupid', '1')
+    playerid = request.args.get('playerid', '1')
+    userid = request.args.get('userid', '1')
 
     user_info = UserDB.fetchUser(method=2, userId=playerid)
 
@@ -23,7 +23,7 @@ def processsocialrequest():
 
     root = ET.Element('Value')
     if method == "IsFriendsWith" or method == "IsBestFriendsWith":
-        friends = UserDB.areFriendsWith(playerid, userid)
+        friends = UserDB.areFriendsWith(int(playerid), int(userid))
 
         root.set('Type', 'boolean')
         root.text = 'true' if friends else 'false'
@@ -40,8 +40,8 @@ def processsocialrequest():
         else:
             root.text = '0'
     else:
-        root.set('Type', 'string')
-        root.text = 'No method found.'
+        root.set('Type', 'boolean')
+        root.text = 'false'
 
     xml_response = ET.tostring(root, encoding='utf-8', method='xml')
     return Response(xml_response, mimetype='text/xml')
