@@ -274,13 +274,13 @@ class GamesDB:
                     a.name, 
                     a.creator_id, 
                     u.username AS creator_name, 
-                    gi.icon_URI
+                    gi.thumb_URI
                 FROM assets a
                 LEFT JOIN users u ON a.creator_id = u.userid
                 LEFT JOIN games_info gi ON a.id = gi.asset_id
                 WHERE a.asset_type = 9 
                 AND a.creator_id = %s
-                GROUP BY a.id, a.name, a.creator_id, u.username, gi.icon_URI;
+                GROUP BY a.id, a.name, a.creator_id, u.username, gi.thumb_URI;
             """
             places = self.dbClass.execute_securely(places_query, params=(creatorId,), fetch_all=True, use_cache=False)
 
