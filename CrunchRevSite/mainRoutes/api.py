@@ -47,6 +47,25 @@ def editor_items():
     items = jsonPayload.get("items", None)
     action = jsonPayload.get("action", None)
 
+    cookies = request.cookies
+    user_info = None
+
+    if ".ROBLOSECURITY" in cookies:
+        cookie = cookies.get(".ROBLOSECURITY")
+        user_info = UserDB.fetchUser(method=1, cookie=cookie)
+
+        if not user_info:
+            return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
+    else:
+        return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
+    
+    userId = user_info[0]
+
+    owns = Assets.owns(userId, items[0])
+
+    if not owns:
+        return jsonify({"success": False, "error": "400, Invalid request"}), 400
+
     if not items or not action:
         return jsonify({"success": False, "error": "400, Invalid request"}), 400
     
