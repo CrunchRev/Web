@@ -40,7 +40,7 @@ print(r"""
 """)
 print("Made by the CrunchRev Authors, 2024")
 print("Do not leak this or this might give you a punishment.")
-print("---------------------------------------------------------------------------------")
+print("---------------------------------------------------------------------------------------------")
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -121,8 +121,9 @@ def includeRoutes():
     import mainRoutes.abusereport
     import mainRoutes.ide
     import mainRoutes.points
+    import mainRoutes.api
     
-    internal_logger.info("Included 22 routes.")
+    internal_logger.info("Included 23 routes.")
 
 internal_logger.info("Running logic...")
 

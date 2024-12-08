@@ -344,6 +344,25 @@ class Assets:
         CheckResult = self.dbClass.execute_securely(query, (userId, assetId))
         
         return len(CheckResult) > 0 if CheckResult else False
+    
+    def fetchAllAvatarItems(self, userId: int):
+        query = "SELECT * FROM users_bought_items WHERE user_id = %s"
+        execution = self.dbClass.execute_securely(query, (userId,), fetch_all=True)
+
+        filtered_execution = []
+        for i in execution:
+            execution2 = self.fetchAssetforAsset(i[1])
+            if execution2[1] not in [0, 9]:
+                query3 = "SELECT * FROM users_avatar_items WHERE user_id = %s AND asset_id = %s"
+                execution3 = self.dbClass.execute_securely(query3, (userId, i[1]))
+                equipped = 1 if execution3 else 0
+                filtered_execution.append({
+                    "id": i[1],
+                    "equipped": equipped,
+                    "assetType": execution2[2],
+                })
+        
+        return filtered_execution
 
 class DataStore:
     def __init__(self, dbClass: Database):
