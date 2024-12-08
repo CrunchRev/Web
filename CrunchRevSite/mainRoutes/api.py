@@ -24,3 +24,15 @@ def editor_fetch():
     items = Assets.fetchAllAvatarItems(userId)
 
     return jsonify({"success": True, "items": items}), 200
+
+@app.route("/api/editor/item/fetch", methods=["POST"])
+def editor_item_fetch():
+    jsonPayload = request.json
+    itemAssetId = jsonPayload.get("itemId", None)
+
+    if not itemAssetId:
+        return jsonify({"success": False, "error": "400, Invalid request"}), 400
+    
+    name = Assets.fetchAssetName(itemAssetId)
+
+    return jsonify({"success": True, "name": name, "image": "https://via.placeholder.com/100", "id": itemAssetId}), 200

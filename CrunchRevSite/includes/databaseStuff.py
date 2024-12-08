@@ -363,6 +363,11 @@ class Assets:
                 })
         
         return filtered_execution
+    
+    def fetchAssetName(self, assetId: int):
+        query = "SELECT name FROM assets WHERE id = %s"
+
+        return self.dbClass.execute_securely(query, (assetId,), use_cache=False)
 
 class DataStore:
     def __init__(self, dbClass: Database):
