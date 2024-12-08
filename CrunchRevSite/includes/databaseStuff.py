@@ -346,7 +346,7 @@ class Assets:
         return len(CheckResult) > 0 if CheckResult else False
     
     def fetchAllAvatarItems(self, userId: int):
-        query = "SELECT * FROM users_bought_items WHERE user_id = %s"
+        query = "SELECT * FROM user_bought_items WHERE user_id = %s"
         execution = self.dbClass.execute_securely(query, (userId,), fetch_all=True)
 
         filtered_execution = []
