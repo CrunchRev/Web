@@ -84,6 +84,24 @@ def home():
 
     return render_template("home.html", userinfo=info, baseurl=settings["URL"], loggedIn=loggedIn)
 
+@app.route("/my/avatar", methods=settings["HTTPMethods"])
+def myavatar():
+    cookiez = request.cookies
+    info = None
+    loggedIn = False
+    if ".ROBLOSECURITY" in cookiez:
+        cookie = cookiez.get(".ROBLOSECURITY")
+        info = UserDB.fetchUser(method=1, cookie=cookie)
+        
+        if info:
+            loggedIn = True
+        else:
+            return redirect("/login")
+    else:
+        return redirect("/login")
+
+    return render_template("avatar-editor.html", userinfo=info, baseurl=settings["URL"], loggedIn=loggedIn)
+
 @app.route("/games", methods=settings["HTTPMethods"])
 def games():
     cookiez = request.cookies
