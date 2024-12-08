@@ -346,18 +346,18 @@ class Assets:
         return len(CheckResult) > 0 if CheckResult else False
     
     def fetchAllAvatarItems(self, userId: int):
-        query = "SELECT * FROM user_bought_items WHERE user_id = %s"
+        query = "SELECT asset_id FROM user_bought_items WHERE user_id = %s"
         execution = self.dbClass.execute_securely(query, (userId,), fetch_all=True)
 
         filtered_execution = []
         for i in execution:
-            execution2 = self.fetchAssetforAsset(i[1])
+            execution2 = self.fetchAssetforAsset(i[0])
             if execution2[1] not in [0, 9]:
-                query3 = "SELECT * FROM users_avatar_items WHERE user_id = %s AND asset_id = %s"
-                execution3 = self.dbClass.execute_securely(query3, (userId, i[1]))
+                query3 = "SELECT 1 FROM users_avatar_items WHERE user_id = %s AND asset_id = %s LIMIT 1"
+                execution3 = self.dbClass.execute_securely(query3, (userId, i[0]))
                 equipped = 1 if execution3 else 0
                 filtered_execution.append({
-                    "id": i[1],
+                    "id": i[0],
                     "equipped": equipped,
                     "assetType": execution2[1],
                 })
