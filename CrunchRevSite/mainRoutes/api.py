@@ -25,8 +25,8 @@ def editor_fetch():
 
     return jsonify({"success": True, "items": items}), 200
 
-@app.route("/api/editor/item/fetch", methods=["POST"])
-def editor_item_fetch():
+@app.route("/api/editor/item/info", methods=["POST"])
+def editor_item_info():
     jsonPayload = request.json
     itemAssetId = jsonPayload.get("itemId", None)
 
