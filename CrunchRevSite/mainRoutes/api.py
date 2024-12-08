@@ -36,3 +36,7 @@ def editor_item_info():
     name = Assets.fetchAssetName(itemAssetId)
 
     return jsonify({"success": True, "name": name, "image": "https://via.placeholder.com/100", "id": itemAssetId}), 200
+
+@app.route("/api/editor/bodycolors/fetch", methods=["GET"])
+def editor_bodycolors_fetch():
+    return jsonify({"success": True, "colors": [{"type": "Head", "brickcolor": 194}, {"type": "Torso", "brickcolor": 23}, {"type": "Left-Arm", "brickcolor": 194}, {"type": "Right-Arm", "brickcolor": 194}, {"type": "Left-Leg", "brickcolor": 102}, {"type": "Right-Leg", "brickcolor": 102}]}), 200
