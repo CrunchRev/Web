@@ -369,6 +369,20 @@ class Assets:
 
         return self.dbClass.execute_securely(query, (assetId,), use_cache=False)
 
+    def actionTheItem(self, userId: int, assetId: int, action: int):
+        if action == 0:
+            # equip
+
+            query = "INSERT INTO users_avatar_items (user_id, asset_id) VALUES (%s, %s)"
+            self.dbClass.bulk_insert(query, param_list=[(userId, assetId)])
+        elif action == 1:
+            # unequip
+
+            query = "DELETE FROM users_avatar_items WHERE user_id = %s AND asset_id = %s"
+            self.dbClass.execute_securely(query, (userId, assetId))
+
+        return True
+
 class DataStore:
     def __init__(self, dbClass: Database):
         
