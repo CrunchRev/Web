@@ -66,8 +66,8 @@ def editor_items():
     if not owns:
         return jsonify({"success": False, "error": "403, You don't own the item"}), 403
 
-    if not items or not action:
-        return jsonify({"success": False, "error": "400, Invalid request"}), 400
+    # if not items or not action:
+    #     return jsonify({"success": False, "error": "400, Invalid request"}), 400
     
     Assets.actionTheItem(userId=userId, assetId=items[0], action=action)
     
