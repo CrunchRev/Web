@@ -359,7 +359,7 @@ class Assets:
                 filtered_execution.append({
                     "id": i[1],
                     "equipped": equipped,
-                    "assetType": execution2[2],
+                    "assetType": execution2[1],
                 })
         
         return filtered_execution
