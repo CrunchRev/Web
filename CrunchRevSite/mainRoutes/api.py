@@ -114,12 +114,12 @@ def editor_bodycolors_colors():
     
     userId = user_info[0]
 
-    labc = jsonPayload.get("left_arm", None)
-    rabc = jsonPayload.get("right_arm", None)
-    llbc = jsonPayload.get("left_leg", None)
-    rlbc = jsonPayload.get("right_leg", None)
-    tbc = jsonPayload.get("torso", None)
-    hbc = jsonPayload.get("head", None)
+    labc = jsonPayload.get("left_arm", 1)
+    rabc = jsonPayload.get("right_arm", 1)
+    llbc = jsonPayload.get("left_leg", 1)
+    rlbc = jsonPayload.get("right_leg", 1)
+    tbc = jsonPayload.get("torso", 1)
+    hbc = jsonPayload.get("head", 1)
 
     UserDB.updateBodyColors(userId, labc, rabc, llbc, rlbc, tbc, hbc)
     
