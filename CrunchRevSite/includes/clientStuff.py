@@ -128,18 +128,22 @@ class Arbiter:
         checkQuery = """
         SELECT COUNT(*) FROM `jobs_in_use`
         WHERE `RCC_Version` = %s AND `place_id` = %s AND `jobId` = %s 
-        AND `network_port` = %s AND `server_address` = %s
-        """
-        existing_records = self.db.execute_securely(checkQuery, params=(year, placeID, jobID, networkPort, serverIP))
+        AND `network_port` = %s AND `server_address` = %s AND `requestorIP` = %s
+        """ # if ipRequestor is not None else """
+        # SELECT COUNT(*) FROM `jobs_in_use`
+        # WHERE `RCC_Version` = %s AND `place_id` = %s AND `jobId` = %s 
+        # AND `network_port` = %s AND `server_address` = %s
+        # """
+        existing_records = self.db.execute_securely(checkQuery, params=(year, placeID, jobID, networkPort, serverIP, ipRequestor if ipRequestor is not None else None))
         
         if existing_records[0] > 0:
             updateQuery = """
             UPDATE `jobs_in_use`
             SET `status` = %s
             WHERE `RCC_Version` = %s AND `place_id` = %s AND `jobId` = %s 
-            AND `network_port` = %s AND `server_address` = %s
+            AND `network_port` = %s AND `server_address` = %s AND `requestorIP` = %s
             """
-            self.db.execute_securely(updateQuery, params=(status, year, placeID, jobID, networkPort, serverIP))
+            self.db.execute_securely(updateQuery, params=(status, year, placeID, jobID, networkPort, serverIP, ipRequestor))
         else:
             insertQuery = """
             INSERT INTO `jobs_in_use` (`RCC_Version`, `place_id`, `jobId`, `network_port`, `server_address`, `status`, `requestorIP`) 
