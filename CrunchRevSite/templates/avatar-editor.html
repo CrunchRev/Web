@@ -831,7 +831,36 @@
 
             const colorButtonsContainer = document.getElementById('color-buttons-container');
 
-            for (const [brickCode, colorHex] of Object.entries(brickColorPalette)) {
+            function getHue(hex) {
+                const r = parseInt(hex.substr(1, 2), 16) / 255;
+                const g = parseInt(hex.substr(3, 2), 16) / 255;
+                const b = parseInt(hex.substr(5, 2), 16) / 255;
+
+                const max = Math.max(r, g, b);
+                const min = Math.min(r, g, b);
+                let h = 0;
+                const l = (max + min) / 2;
+                const d = max - min;
+
+                if (d !== 0) {
+                    if (max === r) {
+                        h = ((g - b) / d + (g < b ? 6 : 0)) * 60;
+                    } else if (max === g) {
+                        h = ((b - r) / d + 2) * 60;
+                    } else if (max === b) {
+                        h = ((r - g) / d + 4) * 60;
+                    }
+                }
+                return h;
+            }
+
+            const sortedColors = Object.entries(brickColorPalette).sort((a, b) => {
+                const hueA = getHue(a[1]);
+                const hueB = getHue(b[1]);
+                return hueA - hueB;
+            });
+
+            for (const [brickCode, colorHex] of sortedColors) {
                 const brickColorName = brickColorNames[brickCode] || "Unknown";
                 const colorButton = document.createElement("button");
                 colorButton.classList.add("color-button");
