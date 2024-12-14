@@ -92,12 +92,12 @@ class Database:
         cache_key = self._generate_cache_key(query, params)
 
         logging.info(f"Use cache: {use_cache}")
-        
+
         if use_cache is True:
             logging.info(f"Cache key: {cache_key}")
 
-        logging.info(f"Query: {query}")
-        logging.info(f"Params: {params}")
+        # logging.info(f"Query: {query}")
+        # logging.info(f"Params: {params}")
         logging.info(f"Fetch all: {fetch_all}")
 
         if use_cache:
