@@ -60,6 +60,22 @@
                             <p>Avatar isn't loading correctly? <a class="link" href="#">Redraw (coming soon)</a></p>
                         </div>
                     </div>
+                    <br>
+                    <h5>Avatar Type</h5>
+                    <p>Select either R6 or R15.</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="R15">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          R15
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="R6" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          R6
+                        </label>
+                    </div>
+                    <br>
                     <h5>Avatar Colors</h5>
                     <p>Select a body part you wish to change the color on!</p>
                     <div class="d-flex justify-content-center avatar-colors colorpick-div">
@@ -134,7 +150,7 @@
     </div>
     <script>
         console.log('AVATAR EDITOR LOADING...');
-        console.log('VERSION 2.1');
+        console.log('VERSION 3.0');
 
         document.addEventListener("DOMContentLoaded", function() {
             const assetTypes = {
@@ -768,6 +784,53 @@
                 }
             }
 
+            async function loadAvatarType() {
+                try {
+                    const response = await fetch('/api/editor/type/fetch');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    if (data.success) {
+                        const avatarType = data.avatarType;
+                        const radioButton = document.querySelector(`input[name="flexRadioDefault"][value="${avatarType}"]`);
+                        if (radioButton) {
+                            radioButton.checked = true;
+                        }
+                    }
+                } catch (error) {
+                    console.log('Oh shit...');
+                    console.error('Error loading avatar type:', error.message);
+                }
+            }
+
+            function setupAvatarTypeChangeListener() {
+                const radioButtons = document.querySelectorAll('input[name="flexRadioDefault"]');
+                radioButtons.forEach((radio) => {
+                    radio.addEventListener('change', async function() {
+                        if (this.checked) {
+                            const newAvatarType = this.value;
+                            try {
+                                const response = await fetch('/api/editor/type/change', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({ avatarType: newAvatarType })
+                                });
+
+                                if (!response.ok) {
+                                    throw new Error('Failed to change avatar type');
+                                }
+                            } catch (error) {
+                                console.log('Oh shit...');
+                                console.error('Error changing avatar type:', error.message);
+                            }
+                        }
+                    });
+                });
+            }
+
             const colorButtonsContainer = document.getElementById('color-buttons-container');
 
             for (const [brickCode, colorHex] of Object.entries(brickColorPalette)) {
@@ -828,6 +891,8 @@
             }
 
             loadItems();
+            loadAvatarType();
+            setupAvatarTypeChangeListener();
 
             console.log('AVATAR EDITOR LOADED!');
         });
