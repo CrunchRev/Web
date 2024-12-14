@@ -117,3 +117,11 @@ def get_apc():
         "RequireExplicitAvatarVideoConsent": True,
         "EnableVoiceReportAbuseMenu": True
     }), 200
+
+@app.route("/universal-app-configuration/v1/behaviors/app-patch/content", methods=settings["HTTPMethods"])
+def get_ap():
+    return jsonify({
+        "SchemaVersion": "1",
+        "CanaryUserIds": [],
+        "CanaryPercentage": 0
+    }), 200
