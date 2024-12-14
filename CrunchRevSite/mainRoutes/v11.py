@@ -25,6 +25,15 @@ def avatar_fetch():
     if not userInfo:
         json = {"success": False, "message": "Unknown user or error while fetching."}
     else:
+        clrs = UserDB.fetchBodyColors(userId)
+
+        labc = clrs[0]
+        rabc = clrs[1]
+        llbc = clrs[2]
+        rlbc = clrs[3]
+        tbc = clrs[4]
+        hbc = clrs[5]
+
         avatarType = userInfo[10]
         json = {
             "resolvedAvatarType": str(avatarType),
@@ -35,12 +44,12 @@ def avatar_fetch():
                 "Run": 969731563
             },
             "bodyColors": {
-                "HeadColor": 194,
-                "LeftArmColor": 194,
-                "LeftLegColor": 102,
-                "RightArmColor": 194,
-                "RightLegColor": 102,
-                "TorsoColor": 23
+                "HeadColor": hbc,
+                "LeftArmColor": labc,
+                "LeftLegColor": llbc,
+                "RightArmColor": rabc,
+                "RightLegColor": rlbc,
+                "TorsoColor": tbc
             },
             "scales": {
                 "Height": 1,

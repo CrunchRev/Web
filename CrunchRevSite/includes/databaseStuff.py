@@ -213,6 +213,20 @@ class UserDB:
             return False
 
         return True if len(execute1) > 0 else False
+    
+    def fetchBodyColors(self, playerId: int):
+        # Order: Left Arm, Right Arm, Left Leg, Right Leg, Torso, Head
+
+        query = "SELECT labc, rabc, llbc, rlbc, tbc, hbc FROM users WHERE userid = %s"
+
+        return self.dbClass.execute_securely(query, (playerId,))
+    
+    def updateBodyColors(self, playerId: int, leftArm: int, rightArm: int, leftLeg: int, rightLeg: int, torso: int, head: int):
+        # Order: Left Arm, Right Arm, Left Leg, Right Leg, Torso, Head
+        
+        query = "UPDATE users SET labc = %s, rabc = %s, llbc = %s, rlbc = %s, tbc = %s, hbc = %s WHERE userid = %s"
+        
+        self.dbClass.execute_securely(query, (leftArm, rightArm, leftLeg, rightLeg, torso, head, playerId))
 
 class GamesDB:
     def __init__(self, dbClass: Database, url: str):

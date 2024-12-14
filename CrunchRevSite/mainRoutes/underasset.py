@@ -8,18 +8,34 @@ from __main__ import *
 
 @app.route("/Asset/BodyColors.ashx", methods=settings["HTTPMethods"])
 def bodycolors():
-    return """<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+    userId = request.args.get("userId", 0, type=int)
+
+    fetchUser = UserDB.fetchUser(method=2, userId=userId)
+
+    if not fetchUser:
+        return jsonify({"success": False, "message": "400, No user info found."}), 400
+
+    clrs = UserDB.fetchBodyColors(userId)
+
+    labc = clrs[0]
+    rabc = clrs[1]
+    llbc = clrs[2]
+    rlbc = clrs[3]
+    tbc = clrs[4]
+    hbc = clrs[5]
+
+    return f"""<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
   <External>null</External>
   <External>nil</External>
   <Item class="BodyColors">
     <Properties>
-      <int name="HeadColor">194</int>
-      <int name="LeftArmColor">194</int>
-      <int name="LeftLegColor">102</int>
+      <int name="HeadColor">{hbc}</int>
+      <int name="LeftArmColor">{labc}</int>
+      <int name="LeftLegColor">{llbc}</int>
       <string name="Name">Body Colors</string>
-      <int name="RightArmColor">194</int>
-      <int name="RightLegColor">102</int>
-      <int name="TorsoColor">23</int>
+      <int name="RightArmColor">{rabc}</int>
+      <int name="RightLegColor">{rlbc}</int>
+      <int name="TorsoColor">{tbc}</int>
       <bool name="archivable">true</bool>
     </Properties>
   </Item>

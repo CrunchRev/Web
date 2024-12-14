@@ -50,8 +50,19 @@ def editor_bodycolors_fetch():
             return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
     else:
         return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
+    
+    userId = user_info[0]
 
-    return jsonify({"success": True, "colors": [{"type": "Head", "brickcolor": 194}, {"type": "Torso", "brickcolor": 23}, {"type": "Left-Arm", "brickcolor": 194}, {"type": "Right-Arm", "brickcolor": 194}, {"type": "Left-Leg", "brickcolor": 102}, {"type": "Right-Leg", "brickcolor": 102}]}), 200
+    clrs = UserDB.fetchBodyColors(userId)
+
+    labc = clrs[0]
+    rabc = clrs[1]
+    llbc = clrs[2]
+    rlbc = clrs[3]
+    tbc = clrs[4]
+    hbc = clrs[5]
+
+    return jsonify({"success": True, "colors": [{"type": "Head", "brickcolor": hbc}, {"type": "Torso", "brickcolor": tbc}, {"type": "Left-Arm", "brickcolor": labc}, {"type": "Right-Arm", "brickcolor": rabc}, {"type": "Left-Leg", "brickcolor": llbc}, {"type": "Right-Leg", "brickcolor": rlbc}]}), 200
 
 @app.route("/api/editor/items", methods=["POST"])
 def editor_items():
@@ -100,5 +111,16 @@ def editor_bodycolors_colors():
             return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
     else:
         return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
+    
+    userId = user_info[0]
+
+    labc = jsonPayload.get("left_arm", None)
+    rabc = jsonPayload.get("right_arm", None)
+    llbc = jsonPayload.get("left_leg", None)
+    rlbc = jsonPayload.get("right_leg", None)
+    tbc = jsonPayload.get("torso", None)
+    hbc = jsonPayload.get("head", None)
+
+    UserDB.updateBodyColors(userId, labc, rabc, llbc, rlbc, tbc, hbc)
     
     return jsonify({"success": True}), 200

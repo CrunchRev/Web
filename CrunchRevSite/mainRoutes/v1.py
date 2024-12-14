@@ -42,6 +42,15 @@ def avatar_fetch_v1():
     if not userInfo:
         json = {"success": False, "message": "Unknown user or error while fetching."}
     else:
+        clrs = UserDB.fetchBodyColors(userId)
+
+        labc = clrs[0]
+        rabc = clrs[1]
+        llbc = clrs[2]
+        rlbc = clrs[3]
+        tbc = clrs[4]
+        hbc = clrs[5]
+
         avatarType = userInfo[10]
         json = {
             "resolvedAvatarType": str(avatarType),
@@ -50,12 +59,12 @@ def avatar_fetch_v1():
             "assetAndAssetTypeIds": charappItemzzz,
             "animationAssetIds": {},
             "bodyColors": {
-                "headColorId": 194,
-                "torsoColorId": 23,
-                "rightArmColorId": 194,
-                "leftArmColorId": 194,
-                "rightLegColorId": 102,
-                "leftLegColorId": 102
+                "headColorId": hbc,
+                "torsoColorId": tbc,
+                "rightArmColorId": rabc,
+                "leftArmColorId": labc,
+                "rightLegColorId": rlbc,
+                "leftLegColorId": llbc
             },
             "scales": {
                 "height": 1.0,
