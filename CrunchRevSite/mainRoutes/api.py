@@ -39,6 +39,18 @@ def editor_item_info():
 
 @app.route("/api/editor/bodycolors/fetch", methods=["GET"])
 def editor_bodycolors_fetch():
+    cookies = request.cookies
+    user_info = None
+
+    if ".ROBLOSECURITY" in cookies:
+        cookie = cookies.get(".ROBLOSECURITY")
+        user_info = UserDB.fetchUser(method=1, cookie=cookie)
+
+        if not user_info:
+            return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
+    else:
+        return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
+
     return jsonify({"success": True, "colors": [{"type": "Head", "brickcolor": 194}, {"type": "Torso", "brickcolor": 23}, {"type": "Left-Arm", "brickcolor": 194}, {"type": "Right-Arm", "brickcolor": 194}, {"type": "Left-Leg", "brickcolor": 102}, {"type": "Right-Leg", "brickcolor": 102}]}), 200
 
 @app.route("/api/editor/items", methods=["POST"])
@@ -72,3 +84,21 @@ def editor_items():
     Assets.actionTheItem(userId=userId, assetId=items[0], action=action)
     
     return jsonify({"success": True, "items": items, "action": action}), 200
+
+@app.route("/api/editor/bodycolors/colors", methods=["POST"])
+def editor_bodycolors_colors():
+    jsonPayload = request.json
+
+    cookies = request.cookies
+    user_info = None
+
+    if ".ROBLOSECURITY" in cookies:
+        cookie = cookies.get(".ROBLOSECURITY")
+        user_info = UserDB.fetchUser(method=1, cookie=cookie)
+
+        if not user_info:
+            return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
+    else:
+        return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
+    
+    return jsonify({"success": True}), 200

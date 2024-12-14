@@ -71,12 +71,12 @@
               <hr class="hr-above-btn dark-hr">
               <div class="d-grid gap-2">
                 {% if not isRobloxApp %}
-                <button type="button" id="gamelaunchbtn" class="btn btn-primary" data-bs-toggle="modal" data-placeid={{ placeid|e }} data-bs-target="#gameLaunchModal">Play</button>
+                <button type="button" id="gamelaunchbtn" class="btn btn-primary" data-bs-toggle="modal" data-placeid={{ placeid|e }} data-bs-target="#gameLaunchModal"><i class="bi bi-play"></i> Play</button>
                 {% else %}
-                <button type="button" id="gamelaunchbtn" class="btn btn-primary" data-placeid={{ placeid|e }}>Play</button>
+                <button type="button" id="gamelaunchbtn" class="btn btn-primary" data-placeid={{ placeid|e }}><i class="bi bi-play"></i> Play</button>
                 {% endif %}
                 {% if isAllowed %}
-                <button data-bs-toggle="modal" data-bs-target="#ShutdownModal" class="btn btn-danger">Shutdown All Servers</button>
+                <button data-bs-toggle="modal" data-bs-target="#ShutdownModal" class="btn btn-danger"><i class="bi bi-server"></i> Shutdown All Servers</button>
                 {% endif %}
               </div>
               <hr class="hr-below-btn dark-hr">
