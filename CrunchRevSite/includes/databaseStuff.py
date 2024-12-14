@@ -228,6 +228,11 @@ class UserDB:
         
         self.dbClass.execute_securely(query, (leftArm, rightArm, leftLeg, rightLeg, torso, head, playerId))
 
+    def updateAvatarType(self, playerId: int, avatarType: str):
+        query = "UPDATE users SET avatarType = %s WHERE userid = %s"
+
+        self.dbClass.execute_securely(query, (avatarType, playerId))
+
 class GamesDB:
     def __init__(self, dbClass: Database, url: str):
         self.dbClass = dbClass

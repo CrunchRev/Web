@@ -124,3 +124,45 @@ def editor_bodycolors_colors():
     UserDB.updateBodyColors(userId, labc, rabc, llbc, rlbc, tbc, hbc)
     
     return jsonify({"success": True}), 200
+
+@app.route("/api/editor/type/fetch", methods=["GET"])
+def editor_type_fetch():
+    cookies = request.cookies
+    user_info = None
+
+    if ".ROBLOSECURITY" in cookies:
+        cookie = cookies.get(".ROBLOSECURITY")
+        user_info = UserDB.fetchUser(method=1, cookie=cookie)
+
+        if not user_info:
+            return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
+    else:
+        return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
+    
+    avatarType = user_info[10]
+
+    return jsonify({"success": True, "avatarType": avatarType}), 200
+
+@app.route("/api/editor/type/change", methods=["POST"])
+def editor_type_change():
+    jsonPayload = request.json
+
+    cookies = request.cookies
+    user_info = None
+
+    if ".ROBLOSECURITY" in cookies:
+        cookie = cookies.get(".ROBLOSECURITY")
+        user_info = UserDB.fetchUser(method=1, cookie=cookie)
+
+        if not user_info:
+            return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
+    else:
+        return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
+    
+    userId = user_info[0]
+
+    avatarType = jsonPayload.get("avatarType", "R6")
+
+    UserDB.updateAvatarType(userId, avatarType)
+    
+    return jsonify({"success": True}), 200
