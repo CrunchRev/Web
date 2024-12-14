@@ -253,7 +253,7 @@ class Arbiter:
                     "jobId": ""
                 }
             
-            self.addJobDB(json["ip"], json["port"], json["jobId"], placeID, year, json["status"])
+            self.addJobDB(json["ip"], json["port"], json["jobId"], placeID, year, json["status"], ipRequestor)
 
             Webhooks.send_arbiter_startup_webhook(placeID, year, json["ip"], json["jobId"], json["port"], json["status"])
         
