@@ -702,7 +702,6 @@
                     }
 
                     await loadAvatarBodyColors();
-                    await loadAvatarType();
                 } catch (error) {
                     console.log('Oh shit...');
                     console.error('Error loading items:', error.message);
@@ -891,8 +890,9 @@
                 }
             }
 
-            loadItems();
+            loadAvatarType();
             setupAvatarTypeChangeListener();
+            loadItems();
 
             console.log('AVATAR EDITOR LOADED!');
         });

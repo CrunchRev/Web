@@ -229,7 +229,7 @@ class UserDB:
         self.dbClass.execute_securely(query, (leftArm, rightArm, leftLeg, rightLeg, torso, head, playerId))
 
     def updateAvatarType(self, playerId: int, avatarType: str):
-        query = "UPDATE users SET avatarType = %s WHERE userid = %s"
+        query = "UPDATE users SET characterType = %s WHERE userid = %s"
 
         self.dbClass.execute_securely(query, (avatarType, playerId))
 
