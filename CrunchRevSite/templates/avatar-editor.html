@@ -700,8 +700,6 @@
 
                         itemDiv.classList.remove('d-none');
                     }
-
-                    await loadAvatarBodyColors();
                 } catch (error) {
                     console.log('Oh shit...');
                     console.error('Error loading items:', error.message);
@@ -892,6 +890,7 @@
 
             loadAvatarType();
             setupAvatarTypeChangeListener();
+            loadAvatarBodyColors();
             loadItems();
 
             console.log('AVATAR EDITOR LOADED!');
