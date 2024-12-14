@@ -124,7 +124,7 @@ class Arbiter:
         self.games = GamesClass
         return None
 
-    def addJobDB(self, serverIP, networkPort, jobID, placeID, year, status):
+    def addJobDB(self, serverIP, networkPort, jobID, placeID, year, status, ipRequestor):
         checkQuery = """
         SELECT COUNT(*) FROM `jobs_in_use`
         WHERE `RCC_Version` = %s AND `place_id` = %s AND `jobId` = %s 
@@ -142,10 +142,10 @@ class Arbiter:
             self.db.execute_securely(updateQuery, params=(status, year, placeID, jobID, networkPort, serverIP))
         else:
             insertQuery = """
-            INSERT INTO `jobs_in_use` (`RCC_Version`, `place_id`, `jobId`, `network_port`, `server_address`, `status`) 
-            VALUES (%s, %s, %s, %s, %s, %s)
+            INSERT INTO `jobs_in_use` (`RCC_Version`, `place_id`, `jobId`, `network_port`, `server_address`, `status`, `requestorIP`) 
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
             """
-            self.db.execute_securely(insertQuery, params=(year, placeID, jobID, networkPort, serverIP, status))
+            self.db.execute_securely(insertQuery, params=(year, placeID, jobID, networkPort, serverIP, status, ipRequestor))
 
     def requestServer(self, year, placeID, maxPlayers, creatorId, ipRequestor):
         arbiterURL = random.choice(list(self.arbiterURLs))
@@ -207,7 +207,7 @@ class Arbiter:
                         "jobId": ""
                     }
                 
-                self.addJobDB(json2["ip"], json2["port"], json2["jobId"], placeID, year, json2["status"])
+                self.addJobDB(json2["ip"], json2["port"], json2["jobId"], placeID, year, json2["status"], ipRequestor)
 
                 Webhooks.send_arbiter_startup_webhook(placeID, year, json2["ip"], json2["jobId"], json2["port"], json2["status"])
             
