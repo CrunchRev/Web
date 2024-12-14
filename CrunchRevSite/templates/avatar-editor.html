@@ -150,7 +150,7 @@
     </div>
     <script>
         console.log('AVATAR EDITOR LOADING...');
-        console.log('VERSION 3.0');
+        console.log('VERSION 3.2');
 
         document.addEventListener("DOMContentLoaded", function() {
             const assetTypes = {
@@ -888,10 +888,17 @@
                 }
             }
 
-            loadAvatarType();
-            setupAvatarTypeChangeListener();
-            loadAvatarBodyColors();
-            loadItems();
+            Promise.all([
+                loadAvatarType(),
+                setupAvatarTypeChangeListener(),
+                loadAvatarBodyColors(),
+                loadItems()
+            ]).then(() => {
+                console.log('All functions started executing!');
+            }).catch((error) => {
+                console.log('Oh shit...');
+                console.error('An error occurred while starting the functions:', error);
+            });
 
             console.log('AVATAR EDITOR LOADED!');
         });
