@@ -160,6 +160,8 @@ def launchtheplace():
 
     if not user_agent in ["Roblox/WinHttp", "Roblox/WinInet"] and not is_roblox_app:
         return jsonify({"error": "Authorization failed. Non-client request received."}), 401
+    
+    ip_address = request.headers.getlist("CF-Connecting-IP")[0]
 
     year = game_data["info"][1]
     maxPlayers = game_data["info"][2]
@@ -171,7 +173,7 @@ def launchtheplace():
     # print(year)
     # print(placeIDarg)
 
-    PlaceLauncherRequest = ArbiterClass.requestServer(year, placeIDarg, maxPlayers, creatorId)
+    PlaceLauncherRequest = ArbiterClass.requestServer(year, placeIDarg, maxPlayers, creatorId, ip_address)
 
     status = 0
     jobID = None

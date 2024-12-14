@@ -147,7 +147,7 @@ class Arbiter:
             """
             self.db.execute_securely(insertQuery, params=(year, placeID, jobID, networkPort, serverIP, status))
 
-    def requestServer(self, year, placeID, maxPlayers, creatorId):
+    def requestServer(self, year, placeID, maxPlayers, creatorId, ipRequestor):
         arbiterURL = random.choice(list(self.arbiterURLs))
         place = self.games.fetchOne(placeID)
 
@@ -169,11 +169,11 @@ class Arbiter:
 
             sm_logger.info("Requesting...")
 
-            sql2 = "SELECT jobId FROM `jobs_in_use` WHERE `place_id` = %s AND `RCC_Version` = %s AND (`status` = 0 OR `status` = 1) LIMIT 1;" # idfk how to do that
+            sql2 = "SELECT jobId FROM `jobs_in_use` WHERE `place_id` = %s AND `RCC_Version` = %s AND (`status` = 0 OR `status` = 1) AND `requestorIP` = %s LIMIT 1;" # idfk how to do that
             execution2 = None
 
             try:
-                execution2 = self.db.execute_securely(sql2, (placeID, year), False)
+                execution2 = self.db.execute_securely(sql2, (placeID, year, ipRequestor), False)
             except Exception as e:
                 sm_logger.error(f"OOPS! An exception occured: {e}")
 
@@ -263,6 +263,11 @@ class Arbiter:
             }
         else:
             # server is avaliable, return it.
+
+            # vanish the ip from existence
+
+            self.boomboomiprequestorinjobIds(execution1[2])
+
             return {
                 "success": True,
                 "status": 2,
@@ -281,6 +286,10 @@ class Arbiter:
 
     def boomboomjobId(self, jobId): # I am silly xD x2
         sql = "DELETE FROM `jobs_in_use` WHERE `jobId` = %s"
+        self.db.execute_securely(sql, (jobId,))
+
+    def boomboomiprequestorinjobIds(self, jobId): # I am silly xD x3
+        sql = "UPDATE `jobs_in_use` SET `requestorIP` = NULL WHERE `jobId` = %s"
         self.db.execute_securely(sql, (jobId,))
 
     def getServerAddressUsingJobId(self, jobId):
