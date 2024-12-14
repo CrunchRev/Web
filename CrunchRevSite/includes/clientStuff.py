@@ -217,6 +217,9 @@ class Arbiter:
             
                 sleep(1)
 
+                if json2["status"] == 2:
+                    self.boomboomiprequestorinjobIds(json2["jobId"])
+
                 return {
                     "success": True,
                     "status": json2["status"],
