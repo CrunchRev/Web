@@ -91,9 +91,20 @@ class Database:
     def execute_securely(self, query: str, params: Optional[Union[tuple, List[Any]]] = None, fetch_all: bool = False, use_cache: bool = False):
         cache_key = self._generate_cache_key(query, params)
 
+        logging.info(f"Use cache: {use_cache}")
+        
+        if use_cache is True:
+            logging.info(f"Cache key: {cache_key}")
+
+        logging.info(f"Query: {query}")
+        logging.info(f"Params: {params}")
+        logging.info(f"Fetch all: {fetch_all}")
+
         if use_cache:
+            logging.info("Performing cached execution...")
             return self._cached_execute(cache_key, query, params, fetch_all=fetch_all)
         else:
+            logging.info("Performing non-cached execution...")
             return self._execute_without_cache(query=query, params=params, fetch_all=fetch_all)
 
     def bulk_insert(self, query: str, param_list: List[tuple]):
