@@ -309,7 +309,7 @@ class Arbiter:
         
         for url in arbiterURLsList:
             try:
-                getRequest = requests.post(f"http://{url}/arbiter/gameserver/stop/placeAll", json={"placeId": placeId, "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"}, timeout=3.5)
+                getRequest = requests.post(f"http://{url}/arbiter/gameserver/stop/placeAll", json={"placeId": placeId, "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"}, timeout=45.5)
                 results.append(getRequest.json())
             except:
                 sm_logger.error(f"Failed to shutdown servers on {url}, skipping...")
@@ -334,9 +334,9 @@ class Arbiter:
 
         arbiterURL = f"{url}:7209"
         try:
-            requests.post(f"http://{arbiterURL}/arbiter/gameserver/stop", json={"jobId": jobId, "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"}, timeout=3.5)
+            resp = requests.post(f"http://{arbiterURL}/arbiter/gameserver/stop", json={"jobId": jobId, "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"}, timeout=45.5)
             self.boomboomjobId(jobId)
-            return {"success": True}
+            return resp.json()
         except:
             sm_logger.error(f"Failed to shutdown servers on {arbiterURL}")
 
