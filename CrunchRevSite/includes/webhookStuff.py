@@ -157,7 +157,7 @@ Messages:
         fullMessage = sysMsgs[message] if message in sysMsgs else "No explanation found"
 
         embed = {
-            "title": "System Statistics Report",
+            "title": "SysStats (System Statistics) Report",
             "color": 0x00ff00,
             "fields": [
                 {
@@ -172,7 +172,7 @@ Messages:
                 },
                 {
                     "name": "Message",
-                    "value": f"`{message}` ({fullMessage})",
+                    "value": f"`{message} ({fullMessage})`",
                     "inline": False
                 },
                 {
@@ -184,7 +184,7 @@ Messages:
         }
 
         data = {
-            "username": "System Statistics Report",
+            "username": "SysStats Reporter Webhook",
             "embeds": [embed]
         }
 
