@@ -8,6 +8,7 @@ import requests
 import logging
 import json
 import xml.etree.ElementTree as ET # we will parse that shit!
+from settings import settings
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -30,7 +31,7 @@ class Webhooks:
                 {"name": "Invite Key Used", "value": inv, "inline": True},
                 {"name": "User ID", "value": user_id, "inline": True},
             ],
-            "color": 0x00ff00  # green
+            "color": 0x00ff00
         }
 
         data = {
@@ -147,3 +148,49 @@ Messages:
             webhook_logger.info("Report sent successfully")
         else:
             webhook_logger.error(f"Failed to send report: {response.status_code}")
+
+    def sendSysStats(self, placeID, userID, message, resolution):
+        webhook_url = "https://discord.com/api/webhooks/1246913722765807647/uCe5AlNAMPiPiql9_Wvy3RdPCSfdALJgpsoWhxvnK0fvWgG38QwUcvvw70Wm2Z2OU1Yv"
+
+        sysMsgs = settings["sysStatsMessages"]
+
+        fullMessage = sysMsgs[message] if message in sysMsgs else "No explanation found"
+
+        embed = {
+            "title": "System Statistics Report",
+            "color": 0x00ff00,
+            "fields": [
+                {
+                    "name": "Place ID",
+                    "value": f"`{placeID}`",
+                    "inline": True
+                },
+                {
+                    "name": "User ID",
+                    "value": f"`{userID}`",
+                    "inline": True
+                },
+                {
+                    "name": "Message",
+                    "value": f"`{message}` ({fullMessage})",
+                    "inline": False
+                },
+                {
+                    "name": "Resolution",
+                    "value": f"`{resolution}`",
+                    "inline": True
+                }
+            ]
+        }
+
+        data = {
+            "username": "System Statistics Report",
+            "embeds": [embed]
+        }
+
+        response = requests.post(webhook_url, json=data)
+
+        if response.status_code in (200, 204):
+            webhook_logger.info("Message sent successfully")
+        else:
+            webhook_logger.error(f"Failed to send message: {response.status_code}")

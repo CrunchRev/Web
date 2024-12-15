@@ -15,3 +15,19 @@ def abuseReporter():
     Webhooks.sendReportAbuse(reportXML)
 
     return "true", 200, {'Content-Type': 'text/plain'}
+
+@app.route("/AbuseReport/sysstats/", methods=["GET"])
+def sysstats():
+    args = request.args
+    gameId = args.get("gameId", 1)
+    apiKey = args.get("apiKey", None)
+    UserID = args.get("UserID", 1)
+    Message = args.get("Message", "No message provided")
+    Resolution = args.get("Resolution", "No resolution provided")
+
+    if apiKey is None or apiKey != "4893weidsiu38324ewueir28":
+        return "false", 200, {'Content-Type': 'text/plain'}
+
+    Webhooks.sendSysStats(gameId, UserID, Message, Resolution)
+
+    return "true", 200, {'Content-Type': 'text/plain'}
