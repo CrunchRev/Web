@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <br>
-                    <h5>Avatar Type</h5>
+                    <h5>Avatar Type <img id="lc1" src="/staticContent/loading.gif" height="32px" width="32px" alt="Loading..."></h5>
                     <p>Select either R6 or R15. Works on 2018L and above.</p>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="R15">
@@ -76,7 +76,7 @@
                         </label>
                     </div>
                     <br>
-                    <h5>Avatar Colors</h5>
+                    <h5>Avatar Colors <img id="lc2" src="/staticContent/loading.gif" height="32px" width="32px" alt="Loading..."></h5>
                     <p>Select a body part you wish to change the color on!</p>
                     <div class="d-flex justify-content-center avatar-colors colorpick-div">
                         <button class="color-block-head" data-bs-toggle="modal" data-bs-target="#color-picker"></button>
@@ -710,6 +710,8 @@
             }
 
             async function loadAvatarBodyColors() {
+                var loadingImage = document.getElementById("lc2");
+
                 try {
                     const colorResponse = await fetch('/api/editor/bodycolors/fetch');
                     if (!colorResponse.ok) {
@@ -734,7 +736,14 @@
                         }
                     });
 
+                    if (loadingImage) {
+                        loadingImage.classList.add("d-none");
+                    }
                 } catch (error) {
+                    if (loadingImage) {
+                        loadingImage.classList.add("d-none");
+                    }
+
                     console.log('Oh shit...');
                     console.error('Error loading avatar body colors:', error.message);
                     alert('Failed to load avatar body colors: ' + error.message);
@@ -783,6 +792,8 @@
             }
 
             async function loadAvatarType() {
+                var loadingImage = document.getElementById("lc1");
+
                 try {
                     const response = await fetch('/api/editor/type/fetch');
                     if (!response.ok) {
@@ -795,8 +806,14 @@
                         if (radioButton) {
                             radioButton.checked = true;
                         }
+                        if (loadingImage) {
+                            loadingImage.classList.add("d-none");
+                        }
                     }
                 } catch (error) {
+                    if (loadingImage) {
+                        loadingImage.classList.add("d-none");
+                    }
                     console.log('Oh shit...');
                     console.error('Error loading avatar type:', error.message);
                 }
