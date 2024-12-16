@@ -402,11 +402,11 @@ class Arbiter:
         if checkExecute is not None:
             sqlQuery = "UPDATE `rendersuser` SET `basename` = %s WHERE `userId` = %s AND `type` = %s AND `resX` = %s AND `resY` = %s"
         
-            fileName = checkExecute[0]
-
-            os.remove(os.path.join(settings["RendersPath"], fileName))
-
             self.db.execute_securely(sqlQuery, (fileName, userId, type, resX, resY))
+
+            fileNameOld = checkExecute[0]
+
+            os.remove(os.path.join(settings["RendersPath"], fileNameOld))
         else:
             sqlQuery = "INSERT INTO `rendersuser`(`userId`, `type`, `resX`, `resY`, `basename`) VALUES (%s, %s, %s, %s, %s)"
         
