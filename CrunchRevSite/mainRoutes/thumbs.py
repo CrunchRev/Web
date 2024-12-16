@@ -42,6 +42,8 @@ def imagethumb():
 
     url = f"https://thumbscdn.{settings['URL']}/renders/{renderFile}"
 
+    return redirect(url)
+
 @app.route("/Thumbs/Asset.ashx", methods=settings["HTTPMethods"])
 @app.route("/thumbs/asset.ashx", methods=settings["HTTPMethods"])
 def image2thumb():
