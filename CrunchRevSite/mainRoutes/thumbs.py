@@ -37,14 +37,10 @@ def jsonthumb():
 def imagethumb():
     user_id = request.args.get('userId', default='1')
     width = request.args.get('width', default='420')
-    url = f"https://thumbnails.roblox.com/v1/users/avatar?userIds={user_id}&returnPolicy=PlaceHolder&format=PNG&size={width}x{width}&isCircular=false"
-    response = requests.get(url)
 
-    if not response.status_code == 200:
-        return jsonify({"success": False}), response.status_code
+    renderFile = ArbiterClass.render(user_id, 0, width, width, False)
 
-    image_url = response.json()['data'][0]['imageUrl']
-    return redirect(image_url)
+    url = f"https://thumbscdn.{settings['URL']}/renders/{renderFile}"
 
 @app.route("/Thumbs/Asset.ashx", methods=settings["HTTPMethods"])
 @app.route("/thumbs/asset.ashx", methods=settings["HTTPMethods"])
