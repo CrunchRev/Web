@@ -4,8 +4,6 @@ console.log('VERSION 3.5');
 document.addEventListener("DOMContentLoaded", function() {
     var avatarImage = document.getElementById("avatarImg");
 
-    const initialSource = avatarImage.src;
-
     const assetTypes = {
         "Image": 1,
         "TeeShirt": 2,
@@ -493,7 +491,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const jsonFetch = await rerenderfetch.json();
 
         if (jsonFetch.success) {
-            avatarImage.src = initialSource;
+            avatarImage.src = jsonFetch.image;
         }
     }
 

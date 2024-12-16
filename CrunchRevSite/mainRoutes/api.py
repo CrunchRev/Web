@@ -189,4 +189,4 @@ def editor_avatar_rerender():
     if result is None:
         return jsonify({"success": False, "error": "400, Something went wrong"}), 400
 
-    return jsonify({"success": True}), 200
+    return jsonify({"success": True, "image": f"https://thumbscdn.{settings['URL']}/renders/{result}"}), 200
