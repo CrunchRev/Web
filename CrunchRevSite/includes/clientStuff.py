@@ -395,13 +395,17 @@ class Arbiter:
 
         sqlQuery = None
 
-        checkSQLQuery = "SELECT 1 FROM `rendersuser` WHERE `userId` = %s AND `type` = %s AND `resX` = %s AND `resY` = %s LIMIT 1"
+        checkSQLQuery = "SELECT basename FROM `rendersuser` WHERE `userId` = %s AND `type` = %s AND `resX` = %s AND `resY` = %s LIMIT 1"
 
         checkExecute = self.db.execute_securely(checkSQLQuery, (userId, type, resX, resY))
 
         if checkExecute is not None:
             sqlQuery = "UPDATE `rendersuser` SET `basename` = %s WHERE `userId` = %s AND `type` = %s AND `resX` = %s AND `resY` = %s"
         
+            fileName = checkExecute[0]
+
+            os.remove(os.path.join(settings["RendersPath"], fileName))
+
             self.db.execute_securely(sqlQuery, (fileName, userId, type, resX, resY))
         else:
             sqlQuery = "INSERT INTO `rendersuser`(`userId`, `type`, `resX`, `resY`, `basename`) VALUES (%s, %s, %s, %s, %s)"
