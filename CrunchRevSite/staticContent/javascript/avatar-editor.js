@@ -484,15 +484,34 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let selectedPartClass = "";
 
+    const isReRendering = false;
+
     async function requestReRender() {
+        if (isReRendering) return;
+
+        isReRendering = true;
+
+        const initSource = avatarImage.src;
+
         avatarImage.src = `/staticContent/loading.gif`;
 
         const rerenderfetch = await fetch('/api/editor/avatar/rerender');
+
+        if (!response.ok) {
+            avatarImage.src = initSource;
+            isReRendering = false;
+            return;
+        }
+
         const jsonFetch = await rerenderfetch.json();
 
         if (jsonFetch.success) {
             avatarImage.src = jsonFetch.image;
+        } else {
+            avatarImage.src = initSource;
         }
+
+        isReRendering = false;
     }
 
     async function loadItems() {
