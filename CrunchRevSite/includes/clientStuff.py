@@ -10,6 +10,10 @@ import base64
 import random
 import logging
 from time import sleep
+import base64
+import uuid
+import os
+from settings import settings
 
 from includes.webhookStuff import *
 
@@ -348,3 +352,65 @@ class Arbiter:
         self.db.execute_securely(query, (playersAmount, jobId))
 
         return True
+    
+    def getAnyCachedRenders(self, userId, type, resX, resY):
+        sqlQuery = "SELECT basename FROM `rendersuser` WHERE `userId` = %s AND `type` = %s AND `resX` = %s AND `resY` = %s LIMIT 1"
+        
+        return self.db.execute_securely(sqlQuery, (userId, type, resX, resY))
+
+    def requestArbiterToRender(self, userId, type, resX, resY):
+        arbiterURL = random.choice(list(self.arbiterURLs))
+        base64Res = None
+
+        if type == 0:
+            postReq = requests.post(f"http://{arbiterURL}/arbiter/render/avatar", json={"userId": userId, "resX": resX, "resY": resY, "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"})
+            jsonRes = postReq.json()
+
+            if jsonRes["success"]:
+                base64Res = jsonRes["base64"]
+        elif type == 1:
+            postReq = requests.post(f"http://{arbiterURL}/arbiter/render/avatar/closeup", json={"userId": userId, "resX": resX, "resY": resY, "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"})
+            jsonRes = postReq.json()
+
+            if jsonRes["success"]:
+                base64Res = jsonRes["base64"]
+
+        if base64Res is None:
+            return None
+        
+        # save it to renders folder
+
+        decodedBase64 = base64.b64decode(base64Res)
+        uuidd = str(uuid.uuid4())
+        fileName = f"{uuidd}.png"
+        
+        path = os.path.join(settings["RendersPath"], fileName)
+
+        with open(path, "wb") as file:
+            file.write(decodedBase64)
+
+        # save it to database
+
+        sqlQuery = None
+
+        checkSQLQuery = "SELECT 1 FROM `rendersuser` WHERE `userId` = %s AND `type` = %s AND `resX` = %s AND `resY` = %s LIMIT 1"
+
+        checkExecute = self.db.execute_securely(checkSQLQuery, (userId, type, resX, resY))
+
+        if checkExecute is not None:
+            sqlQuery = "UPDATE `rendersuser` SET `basename` = %s WHERE `userId` = %s AND `type` = %s AND `resX` = %s AND `resY` = %s"
+        else:
+            sqlQuery = "INSERT INTO `rendersuser`(`userId`, `type`, `resX`, `resY`, `basename`) VALUES (%s, %s, %s, %s, %s)"
+        
+        self.db.execute_securely(sqlQuery, (userId, type, resX, resY, fileName))
+
+        return fileName
+
+    def render(self, userId, type, resX, resY, rerender):
+        if not rerender:
+            isAny = self.getAnyCachedRenders(userId, type, resX, resY)
+
+            if isAny is not None:
+                return isAny[0]
+            
+        return self.requestArbiterToRender(userId, type, resX, resY)

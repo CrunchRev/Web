@@ -59,5 +59,6 @@ settings = {
         "booing": "Tried to modify hash function",
         "hector": "Hashing failed (?)",
         "ghector": "Hashing failed (?)"
-    }
+    },
+    "RendersPath": "./staticContentThumbs/renders/"
 }
