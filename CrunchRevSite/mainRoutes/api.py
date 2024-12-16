@@ -167,7 +167,7 @@ def editor_type_change():
     
     return jsonify({"success": True}), 200
 
-@app.route("/api/editor/avatar/rerender", methods=["POST"])
+@app.route("/api/editor/avatar/rerender", methods=["GET"])
 @limiter.limit("50 per minute")
 def editor_avatar_rerender():
     cookies = request.cookies

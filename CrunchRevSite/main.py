@@ -22,6 +22,7 @@ import gzip
 import random
 import datetime
 from flask_limiter import Limiter
+import warnings
 # import ssl
 # import threading
 
@@ -71,6 +72,8 @@ app = Flask(__name__)
 app.strict_slashes = False
 
 internal_logger.info("Creating limiter...")
+
+warnings.filterwarnings("ignore", message="Using the in-memory storage for tracking rate limits as no storage was explicitly specified.")
 
 def get_ip_address():
     if request.headers.getlist('CF-Connecting-IP'):
