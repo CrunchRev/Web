@@ -51,6 +51,7 @@ def avatar_fetch():
                 "RightLegColor": rlbc,
                 "TorsoColor": tbc
             },
+            "bodyColorsUrl": f"http://assetgame.{settings["URL"]}/Asset/BodyColors.ashx?userId={userId}",
             "scales": {
                 "Height": 1,
                 "Width": 1,
