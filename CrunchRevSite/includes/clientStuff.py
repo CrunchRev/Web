@@ -366,14 +366,16 @@ class Arbiter:
             postReq = requests.post(f"http://{arbiterURL}/arbiter/render/avatar", json={"userId": userId, "resX": resX, "resY": resY, "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"})
             jsonRes = postReq.json()
 
-            if "success" in jsonRes and jsonRes["success"]:
-                base64Res = jsonRes["base64"]
+            logging.info(jsonRes)
+
+            base64Res = jsonRes.get("base64")
         elif type == 1:
             postReq = requests.post(f"http://{arbiterURL}/arbiter/render/avatar/closeup", json={"userId": userId, "resX": resX, "resY": resY, "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"})
             jsonRes = postReq.json()
 
-            if "success" in jsonRes and jsonRes["success"]:
-                base64Res = jsonRes["base64"]
+            logging.info(jsonRes)
+
+            base64Res = jsonRes.get("base64")
 
         if base64Res is None:
             return None
