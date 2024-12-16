@@ -2,6 +2,10 @@ console.log('AVATAR EDITOR LOADING...');
 console.log('VERSION 3.5');
 
 document.addEventListener("DOMContentLoaded", function() {
+    var avatarImage = document.getElementById("avatarImg");
+
+    const initialSource = avatarImage.src;
+
     const assetTypes = {
         "Image": 1,
         "TeeShirt": 2,
@@ -482,6 +486,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let selectedPartClass = "";
 
+    async function requestReRender() {
+        avatarImage.src = `/staticContent/loading.gif`;
+
+        const rerenderfetch = await fetch('/api/editor/avatar/rerender');
+        const jsonFetch = await rerenderfetch.json();
+
+        if (jsonFetch.success) {
+            avatarImage.src = initialSource;
+        }
+    }
+
     async function loadItems() {
         try {
             const fetchResponse = await fetch('/api/editor/fetch');
@@ -633,6 +648,7 @@ document.addEventListener("DOMContentLoaded", function() {
             button = itemDiv.querySelector('.btn');
             button.addEventListener('click', () => toggleItem(itemId, !currentlyEquipped, button, itemDiv));
 
+            await requestReRender();
         } catch (error) {
             console.log('Oh shit...');
             console.error('Error toggling item:', error.message);
@@ -686,6 +702,8 @@ document.addEventListener("DOMContentLoaded", function() {
                         if (!response.ok) {
                             throw new Error('Failed to change avatar type');
                         }
+
+                        await requestReRender();
                     } catch (error) {
                         console.log('Oh shit...');
                         console.error('Error changing avatar type:', error.message);
@@ -777,6 +795,8 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!response.ok) {
                 throw new Error('Failed to update color');
             }
+
+            await requestReRender();
         } catch (error) {
             console.log('Oh shit...');
             console.error('Error sending color update:', error.message);
