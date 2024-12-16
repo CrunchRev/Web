@@ -21,6 +21,7 @@ from io import BytesIO
 import gzip
 import random
 import datetime
+from flask_limiter import Limiter
 # import ssl
 # import threading
 
@@ -68,6 +69,20 @@ internal_logger.info("Creating Flask app...")
 
 app = Flask(__name__)
 app.strict_slashes = False
+
+internal_logger.info("Creating limiter...")
+
+def get_ip_address():
+    if request.headers.getlist('CF-Connecting-IP'):
+        return request.headers.getlist("CF-Connecting-IP")[0]
+    else:
+        return request.remote_addr
+
+limiter = Limiter(
+    key_func=get_ip_address,
+    app=app,
+    default_limits=[]
+)
 
 internal_logger.info("Initializing classes...")
 

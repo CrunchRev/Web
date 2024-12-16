@@ -166,3 +166,27 @@ def editor_type_change():
     UserDB.updateAvatarType(userId, avatarType)
     
     return jsonify({"success": True}), 200
+
+@app.route("/api/editor/avatar/rerender", methods=["POST"])
+@limiter.limit("50 per minute")
+def editor_avatar_rerender():
+    cookies = request.cookies
+    user_info = None
+
+    if ".ROBLOSECURITY" in cookies:
+        cookie = cookies.get(".ROBLOSECURITY")
+        user_info = UserDB.fetchUser(method=1, cookie=cookie)
+
+        if not user_info:
+            return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
+    else:
+        return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
+    
+    userId = user_info[0]
+
+    result = ArbiterClass.render(userId, 0, 200, 200, True)
+
+    if result is None:
+        return jsonify({"success": False, "error": "400, Something went wrong"}), 400
+
+    return jsonify({"success": True}), 200
