@@ -363,8 +363,7 @@ class Arbiter:
             return True
         return n > 0 and (n & (n - 1)) == 0
 
-    def requestArbiterToRender(self, userId, type, resX, resY):
-        
+    def requestArbiterToRender(self, userId: int, type: int, resX: int, resY: int):
         if type not in [0, 1]:
             return None
         
