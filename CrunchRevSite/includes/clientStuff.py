@@ -373,7 +373,7 @@ class Arbiter:
         
         if resX > 1024 or resY > 1024:
             return None
-        elif resX < 128 or resY < 128:
+        elif resX < 64 or resY < 64:
             return None
 
         arbiterURL = random.choice(list(self.arbiterURLs))
