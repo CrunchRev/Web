@@ -487,7 +487,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let isReRendering = false;
 
     async function requestReRender() {
-        isReRendering = true;
+        // isReRendering = true;
 
         const initSource = avatarImage.src;
 
@@ -501,7 +501,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        if (isReRendering) return;
+        // if (isReRendering) return;
 
         const jsonFetch = await rerenderfetch.json();
 
@@ -511,7 +511,7 @@ document.addEventListener("DOMContentLoaded", function() {
             avatarImage.src = initSource;
         }
 
-        isReRendering = false;
+        // isReRendering = false;
     }
 
     async function loadItems() {
