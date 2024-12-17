@@ -44,6 +44,18 @@ def imagethumb():
 
     return redirect(url)
 
+@app.route("/Thumbs/Headshot.ashx", methods=settings["HTTPMethods"])
+@app.route("/thumbs/headshot.ashx", methods=settings["HTTPMethods"])
+def imagethumb():
+    user_id = request.args.get('userId', default='1')
+    width = request.args.get('width', default='420')
+
+    renderFile = ArbiterClass.render(user_id, 1, width, width, False)
+
+    url = f"https://thumbscdn.{settings['URL']}/renders/{renderFile}"
+
+    return redirect(url)
+
 @app.route("/Thumbs/Asset.ashx", methods=settings["HTTPMethods"])
 @app.route("/thumbs/asset.ashx", methods=settings["HTTPMethods"])
 def image2thumb():
