@@ -1,5 +1,5 @@
 console.log('AVATAR EDITOR LOADING...');
-console.log('VERSION 3.5');
+console.log('VERSION 4.1');
 
 document.addEventListener("DOMContentLoaded", function() {
     var avatarImage = document.getElementById("avatarImg");
@@ -487,8 +487,6 @@ document.addEventListener("DOMContentLoaded", function() {
     let isReRendering = false;
 
     async function requestReRender() {
-        if (isReRendering) return;
-
         isReRendering = true;
 
         const initSource = avatarImage.src;
@@ -502,6 +500,8 @@ document.addEventListener("DOMContentLoaded", function() {
             isReRendering = false;
             return;
         }
+
+        if (isReRendering) return;
 
         const jsonFetch = await rerenderfetch.json();
 
