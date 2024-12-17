@@ -357,11 +357,6 @@ class Arbiter:
         sqlQuery = "SELECT basename FROM `rendersuser` WHERE `userId` = %s AND `type` = %s AND `resX` = %s AND `resY` = %s LIMIT 1"
         
         return self.db.execute_securely(sqlQuery, (userId, type, resX, resY))
-    
-    def _is_power_of_two(self, n):
-        if n == 420 or n == 200:
-            return True
-        return n > 0 and (n & (n - 1)) == 0
 
     def requestArbiterToRender(self, userId, type, resX, resY):
         # CONVERSION
@@ -379,9 +374,6 @@ class Arbiter:
         if resX > 1024 or resY > 1024:
             return None
         elif resX < 128 or resY < 128:
-            return None
-        
-        if not self._is_power_of_two(resX) or not self._is_power_of_two(resY):
             return None
 
         arbiterURL = random.choice(list(self.arbiterURLs))
