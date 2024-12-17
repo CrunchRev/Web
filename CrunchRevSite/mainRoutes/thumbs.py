@@ -46,7 +46,7 @@ def imagethumb():
 
 @app.route("/Thumbs/Headshot.ashx", methods=settings["HTTPMethods"])
 @app.route("/thumbs/headshot.ashx", methods=settings["HTTPMethods"])
-def imagethumb():
+def imagethumbheadshot():
     user_id = request.args.get('userId', default='1')
     width = request.args.get('width', default='420')
 
