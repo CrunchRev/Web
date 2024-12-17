@@ -153,7 +153,7 @@ class Arbiter:
             INSERT INTO `jobs_in_use` (`RCC_Version`, `place_id`, `jobId`, `network_port`, `server_address`, `status`, `requestorIP`) 
             VALUES (%s, %s, %s, %s, %s, %s, %s)
             """
-            self.db.execute_securely(insertQuery, params=(year, placeID, jobID, networkPort, serverIP, status, ipRequestor))
+            self.db.bulk_insert(insertQuery, [(year, placeID, jobID, networkPort, serverIP, status, ipRequestor if ipRequestor is not None else None)])
 
     def requestServer(self, year, placeID, maxPlayers, creatorId, ipRequestor):
         arbiterURL = random.choice(list(self.arbiterURLs))
@@ -363,7 +363,16 @@ class Arbiter:
             return True
         return n > 0 and (n & (n - 1)) == 0
 
-    def requestArbiterToRender(self, userId: int, type: int, resX: int, resY: int):
+    def requestArbiterToRender(self, userId, type, resX, resY):
+        # CONVERSION
+
+        userId = int(userId)
+        type = int(type)
+        resX = int(resX)
+        resY = int(resY)
+
+        # MAIN
+
         if type not in [0, 1]:
             return None
         
@@ -395,8 +404,6 @@ class Arbiter:
 
         if base64Res is None:
             return None
-        
-        # save it to renders folder
 
         decodedBase64 = base64.b64decode(base64Res)
         uuidd = str(uuid.uuid4())
@@ -407,26 +414,23 @@ class Arbiter:
         with open(path, "wb") as file:
             file.write(decodedBase64)
 
-        # save it to database
-
         sqlQuery = None
-
         checkSQLQuery = "SELECT basename FROM `rendersuser` WHERE `userId` = %s AND `type` = %s AND `resX` = %s AND `resY` = %s LIMIT 1"
-
         checkExecute = self.db.execute_securely(checkSQLQuery, (userId, type, resX, resY))
 
+        doesExist = False
+
         if checkExecute is not None:
+            doesExist = True
             sqlQuery = "UPDATE `rendersuser` SET `basename` = %s WHERE `userId` = %s AND `type` = %s AND `resX` = %s AND `resY` = %s"
-        
             self.db.execute_securely(sqlQuery, (fileName, userId, type, resX, resY))
-
-            fileNameOld = checkExecute[0]
-
-            os.remove(os.path.join(settings["RendersPath"], fileNameOld))
         else:
             sqlQuery = "INSERT INTO `rendersuser`(`userId`, `type`, `resX`, `resY`, `basename`) VALUES (%s, %s, %s, %s, %s)"
-        
-            self.db.execute_securely(sqlQuery, (userId, type, resX, resY, fileName))
+            self.db.bulk_insert(sqlQuery, [(userId, type, resX, resY, fileName)])
+
+        if doesExist:
+            fileNameOld = checkExecute[0]
+            os.remove(os.path.join(settings["RendersPath"], fileNameOld))
 
         return fileName
 
