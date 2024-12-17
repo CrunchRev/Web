@@ -27,10 +27,12 @@ def jsonasset():
 def jsonthumb():
     user_id = request.args.get('userId', default='1')
     width = request.args.get('width', default='420')
-    url = f"https://thumbnails.roblox.com/v1/users/avatar?userIds={user_id}&returnPolicy=PlaceHolder&size={width}x{width}&format=Png&isCircular=false"
-    response = requests.get(url)
-    data = response.json()
-    return jsonify(data)
+
+    renderFile = ArbiterClass.render(user_id, 0, width, width, False)
+
+    url = f"https://thumbscdn.{settings['URL']}/renders/{renderFile}"
+
+    return jsonify({"data":[{"targetId":1,"state":"Completed","imageUrl":url,"version":"TN3"}]})
 
 @app.route("/Thumbs/Avatar.ashx", methods=settings["HTTPMethods"])
 @app.route("/thumbs/avatar.ashx", methods=settings["HTTPMethods"])
@@ -75,25 +77,21 @@ def image2thumb():
 def image3thumb():
     user_id = request.args.get('userId', default='1')
     width = request.args.get('width', default='420')
-    url = f"https://thumbnails.roblox.com/v1/users/avatar?userIds={user_id}&returnPolicy=PlaceHolder&size={width}x{width}&format=Png&isCircular=false"
-    response = requests.get(url)
 
-    if not response.status_code == 200:
-        return jsonify({"success": False}), response.status_code
+    renderFile = ArbiterClass.render(user_id, 0, width, width, False)
 
-    image_url = response.json()['data'][0]['imageUrl']
-    return redirect(image_url)
+    url = f"https://thumbscdn.{settings['URL']}/renders/{renderFile}"
+
+    return redirect(url)
 
 @app.route("/bust-thumbnail/json", methods=settings["HTTPMethods"])
 @app.route("/bust-thumbnail/json/", methods=settings["HTTPMethods"])
 def json2thumb():
     user_id = request.args.get('userId', default='1')
     width = request.args.get('width', default='420')
-    url = f"https://thumbnails.roblox.com/v1/users/avatar?userIds={user_id}&returnPolicy=PlaceHolder&size={width}x{width}&format=Png&isCircular=false"
-    response = requests.get(url)
 
-    if not response.status_code == 200:
-        return jsonify({"success": False}), response.status_code
+    renderFile = ArbiterClass.render(user_id, 1, width, width, False)
 
-    image_url = response.json()['data'][0]['imageUrl']
-    return redirect(image_url)
+    url = f"https://thumbscdn.{settings['URL']}/renders/{renderFile}"
+
+    return redirect(url)

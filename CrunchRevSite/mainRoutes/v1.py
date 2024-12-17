@@ -156,6 +156,14 @@ def batch():
                 url = f"https://thumbscdn.{settings['URL']}/{fetchGamezzzz["info"][4]}"
             else:
                 url = F"https://thumbscdn.{settings['URL']}/DefaultIcon.png"
+        elif typeObj == "Avatar":
+            renderFile = ArbiterClass.render(targetId, 0, size.split("x")[0], size.split("x")[1], False)
+
+            url = f"https://thumbscdn.{settings['URL']}/renders/{renderFile}"
+        elif typeObj == "AvatarHeadShot":
+            renderFile = ArbiterClass.render(targetId, 1, size.split("x")[0], size.split("x")[1], False)
+
+            url = f"https://thumbscdn.{settings['URL']}/renders/{renderFile}"
         else:
             requestObject = requests.post("https://thumbnails.roblox.com/v1/batch", json=JSONData)
 
