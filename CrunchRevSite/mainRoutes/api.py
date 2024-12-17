@@ -184,9 +184,14 @@ def editor_avatar_rerender():
     
     userId = user_info[0]
 
-    result = ArbiterClass.render(userId, 0, 200, 200, True)
+    allRendersRes = ArbiterClass.getEveryUserIdRender(userId)
 
-    if result is None:
-        return jsonify({"success": False, "error": "400, Something went wrong"}), 400
+    for res in allRendersRes:
+        result1 = ArbiterClass.render(userId, res[2], res[0], res[1], True)
+
+        if result1 is None:
+            return jsonify({"success": False, "error": "400, Something went wrong"}), 400
+        
+    result = ArbiterClass.render(userId, 0, 200, 200, False)
 
     return jsonify({"success": True, "image": f"https://thumbscdn.{settings['URL']}/renders/{result}"}), 200
