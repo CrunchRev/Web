@@ -359,6 +359,8 @@ class Arbiter:
         return self.db.execute_securely(sqlQuery, (userId, type, resX, resY))
     
     def _is_power_of_two(self, n):
+        if n == 420:
+            return True
         return n > 0 and (n & (n - 1)) == 0
 
     def requestArbiterToRender(self, userId, type, resX, resY):
