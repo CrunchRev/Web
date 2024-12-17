@@ -497,7 +497,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const rerenderfetch = await fetch('/api/editor/avatar/rerender');
 
-        if (!renderFetch.ok) {
+        if (!rerenderfetch.ok) {
             avatarImage.src = initSource;
             isReRendering = false;
             return;
