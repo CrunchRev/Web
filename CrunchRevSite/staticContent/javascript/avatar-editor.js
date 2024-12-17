@@ -484,7 +484,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let selectedPartClass = "";
 
-    const isReRendering = false;
+    let isReRendering = false;
 
     async function requestReRender() {
         if (isReRendering) return;
