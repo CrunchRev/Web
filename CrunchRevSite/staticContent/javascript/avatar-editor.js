@@ -484,7 +484,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let selectedPartClass = "";
 
-    let isReRendering = false;
+    // let isReRendering = false;
 
     async function requestReRender() {
         // isReRendering = true;
@@ -497,7 +497,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (!rerenderfetch.ok) {
             avatarImage.src = initSource;
-            isReRendering = false;
+            // isReRendering = false;
             return;
         }
 
