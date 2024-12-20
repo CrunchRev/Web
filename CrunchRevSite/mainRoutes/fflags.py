@@ -34,7 +34,7 @@ def setting2018Llegcacy(settingstype):
 @app.route("/v1/settings/application", methods=settings["HTTPMethods"])
 @app.route("/v1/settings/application/", methods=settings["HTTPMethods"])
 def setting2021E():
-    typeOfFFlag = request.args.get("applicationName") or "PCDesktopClient"
+    typeOfFFlag = request.args.get("applicationName", "PCDesktopClient")
     path = f'{settings["FFlags2021EPath"]}{typeOfFFlag}.json'
 
     if not os.path.exists(path):
