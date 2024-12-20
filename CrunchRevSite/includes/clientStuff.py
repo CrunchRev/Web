@@ -435,7 +435,7 @@ class Arbiter:
             
         return self.requestArbiterToRender(userId, type, resX, resY)
     
-    def getEveryUserIdRender(self, userId):
-        sqlQuery = "SELECT `resX`, `resY`, `type` FROM `rendersuser` WHERE `userId` = %s"
+    def getRerenderShit(self, userId):
+        sqlQuery = "SELECT `resX`, `resY`, `type` FROM `rendersuser` WHERE `userId` = %s AND NOT (`resX` = 200 AND `resY` = 200)"
 
         return self.db.execute_securely(sqlQuery, (userId,), fetch_all=True)

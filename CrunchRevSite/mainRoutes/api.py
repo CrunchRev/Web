@@ -6,6 +6,19 @@ Route module description: controls everything under /api/ (mostly CrunchRev Webs
 
 from __main__ import *
 
+# UTILITY FUNCTIONS
+
+def rerender(userId):
+    allRendersRes = ArbiterClass.getRerenderShit(userId)
+
+    for res in allRendersRes:
+        result1 = ArbiterClass.render(userId, res[2], res[0], res[1], True)
+
+        if result1 is None:
+            return False
+
+    return True
+
 @app.route("/api/editor/fetch", methods=["GET"])
 def editor_fetch():
     cookies = request.cookies
@@ -184,14 +197,9 @@ def editor_avatar_rerender():
     
     userId = user_info[0]
 
-    allRendersRes = ArbiterClass.getEveryUserIdRender(userId)
-
-    for res in allRendersRes:
-        result1 = ArbiterClass.render(userId, res[2], res[0], res[1], True)
-
-        if result1 is None:
-            return jsonify({"success": False, "error": "400, Something went wrong"}), 400
+    thread = threading.Thread(target=rerender, args=(userId,))
+    thread.start()
         
-    result = ArbiterClass.render(userId, 0, 200, 200, False)
+    result = ArbiterClass.render(userId, 0, 200, 200, True)
 
     return jsonify({"success": True, "image": f"https://thumbscdn.{settings['URL']}/renders/{result}"}), 200
