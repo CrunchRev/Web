@@ -16,6 +16,7 @@ def setting_legacy(settingstype):
     with open(path, 'r') as file:
         file = file.read()
         file = file.replace("roblox.com", settings["URL"])
+        file = json.loads(file)
     
     return jsonify(file), 200
 
@@ -28,6 +29,7 @@ def setting_standard(settingstype):
     with open(path, 'r') as file:
         file = file.read()
         file = file.replace("roblox.com", settings["URL"])
+        file = json.loads(file)
     
     return jsonify(file), 200
 
@@ -43,5 +45,6 @@ def setting_modern():
     with open(path, 'r') as file:
         file = file.read()
         file = file.replace("roblox.com", settings["URL"])
+        file = json.loads(file)
     
     return jsonify(file), 200
