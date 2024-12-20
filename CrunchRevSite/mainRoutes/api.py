@@ -200,6 +200,6 @@ def editor_avatar_rerender():
     thread = threading.Thread(target=rerender, args=(userId,))
     thread.start()
         
-    result = ArbiterClass.render(userId, 0, 200, 200, True)
+    result = ArbiterClass.render(userId, 0, 300, 300, True)
 
     return jsonify({"success": True, "image": f"https://thumbscdn.{settings['URL']}/renders/{result}"}), 200
