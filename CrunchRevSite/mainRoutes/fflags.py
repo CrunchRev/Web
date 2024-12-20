@@ -7,7 +7,7 @@ Route module description: controls client settings (feature or fast flags)
 from __main__ import *
 
 @app.route("/Setting/QuietGet/<settingstype>/", methods=settings["HTTPMethods"])
-def setting(settingstype):
+def setting_legacy(settingstype):
     path = f'{settings["FFlagsPath"]}{settingstype}.json'
 
     if not os.path.exists(path):
@@ -20,7 +20,7 @@ def setting(settingstype):
     return jsonify(file), 200
 
 @app.route("/Setting/2018LGet/<settingstype>/", methods=settings["HTTPMethods"])
-def setting2018Llegcacy(settingstype):
+def setting_standard(settingstype):
     path = f'{settings["FFlags2018LPath"]}{settingstype}.json'
     if not os.path.exists(path):
         return jsonify({}), 404
@@ -33,7 +33,7 @@ def setting2018Llegcacy(settingstype):
 
 @app.route("/v1/settings/application", methods=settings["HTTPMethods"])
 @app.route("/v1/settings/application/", methods=settings["HTTPMethods"])
-def setting2021E():
+def setting_modern():
     typeOfFFlag = request.args.get("applicationName", "PCDesktopClient")
     path = f'{settings["FFlags2021EPath"]}{typeOfFFlag}.json'
 
