@@ -13,12 +13,9 @@ def rerender(userId):
         ArbiterClass.render(userId, res[2], res[0], res[1], True)
 
     allRendersRes = ArbiterClass.getRerenderShit(userId)
-    threads = []
 
-    for res in allRendersRes:
-        thread = threading.Thread(target=render_task, args=(res,))
-        threads.append(thread)
-        thread.start()
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        executor.map(render_task, allRendersRes)
 
 @app.route("/api/editor/fetch", methods=["GET"])
 def editor_fetch():

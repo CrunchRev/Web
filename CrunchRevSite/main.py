@@ -17,14 +17,13 @@ from paste.translogger import TransLogger
 from flask_bcrypt import Bcrypt
 from functools import lru_cache
 import xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor
 from io import BytesIO
 import gzip
 import random
 import datetime
 from flask_limiter import Limiter
 import warnings
-# import ssl
-# import threading
 
 from settings import settings
 from includes.clientStuff import *
