@@ -9,20 +9,15 @@ from __main__ import *
 # UTILITY FUNCTIONS
 
 def rerender(userId):
-    def render_task(res):
-        try:
-            ArbiterClass.render(userId, res[2], res[0], res[1], True)
-        except Exception as e:
-            print(f"Error rendering: {e}")
-
     allRendersRes = ArbiterClass.getRerenderShit(userId)
 
-    threads = []
-
     for res in allRendersRes:
-        thread = threading.Thread(target=render_task, args=(res,))
-        threads.append(thread)
-        thread.start()
+        result1 = ArbiterClass.render(userId, res[2], res[0], res[1], True)
+
+        if result1 is None:
+            return False
+
+    return True
 
 @app.route("/api/editor/fetch", methods=["GET"])
 def editor_fetch():
@@ -202,8 +197,8 @@ def editor_avatar_rerender():
     
     userId = user_info[0]
 
-    threadRRender = threading.Thread(target=rerender, args=(userId,))
-    threadRRender.start()
+    thread = threading.Thread(target=rerender, args=(userId,))
+    thread.start()
         
     result = ArbiterClass.render(userId, 0, 300, 300, True)
 
