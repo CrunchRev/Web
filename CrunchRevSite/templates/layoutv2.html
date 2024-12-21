@@ -40,7 +40,7 @@
                     {% if loggedIn %}
                     <li class="nav-item">
                         <a class="nav-link active crunch-tokens" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="You have {{ userinfo[9]|e | numberFormat }} Crunches.">
-                            {{ userinfo[9]|e | numberFormat }}
+                            {{ userinfo[9]|e }}
                         </a>
                     </li>
                     <a class="nav-item text-decoration-none text-dark" href="/users/{{ userinfo[0]|e }}">
@@ -102,7 +102,7 @@
                 CrunchRev is not affiliated with, endorsed by, or sponsored by <a href="https://corp.roblox.com">Roblox Corporation</a>.
             </div>
         </div>
-        
+
         <script src="/staticContent/javascript/standard.js"></script>
     </div>
 </body>
