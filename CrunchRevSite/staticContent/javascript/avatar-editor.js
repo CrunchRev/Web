@@ -1,5 +1,5 @@
 console.log('AVATAR EDITOR LOADING...');
-console.log('VERSION 4.1');
+console.log('VERSION 4.4.1');
 
 document.addEventListener("DOMContentLoaded", function() {
     var avatarImage = document.getElementById("avatarImg");
