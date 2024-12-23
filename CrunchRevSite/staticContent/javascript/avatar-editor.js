@@ -3,6 +3,9 @@ console.log('VERSION 4.1');
 
 document.addEventListener("DOMContentLoaded", function() {
     var avatarImage = document.getElementById("avatarImg");
+    const redrawBtn = document.getElementById("redrawBtn");
+
+    let pressedReDraw = false;
 
     const assetTypes = {
         "Image": 1,
@@ -819,6 +822,17 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error('Error sending color update:', error.message);
         }
     }
+
+    redrawBtn.addEventListener("click", function() {
+        if (pressedReDraw) return;
+
+        pressedReDraw = true;
+        requestReRender();
+
+        setTimeout(() => {
+            pressedReDraw = false;
+        }, 4000);
+    });
 
     Promise.all([
         loadAvatarType(),
