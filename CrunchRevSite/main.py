@@ -70,6 +70,12 @@ internal_logger.info("Creating Flask app...")
 app = Flask(__name__)
 app.strict_slashes = False
 
+@app.context_processor
+def inject_globals():
+    return {
+        'current_time': lambda format="%Y-%m-%d %H:%M:%S": datetime.datetime.now().strftime(format)
+    }
+
 internal_logger.info("Creating limiter...")
 
 warnings.filterwarnings("ignore", message="Using the in-memory storage for tracking rate limits as no storage was explicitly specified.")
