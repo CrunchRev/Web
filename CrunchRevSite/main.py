@@ -21,6 +21,7 @@ from io import BytesIO
 import gzip
 import random
 import datetime
+from datetime import timezone
 from flask_limiter import Limiter
 import warnings
 import threading
@@ -68,12 +69,15 @@ except Exception as e:
 internal_logger.info("Creating Flask app...")
 
 app = Flask(__name__)
+
+internal_logger.info("Initializing Flask app...")
+
 app.strict_slashes = False
 
 @app.context_processor
 def inject_globals():
     return {
-        'current_time': lambda format="%Y-%m-%d %H:%M:%S": datetime.datetime.now().strftime(format)
+        'current_time': lambda format="%Y-%m-%d %H:%M:%S": datetime.now(timezone.utc).strftime(format)
     }
 
 internal_logger.info("Creating limiter...")
