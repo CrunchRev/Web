@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html class="crunch-light" lang="en">
 
+<!--
+
+CrunchRev
+The CrunchRev Authors, 2024.
+
+This URL ({{ request.url|e }}) was generated on {{ datetime.datetime.now() }}.
+
+WE ARE NOT SPONSORED BY ROBLOX CORPORATION IN ANY WAY!
+-->
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,7 +21,6 @@
     <title>CrunchRev</title>
     <link rel="icon" type="image/x-icon" href="https://www.{{ baseurl|e }}/favicon.ico">
 </head>
-
 <body>
     <div id="crunch-root">
         {% set user_agent = request.headers.get('User-Agent', '') %}
