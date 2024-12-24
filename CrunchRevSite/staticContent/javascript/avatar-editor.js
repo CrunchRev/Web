@@ -1,5 +1,5 @@
 console.log('AVATAR EDITOR LOADING...');
-console.log('VERSION 4.4.1');
+console.log('VERSION 4.4.2');
 
 document.addEventListener("DOMContentLoaded", function() {
     var avatarImage = document.getElementById("avatarImg");
@@ -831,7 +831,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         setTimeout(() => {
             pressedReDraw = false;
-        }, 4000);
+        }, 6500);
     });
 
     Promise.all([
