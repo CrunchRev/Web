@@ -311,6 +311,8 @@ def assetdelivery():
                 return send_from_directory("C:/assets_cdn_crunchrev/", asset_info[0])
             else:
                 return jsonify({"success": False, "error": "403, Access denied."}), 403
+        elif asset_info[1] == 0:
+            return jsonify({"success": False, "error": "400, Can not download a gamepass asset."}), 400
         else:
             return send_from_directory("C:/assets_cdn_crunchrev/", asset_info[0])
 
