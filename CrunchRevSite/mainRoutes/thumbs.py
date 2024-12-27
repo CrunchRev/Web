@@ -61,9 +61,10 @@ def imagethumbheadshot():
 @app.route("/Thumbs/Asset.ashx", methods=settings["HTTPMethods"])
 @app.route("/thumbs/asset.ashx", methods=settings["HTTPMethods"])
 def image2thumb():
-    asset_id = request.args.get('assetId', default='1818')
-    width = request.args.get('width', default='420')
-    url = f"https://thumbnails.roblox.com/v1/assets?assetIds={asset_id}&returnPolicy=PlaceHolder&format=PNG&size={width}x{width}&isCircular=false"
+    asset_id = request.args.get('AssetID', default='1818')
+    width = request.args.get('Width', default='420')
+    height = request.args.get('Height', default='420')
+    url = f"https://thumbnails.roblox.com/v1/assets?assetIds={asset_id}&returnPolicy=PlaceHolder&format=PNG&size={width}x{height}&isCircular=false"
     response = requests.get(url)
 
     if not response.status_code == 200:
