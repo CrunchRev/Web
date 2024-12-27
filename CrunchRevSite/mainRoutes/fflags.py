@@ -21,6 +21,7 @@ def setting_legacy(settingstype):
     return jsonify(file), 200
 
 @app.route("/Setting/2018LGet/<settingstype>/", methods=settings["HTTPMethods"])
+@app.route("/Setting/Get/<settingstype>/", methods=settings["HTTPMethods"])
 def setting_standard(settingstype):
     path = f'{settings["FFlags2018LPath"]}{settingstype}.json'
     if not os.path.exists(path):
