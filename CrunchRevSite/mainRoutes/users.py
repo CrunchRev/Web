@@ -40,3 +40,35 @@ def multiFollowingExists():
 @app.route("/user/following-exists", methods=["GET"])
 def followingExists():
     return jsonify({"success": True, "isFollowing": False}), 200
+
+@app.route("/users/account-info", methods=["GET"])
+def accountInfoEnd():
+    cookiez = request.cookies
+    info = None
+    if (".ROBLOSECURITY" or "_ROBLOSECURITY") in cookiez:
+        cookie = cookiez.get(".ROBLOSECURITY") or cookiez.get("_ROBLOSECURITY")
+        info = UserDB.fetchUser(method=1, cookie=cookie)
+    else:
+        return jsonify({"success": False}), 200
+    
+    if info is None:
+        return jsonify({"success": False}), 200
+    
+    userName = info[1]
+    userId = info[0]
+    crunchesBalance = info[9]
+
+    return jsonify({
+        "UserId": userId,
+        "Username": userName,
+        "DisplayName": userName,
+        "HasPasswordSet": True,
+        "Email": None,
+        "AgeBracket": 0,
+        "Roles": [],
+        "MembershipType": "None",
+        "RobuxBalance": crunchesBalance,
+        "NotificationCount": 0,
+        "EmailNotificationEnabled": False,
+        "PasswordNotificationEnabled": False
+    }), 200
