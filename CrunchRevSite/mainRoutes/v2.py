@@ -52,3 +52,73 @@ def rolez(playerId):
     json = {"data": dataList}
 
     return jsonify(json), 200
+
+@app.route("/v2/login", methods=["POST"])
+def v2login():
+    jsonPayload = request.json
+
+    if not jsonPayload:
+        return jsonify({
+            "error": "No data found in the request body."
+        })
+
+    username = jsonPayload.get("username", None)
+    password = jsonPayload.get("password", None)
+
+    if not username or not password:
+        return jsonify({
+            "errors": [
+                {
+                    "code": 1,
+                    "message": "Missing username or password in the request body.",
+                    "userFacingMessage": "Something went wrong"
+                }
+            ]
+        })
+
+    loggedInResult, cookie = UserDB.login(username, password)
+
+    if loggedInResult is True:
+        fetchedInfo = UserDB.fetchUser(method=1, cookie=cookie)
+
+        userId = fetchedInfo[0]
+
+        resp = make_response({
+            "membershipType": 4,
+            "username": username,
+            "isUnder13": False,
+            "countryCode": "US",
+            "userId": userId,
+            "displayName": username
+        })
+        domain = f".{settings['URL']}"
+        expiration = int(time.time() + (365 * 24 * 60 * 60))
+
+        resp.set_cookie(key=".ROBLOSECURITY", value=cookie, expires=expiration, domain=domain, samesite='Lax')
+        
+        resp.headers['Content-Type'] = 'application/json'
+
+        return resp
+    else:
+        fetchedInfo = UserDB.fetchUser(method=3, username=username)
+
+        if not fetchedInfo:
+            return jsonify({
+                "errors": [
+                    {
+                        "code": 1,
+                        "message": "User not found.",
+                        "userFacingMessage": "Something went wrong"
+                    }
+                ]
+            })
+        else:
+            return jsonify({
+                "errors": [
+                    {
+                        "code": 1,
+                        "message": "Incorrect username or password. Please try again.",
+                        "userFacingMessage": "Something went wrong"
+                    }
+                ]
+            })
