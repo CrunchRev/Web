@@ -339,27 +339,39 @@ def assetdelivery():
 
 @app.route("/GetAllowedSecurityVersions/", methods=settings["HTTPMethods"])
 def secfunc1():
-    return '{"data":[""INTENRALandroidapp"","0.235.0pcplayer", "0.360.0pcplayer"]}', 200, {'Content-Type': 'text/plain'}
+    dTR = []
+
+    secStorageF = SysStorage.fetchAllSecurityVersions()
+
+    for i in secStorageF:
+        dTR.append(i[0])
+
+    return jsonify({"data": dTR}), 200
 
 @app.route("/GetAllowedMD5Hashes/", methods=settings["HTTPMethods"])
 def secfunc2():
-    return {"data":["9473e6c1287eec31332884f6d1f1766e", "c5157659313d1213afe032fab30823db", "1d87ec490231c26febab7c07af558754", "545d24dc8008a8225ad98bde13f10569"]}, 200, {'Content-Type': 'application/json'}
+    dTR = []
+
+    secStorageF = SysStorage.fetchAllMD5()
+
+    for i in secStorageF:
+        dTR.append(i[0])
+
+    return jsonify({"data": dTR}), 200
 
 @app.route("/GetAllowedSecurityKeys/", methods=settings["HTTPMethods"])
 def secfunc3():
-    return {"data":[]}, 200, {'Content-Type': 'application/json'}
+    return jsonify({"data": []}), 200
 
 @app.route("/robots.txt", methods=settings["HTTPMethods"])
 def robots():
     return """User-agent: *
 
-Disallow: /
 Disallow: */wp-includes/*
 Disallow: */wp-json/
 Disallow: */wp-admin/
 Disallow: */wp
-Disallow: */wp-content/
-Disallow: *.php""", 200, {'Content-Type': 'text/plain'}
+Disallow: */wp-content/""", 200, {'Content-Type': 'text/plain'}
 
 @app.route("/favicon.ico", methods=settings["HTTPMethods"])
 def favicon():
@@ -377,7 +389,7 @@ def redirecttogames():
 
 @app.route("/settings", methods=settings["HTTPMethods"])
 def settingsendpoint():
-    return jsonify({"ok": 1}), 200 # I don't know what it returns
+    return "You will ask me why is this here? Well, because 2021E refuses to work without this and that's why this placeholder endpoint exists.", 200, {'Content-Type': 'text/plain'}
 
 @app.route("/not-approved", methods=settings["HTTPMethods"])
 def bannedScreen():

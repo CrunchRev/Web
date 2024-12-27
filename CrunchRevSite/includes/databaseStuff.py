@@ -504,3 +504,17 @@ class PointsService:
             self.dbClass.execute_securely(updateQuery, (amount, userId, placeId))
 
         return True
+    
+class SysStorage(Database):
+    def __init__(self, dbClass: Database):
+        self.dbClass = dbClass
+
+    def fetchAllMD5(self):
+        query = "SELECT `value` FROM `systemstorage` WHERE `type` = \"MD5\""
+
+        return self.dbClass.execute_securely(query, fetch_all=True)
+    
+    def fetchAllSecurityVersions(self):
+        query = "SELECT `value` FROM `systemstorage` WHERE `type` = \"SV\""
+
+        return self.dbClass.execute_securely(query, fetch_all=True)
