@@ -178,3 +178,15 @@ def batch():
         })
 
     return jsonify({"data": listOfReturn}), 200
+
+@app.route("/sign-out/v1", methods=["POST"])
+def sign_out_v1():
+    resp = make_response({"success": True})
+    domain = f".{settings['URL']}"
+    expiration = int(0)
+
+    resp.set_cookie(key=".ROBLOSECURITY", value="", expires=expiration, domain=domain)
+
+    resp.headers['Content-Type'] = 'application/json'
+
+    return resp
