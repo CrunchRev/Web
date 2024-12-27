@@ -339,14 +339,14 @@ def assetdelivery():
 
 @app.route("/GetAllowedSecurityVersions/", methods=settings["HTTPMethods"])
 def secfunc1():
-    dTR = []
+#    dTR = []
 
-    secStorageF = SysStorage.fetchAllSecurityVersions()
+#    secStorageF = SysStorage.fetchAllSecurityVersions()
 
-    for i in secStorageF:
-        dTR.append(i[0])
+#    for i in secStorageF:
+#        dTR.append(i[0])
 
-    return jsonify({"data": dTR}), 200
+    return '{"data": [""BROKEN_LMFAO""]}', 200, {'Content-Type': 'text/plain'}
 
 @app.route("/GetAllowedMD5Hashes/", methods=settings["HTTPMethods"])
 def secfunc2():
