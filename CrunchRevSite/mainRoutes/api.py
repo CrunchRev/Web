@@ -48,7 +48,7 @@ def editor_item_info():
     
     name = Assets.fetchAssetName(itemAssetId)
 
-    return jsonify({"success": True, "name": name, "image": f"https://www.{settings["URL"]}/Thumbs/Asset.ashx?assetId={itemAssetId}", "id": itemAssetId}), 200
+    return jsonify({"success": True, "name": name, "image": f"https://www.{settings["URL"]}/Thumbs/Asset.ashx?AssetID={itemAssetId}", "id": itemAssetId}), 200
 
 @app.route("/api/editor/bodycolors/fetch", methods=["GET"])
 def editor_bodycolors_fetch():
@@ -196,10 +196,10 @@ def editor_avatar_rerender():
         return jsonify({"success": False, "error": "400, You must sign in to use this feature"}), 400
     
     userId = user_info[0]
+        
+    result = ArbiterClass.render(userId, 0, 300, 300, True)
 
     thread = threading.Thread(target=rerender, args=(userId,))
     thread.start()
-        
-    result = ArbiterClass.render(userId, 0, 300, 300, True)
 
     return jsonify({"success": True, "image": f"https://thumbscdn.{settings['URL']}/renders/{result}"}), 200
