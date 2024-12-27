@@ -346,7 +346,7 @@ def secfunc1():
     for i in secStorageF:
         dTR.append(i[0])
 
-    return jsonify({"data": dTR}), 200
+    return '{"data": ' + str(dTR) + '}', 200, {'Content-Type': 'text/plain'}
 
 @app.route("/GetAllowedMD5Hashes/", methods=settings["HTTPMethods"])
 def secfunc2():
