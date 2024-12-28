@@ -292,11 +292,11 @@ class Arbiter:
         return self.db.execute_securely(sql, (jobID,)) or None
         
     def boomboomjobIds(self, placeId): # I am silly xD
-        sql = "DELETE FROM `jobs_in_use` WHERE `place_id` = %s"
+        sql = "DELETE FROM `jobs_in_use` WHERE `place_id` = %s AND `status` = 2"
         self.db.execute_securely(sql, (placeId,))
 
     def boomboomjobId(self, jobId): # I am silly xD x2
-        sql = "DELETE FROM `jobs_in_use` WHERE `jobId` = %s"
+        sql = "DELETE FROM `jobs_in_use` WHERE `jobId` = %s AND `status` = 2"
         self.db.execute_securely(sql, (jobId,))
 
     def boomboomiprequestorinjobIds(self, jobId): # I am silly xD x3
