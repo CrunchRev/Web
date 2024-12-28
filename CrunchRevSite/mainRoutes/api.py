@@ -211,6 +211,6 @@ def toolbox_fetchItems():
     return_result = []
 
     for item in items:
-        return_result.append({"id": item[0], "name": item[3], "image": f"https://www.{settings['URL']}/staticContent/unapprove-60x62.png"})
+        return_result.append({"id": item[0], "name": item[3], "image": f"https://www.{settings['URL']}{item[1]}"})
 
     return jsonify({"success": True, "items": return_result}), 200
