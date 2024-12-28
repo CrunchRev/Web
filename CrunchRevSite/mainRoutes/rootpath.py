@@ -175,7 +175,7 @@ def game(gameid):
 
 @app.route("/logout", methods=settings["HTTPMethods"])
 def log_theout():
-    resp = make_response(f'<meta http-equiv="refresh" content="0; url=https://www.{settings["URL"]}/login">') # redirect doesnt work, so yeah
+    resp = make_response(f'<meta http-equiv="refresh" content="0; url=https://www.{settings["URL"]}/">') # redirect doesnt work, so yeah
     domain = f".{settings['URL']}"
     expiration = int(0)
 
