@@ -23,7 +23,7 @@ def welcomeide():
 
 @app.route("/IDE/ClientToolbox.aspx", methods=["GET"])
 def redirclienttoolbox():
-    return '<meta http-equiv="refresh" content="0; url=https://www.{settings["URL"]}/ide/clienttoolbox">', 200, {"Content-Type": "text/html"}
+    return redirect("/ide/clienttoolbox")
 
 @app.route("/ide/clienttoolbox", methods=["GET"])
 def clienttoolbox():
