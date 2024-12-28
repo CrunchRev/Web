@@ -57,10 +57,8 @@ def root():
         
         if info:
             return redirect("/home")
-        else:
-            return redirect("/login")
-    else:
-        return redirect("/login")
+
+    return render_template("welcome.html", userinfo=None, baseurl=settings["URL"], loggedIn=False)
 
 @app.route("/staticContent/<path:path>", methods=settings["HTTPMethods"])
 def serveStatic(path):

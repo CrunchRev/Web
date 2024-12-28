@@ -1,0 +1,39 @@
+{% extends layout2.html %}
+
+{% block content %}
+    <style>
+        body, html {
+            margin: 0;
+            height: 100%;
+            background: url(/staticContent/Background.png) no-repeat center center fixed;
+            background-size: cover;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        #crunchrev-welcome {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+        }
+        #crunchrev-welcome div {
+            text-align: center;
+            color: white;
+        }
+        .btn {
+            margin: 5px;
+        }
+    </style>
+    <div class="container d-flex justify-content-center align-items-center vh-100" id="crunchrev-welcome">
+        <div>
+            <h1 class="text-white">🎄 CrunchRev 🎄</h1>
+            <p class="text-white">CrunchRev - Multiclient revival.</p>
+            <div>
+                <a class="btn btn-primary" href="/login">Log In</a>
+                <a class="btn btn-secondary" href="/signup">Sign Up</a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
