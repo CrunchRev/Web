@@ -20,3 +20,11 @@ def welcomeide():
             ownGamesBasedOnCookie = GamesDB.fetchAllPlacesWhereCreatorIdIs(userId, '2016E')
 
     return render_template("welcomeide.html", ownGamesBasedOnCookie=ownGamesBasedOnCookie)
+
+@app.route("/IDE/ClientToolbox.aspx", methods=["GET"])
+def redirclienttoolbox():
+    return '<meta http-equiv="refresh" content="0; url=https://www.{settings["URL"]}/ide/clienttoolbox">', 200, {"Content-Type": "text/html"}
+
+@app.route("/ide/clienttoolbox", methods=["GET"])
+def clienttoolbox():
+    return render_template("clienttoolbox.html"), 200

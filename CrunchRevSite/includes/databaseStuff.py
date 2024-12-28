@@ -412,6 +412,11 @@ class Assets:
             self.dbClass.execute_securely(query, (userId, assetId))
 
         return True
+    
+    def fetchAllToolboxAssets(self):
+        query1 = """SELECT toolboxassets.*, assets.* FROM toolboxassets JOIN assets ON toolboxassets.assetId = assets.id WHERE assets.is_for_sale = 1"""
+
+        return self.dbClass.execute_securely(query1, fetch_all=True, use_cache=False)
 
 class DataStore:
     def __init__(self, dbClass: Database):

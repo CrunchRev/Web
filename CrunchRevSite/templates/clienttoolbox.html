@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Toolbox</title>
+    <style>
+        body.Page {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        #ToolboxContainer {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow: hidden;
+            zoom: 1;
+        }
+
+        #ToolboxItems {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .ToolboxItem {
+            display: inline;
+            zoom: 1;
+            *display: inline;
+            float: left;
+            width: 90px;
+            margin: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+            background-color: #fafafa;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .ToolboxItem img {
+            width: 80px;
+            height: auto;
+            margin: 5px auto;
+            display: block;
+        }
+
+        .ToolboxItem span {
+            display: block;
+            font-size: 12px;
+            margin-top: 5px;
+            color: #333;
+        }
+
+        .ToolboxItem a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #searchBar {
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 15px;
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        #ToolboxContainer:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+    <script>
+        if (!window.JSON) {
+            window.JSON = {
+                parse: function (sJSON) { return eval("(" + sJSON + ")"); },
+                stringify: function (vContent) {
+                    if (vContent instanceof Object) {
+                        var sOutput = "";
+                        if (vContent.constructor === Array) {
+                            for (var nId = 0; nId < vContent.length; sOutput += this.stringify(vContent[nId]) + ",", nId++);
+                            return "[" + sOutput.substr(0, sOutput.length - 1) + "]";
+                        }
+                        if (vContent.toString !== Object.prototype.toString) {
+                            return "\"" + vContent.toString().replace(/"/g, "\\$&") + "\"";
+                        }
+                        for (var sProp in vContent) {
+                            sOutput += "\"" + sProp.replace(/"/g, "\\$&") + "\":" + this.stringify(vContent[sProp]) + ",";
+                        }
+                        return "{" + sOutput.substr(0, sOutput.length - 1) + "}";
+                    }
+                    return typeof vContent === "string" ? "\"" + vContent.replace(/"/g, "\\$&") + "\"" : String(vContent);
+                }
+            };
+        }
+    </script>
+    <script id="Functions" type="text/javascript">
+        function insertContent(id) {
+            try {
+                window.external.Insert("http://www.unirev.xyz/asset/?id=" + id);
+            } catch (x) {
+                alert("Could not insert the requested item");
+            }
+        }
+
+        function dragRBX(id) {
+            try {
+                window.external.StartDrag("http://www.unirev.xyz/asset/?id=" + id);
+            } catch (x) {
+                alert("Sorry Could not drag the requested item");
+            }
+        }
+
+        function fetchToolboxItems() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/api/toolbox/fetchItems", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var jsonResponse = JSON.parse(xhr.responseText);
+                    var items = jsonResponse.items;
+                    var template = document.getElementById('toolboxItemTemplate');
+                    var container = document.getElementById('ToolboxItems');
+
+                    for (var i = 0; i < items.length; i++) {
+                        var clone = template.cloneNode(true);
+                        clone.className = 'ToolboxItem';
+                        clone.id = 'toolboxItem' + items[i].id;
+                        clone.style.display = 'inline';
+                        clone.ondragstart = (function(id) {
+                            return function() { dragRBX(id); };
+                        })(items[i].id);
+
+                        var link = clone.getElementsByTagName('a')[0];
+                        link.href = 'javascript:insertContent(' + items[i].id + ')';
+                        
+                        var img = clone.getElementsByTagName('img')[0];
+                        img.src = items[i].image;
+                        img.alt = items[i].name;
+                        
+                        var span = clone.getElementsByTagName('span')[0];
+                        span.innerText = items[i].name;
+
+                        container.appendChild(clone);
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        function getElementsByClassName(node, classname) {
+            var a = [];
+            var re = new RegExp('(^| )' + classname + '( |$)');
+            var els = node.getElementsByTagName("*");
+            for (var i = 0, j = els.length; i < j; i++) {
+                if (re.test(els[i].className)) a.push(els[i]);
+            }
+            return a;
+        }
+
+        function searchToolboxItems() {
+            var input = document.getElementById('searchBar').value.toLowerCase();
+            var items = getElementsByClassName(document, 'ToolboxItem');
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].id !== 'toolboxItemTemplate') {
+                    var itemName = items[i].getElementsByTagName('span')[0].innerText.toLowerCase();
+                    if (itemName.indexOf(input) > -1) {
+                        items[i].style.display = 'inline';
+                    } else {
+                        items[i].style.display = 'none';
+                    }
+                }
+            }
+        }
+
+        window.onload = fetchToolboxItems;
+    </script>
+</head>
+<body class="Page">
+    <div id="ToolboxContainer">
+        <input type="text" id="searchBar" placeholder="Search items..." onkeyup="searchToolboxItems()">
+        <div id="ToolboxItems">
+            <div id="toolboxItemTemplate" class="ToolboxItem hidden">
+                <a href="#">
+                    <img src="" alt="">
+                    <span></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

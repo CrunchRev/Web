@@ -203,3 +203,14 @@ def editor_avatar_rerender():
     thread.start()
 
     return jsonify({"success": True, "image": f"https://thumbscdn.{settings['URL']}/renders/{result}"}), 200
+
+@app.route("/api/toolbox/fetchItems", methods=["GET"])
+def toolbox_fetchItems():
+    items = Assets.fetchAllToolboxItems()
+
+    return_result = []
+
+    for item in items:
+        return_result.append({"id": item[0], "name": item[3], "image": f"https://www.{settings['URL']}/staticContent/unapprove-60x62.png"})
+
+    return jsonify({"success": True, "items": return_result}), 200
