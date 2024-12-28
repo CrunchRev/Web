@@ -206,7 +206,7 @@ def editor_avatar_rerender():
 
 @app.route("/api/toolbox/fetchItems", methods=["GET"])
 def toolbox_fetchItems():
-    items = Assets.fetchAllToolboxItems()
+    items = Assets.fetchAllToolboxAssets()
 
     return_result = []
 
