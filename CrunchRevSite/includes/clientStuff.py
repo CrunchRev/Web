@@ -185,7 +185,12 @@ class Arbiter:
             except Exception as e:
                 sm_logger.error(f"OOPS! An exception occured: {e}")
 
+            logging.info(execution2)
+
             if execution2 is not None and execution2[1] is not None and execution2[0] is not None:
+                logging.info(execution2[0])
+                logging.info(execution2[1])
+
                 try:
                     requestArbiter2 = requests.post(f"http://{execution2[1]}:7209/arbiter/gameserver", json={"jobId": execution2[0], "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"})
                 except:
