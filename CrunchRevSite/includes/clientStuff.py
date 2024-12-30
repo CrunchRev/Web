@@ -187,9 +187,9 @@ class Arbiter:
 
             if execution2 is not None:
                 try:
-                    requestArbiter2 = requests.post(f"http://{execution2[1]}/arbiter/gameserver", json={"jobId": execution2[0], "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"})
+                    requestArbiter2 = requests.post(f"http://{execution2[1]}:7209/arbiter/gameserver", json={"jobId": execution2[0], "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"})
                 except:
-                    sm_logger.error(f"Failed to track server details from {execution2[1]}")
+                    sm_logger.error(f"Failed to track server details from {execution2[1]}:7209")
                     return {
                         "success": True,
                         "status": 0,
