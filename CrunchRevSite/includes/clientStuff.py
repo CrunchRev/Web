@@ -177,7 +177,7 @@ class Arbiter:
 
             sm_logger.info("Requesting...")
 
-            sql2 = "SELECT jobId FROM `jobs_in_use` WHERE `place_id` = %s AND `RCC_Version` = %s AND (`status` = 0 OR `status` = 1) AND `requestorIP` = %s LIMIT 1;" # idfk how to do that
+            sql2 = "SELECT jobId, server_address FROM `jobs_in_use` WHERE `place_id` = %s AND `RCC_Version` = %s AND (`status` = 0 OR `status` = 1) AND `requestorIP` = %s LIMIT 1;" # idfk how to do that
             execution2 = None
 
             try:
@@ -187,9 +187,9 @@ class Arbiter:
 
             if execution2 is not None:
                 try:
-                    requestArbiter2 = requests.post(f"http://{arbiterURL}/arbiter/gameserver", json={"jobId": execution2[0], "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"})
+                    requestArbiter2 = requests.post(f"http://{execution2[1]}/arbiter/gameserver", json={"jobId": execution2[0], "apiKey": "ddec2ab4ae78dda0bb3497b134ae5c61"})
                 except:
-                    sm_logger.error(f"Failed to track server details from {arbiterURL}")
+                    sm_logger.error(f"Failed to track server details from {execution2[1]}")
                     return {
                         "success": True,
                         "status": 0,
