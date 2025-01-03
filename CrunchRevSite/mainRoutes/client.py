@@ -120,3 +120,7 @@ def logoutMobile():
     resp.headers['Content-Type'] = 'application/json'
 
     return resp
+
+@app.route("/client-status/set", methods=["POST"])
+def setClientStatus():
+    return jsonify({"success": True}), 200
