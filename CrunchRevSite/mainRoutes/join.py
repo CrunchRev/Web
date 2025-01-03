@@ -158,7 +158,7 @@ def launchtheplace():
     else:
         is_roblox_app = False
 
-    if not user_agent in ["Roblox/WinHttp", "Roblox/WinInet"] and not is_roblox_app:
+    if not user_agent in ["Roblox/WinHttp", "Roblox/WinInet", "Roblox/Darwin"] and not is_roblox_app: # Roblox/Darwin is MacOS client
         return jsonify({"error": "Authorization failed. Non-client request received."}), 401
     
     ip_address = request.headers.getlist("CF-Connecting-IP")[0]
