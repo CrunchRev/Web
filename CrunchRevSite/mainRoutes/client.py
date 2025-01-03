@@ -123,4 +123,4 @@ def logoutMobile():
 
 @app.route("/client-status/set", methods=["POST"])
 def setClientStatus():
-    return time.time(), 200, {"Content-Type": "text/plain"}
+    return str(time.time()), 200, {"Content-Type": "application/json"}
