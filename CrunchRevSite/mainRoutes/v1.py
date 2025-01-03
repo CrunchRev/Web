@@ -190,3 +190,27 @@ def sign_out_v1():
     resp.headers['Content-Type'] = 'application/json'
 
     return resp
+
+@app.route("/v1/assets/batch", methods=settings["HTTPMethods"])
+def assetsbatch():
+    json = request.json
+
+    returnRes = []
+
+    for item in json:
+        assetId = item["assetId"]
+        assetType = str(item["assetType"])
+
+        asset4asset = Assets.fetchAssetforAsset(assetId)
+
+        if asset4asset:
+            returnRes.append({
+                "Location": f"https://www.{settings['URL']}/asset/?id={assetId}",
+                "RequestId": str(uuid.uuid4())
+            })
+        else:
+            continue
+
+    return jsonify(returnRes), 200
+
+        
