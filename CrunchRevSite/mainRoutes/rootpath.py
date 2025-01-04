@@ -15,6 +15,10 @@ def bef_req():
         file_path = request.path.lstrip('/')
         local_path = os.path.join(app.root_path, "staticContentThumbs")
         return send_from_directory(local_path, file_path, as_attachment=True)
+    elif f"acdn.{settings["URL"]}" in request.host:
+        file_path = request.path.lstrip('/')
+        local_path = os.path.join("C:", "assets_cdn_crunchrev")
+        return send_from_directory(local_path, file_path, as_attachment=True)
     elif request.host == settings["URL"]:
         path = request.path.lstrip('/')
         return redirect(f"https://www.{settings["URL"]}/{path}")
@@ -33,20 +37,17 @@ def bef_req():
     
 @app.errorhandler(404)
 def notfound(e):
-    if not "setup.unirev.xyz" in request.host or not "thumbscdn.unirev.xyz" in request.host:
-        loggedIn = False
-        info = None
-        cookiez = request.cookies
-        if ".ROBLOSECURITY" in cookiez:
-            cookie = cookiez.get(".ROBLOSECURITY")
-            info = UserDB.fetchUser(method=1, cookie=cookie)
-            
-            if info:
-                loggedIn = True
+    loggedIn = False
+    info = None
+    cookiez = request.cookies
+    if ".ROBLOSECURITY" in cookiez:
+        cookie = cookiez.get(".ROBLOSECURITY")
+        info = UserDB.fetchUser(method=1, cookie=cookie)
+        
+        if info:
+            loggedIn = True
 
-        return render_template("notfound.html", userinfo=info, baseurl=settings["URL"], loggedIn=loggedIn), 404
-    else:
-        return "<h1>404, Not found.</h1>", 404
+    return render_template("notfound.html", userinfo=info, baseurl=settings["URL"], loggedIn=loggedIn), 404
 
 @app.route("/", methods=settings["HTTPMethods"])
 def root():
@@ -306,13 +307,13 @@ def assetdelivery():
                 is_allowed = (asset_info[3] == 0)
 
             if is_allowed or (ip_address in settings["whitelistedPlaceIPs"]):
-                return send_from_directory("C:/assets_cdn_crunchrev/", asset_info[0])
+                return redirect(f"https://acdn.{settings['URL']}/{asset_info[0]}")
             else:
                 return jsonify({"success": False, "error": "403, Access denied."}), 403
         elif asset_info[1] == 0:
             return jsonify({"success": False, "error": "400, Can not download a gamepass asset."}), 400
         else:
-            return send_from_directory("C:/assets_cdn_crunchrev/", asset_info[0])
+            return redirect(f"https://acdn.{settings['URL']}/{asset_info[0]}")
 
     assetRemoteURL = f"https://assetdelivery.roblox.com/v1/asset?id={idarg}"
     

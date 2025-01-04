@@ -205,7 +205,7 @@ def assetsbatch():
 
         if asset4asset:
             returnRes.append({
-                "Location": f"https://www.{settings['URL']}/asset/?id={assetId}",
+                "Location": f"https://acdn.{settings['URL']}/{asset4asset[0]}"
                 "RequestId": str(uuid.uuid4())
             })
         else:
