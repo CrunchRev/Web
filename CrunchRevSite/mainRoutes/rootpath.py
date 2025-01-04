@@ -14,16 +14,18 @@ def bef_req():
     if f"thumbscdn.{settings["URL"]}" in request.host:
         file_path = request.path.lstrip('/')
         local_path = os.path.join(app.root_path, "staticContentThumbs")
+        full_file_path = os.path.join(local_path, file_path)
+
+        if not os.path.exists(full_file_path):
+            return "File not found", 404
+        
         return send_from_directory(local_path, file_path, as_attachment=True)
     elif f"acdn.{settings["URL"]}" in request.host:
         file_path = request.path.lstrip('/')
-        local_path = os.path.join("C:", "assets_cdn_crunchrev")
+        local_path = os.path.join("C:\\", "assets_cdn_crunchrev")
         full_file_path = os.path.join(local_path, file_path)
 
-        logging.info(f"Looking for file: {full_file_path}")
-
         if not os.path.exists(full_file_path):
-            logging.error(f"File not found: {full_file_path}")
             return "File not found", 404
 
         return send_from_directory(local_path, file_path, as_attachment=True)
