@@ -21,7 +21,7 @@ class Webhooks:
         pass
 
     def send_webhook_signup(self, username, inv, user_id):
-        webhook_url = "https://discord.com/api/webhooks/1255824113440657408/VwU0AElxaltgwFR_KDVJl3EDs8BFljgV1iK1MOuVAoGDslWzvWVVgl7aRLDuB63P86gU"
+        webhook_url = "https://discordapp.com/api/webhooks/1327718765160300655/BHJLCvl3CQHO3_rQDyKPjGZExWOoZS6dY83mVhar4QdMR6MZiq1aRxS065pqnen0Y0da"
         content = "New User!"
         
         embed = {
@@ -54,11 +54,11 @@ class Webhooks:
             webhook_logger.error(f"Error sending webhook: {e}")
 
     def send_arbiter_startup_webhook(self, placeId, client, servah, jobId, port, status):
-        webhook_url = "https://discord.com/api/webhooks/1271089751297884271/WwAXdJVNPAd7XVpRKYgphQSUr7rxbQ3v9ScQjQwedrVFRwZ-zF7OLEtuEnqy-32cKoOC"
+        webhook_url = "https://discordapp.com/api/webhooks/1327719377260515460/1el1osXDYSOT-tYeavEqD_NqW4-Tk7JGeUPOtI9dpfMfPp6PHLMbx2xcNUFw22TJd-eA"
 
         embed = {
-            "title": "RCCService Startup Notification",
-            "description": f"The RCCService has started successfully for placeId: `{placeId}` and client: `{client}` with the job ID of `{jobId}` on the server IP: `{servah}`, and port: `{port}`.",
+            "title": "RCCService Notification",
+            "description": f"The RCCService has changed it's status successfully for placeId: `{placeId}` and client: `{client}` with the job ID of `{jobId}` on the server IP: `{servah}`, and port: `{port}`.",
             "color": 0x00ff00,
             "fields": [
                 {
@@ -99,7 +99,7 @@ class Webhooks:
 
         data = {
             "username": "Arbiter Bot",
-            "content": "Service Startup Notification:",
+            "content": "Service Notification:",
             "embeds": [embed]
         }
 
@@ -111,7 +111,7 @@ class Webhooks:
             webhook_logger.error(f"Failed to send message: {response.status_code}")
 
     def sendReportAbuse(self, xml_data):
-        webhook_url = "https://discord.com/api/webhooks/1278739622406389812/_Q7spNKO3-kTn8YUXmBezItV_QgwGdQfQDL-4R-dw2dV35pF-yr8WNAgUwsVlgBY_QKB"
+        webhook_url = "https://discordapp.com/api/webhooks/1327719958192455762/-InQXdSEhLYy7jDEp_LpiZWNwHo5Wxgh2hSGHJ_nxg5eo5vtT0S2Ov9xFnHa8iXkoRyQ"
         
         root = ET.fromstring(xml_data)
         userID = root.attrib.get("userID")
@@ -150,7 +150,7 @@ Messages:
             webhook_logger.error(f"Failed to send report: {response.status_code}")
 
     def sendSysStats(self, placeID, userID, message, resolution):
-        webhook_url = "https://discord.com/api/webhooks/1246913722765807647/uCe5AlNAMPiPiql9_Wvy3RdPCSfdALJgpsoWhxvnK0fvWgG38QwUcvvw70Wm2Z2OU1Yv"
+        webhook_url = "https://discordapp.com/api/webhooks/1327716225945571369/AUzSLP9Fq2p3XulTfJ1N4DYaflo1URZRbMpq0PHGZCfMBYCZ3dMVGyATZqD6loMtEWT8"
 
         sysMsgs = settings["sysStatsMessages"]
 
