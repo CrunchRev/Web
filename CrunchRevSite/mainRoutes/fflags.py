@@ -1,5 +1,5 @@
 """
-2024, Written by the CrunchRev Authors
+2024 - 2025, Written by the CrunchRev Authors
 
 Route module description: controls client settings (feature or fast flags)
 """

@@ -1,5 +1,5 @@
 """
-2024, Written by the CrunchRev Authors
+2024 - 2025, Written by the CrunchRev Authors
 
 Module description: controls everything related to database and MySQL
 """

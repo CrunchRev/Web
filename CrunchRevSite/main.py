@@ -1,5 +1,5 @@
 """
-2024, Written by the CrunchRev Authors
+2024 - 2025, Written by the CrunchRev Authors
 
 Main CrunchRev core code
 """
@@ -40,7 +40,7 @@ print(r"""
  | |___| |  | |_| | | | | (__| | | |  _ <  __/\ V /    \ V  V /  __/ |_) \__ \ | ||  __/
   \____|_|   \__,_|_| |_|\___|_| |_|_| \_\___| \_/      \_/\_/ \___|_.__/|___/_|\__\___|
 """)
-print("Made by the CrunchRev Authors, 2024")
+print("Made by the CrunchRev Authors, 2024 - 2025")
 print("Do not leak this or this might give you a punishment.")
 print("---------------------------------------------------------------------------------------------")
 
